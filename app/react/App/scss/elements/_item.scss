@@ -129,6 +129,10 @@ $item-padding: 15px;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline-block;
+
+  &.no-icon {
+    margin-left: 0;
+  }
 }
 
 .item-type-0 .item-type__icon  { color: $c-grey; }
@@ -291,6 +295,7 @@ $item-padding: 15px;
 /* sort-by controller */
 
 .sort-by {
+  position: relative;
   display: table;
   width: 100%;
   max-width: 960px;
@@ -301,28 +306,6 @@ $item-padding: 15px;
     #documents-counter {
       text-align: left;
     }
-  }
-  .label {
-    font-weight: normal;
-    background: $c-primary-lighten;
-    border: 1px solid $c-grey;
-    color: $c-grey-dark;
-    .fa {
-      margin-left: 0;
-      margin-right: 5px;
-    }
-  }
-  span {
-    border-bottom: 1px dotted $c-grey-dark;
-    cursor: pointer;
-    margin-left: 15px;
-    &.active {
-      color: $c-primary;
-      font-weight: bold;
-    }
-  }
-  .fa {
-    margin-left: 5px;
   }
 }
 
@@ -336,11 +319,11 @@ $item-padding: 15px;
     width: 100%;
     height: 4px;
   }
-  
+
   .progress-bar {
     background: $c-grey;
   }
-  
+
   .progress-bar-striped, .progress-striped .progress-bar {
     background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.5) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.5) 50%,rgba(255,255,255,.5) 75%,transparent 75%,transparent);
     background-image: -o-linear-gradient(45deg,rgba(255,255,255,.5) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.5) 50%,rgba(255,255,255,.5) 75%,transparent 75%,transparent);
@@ -348,11 +331,11 @@ $item-padding: 15px;
     -webkit-background-size: 40px 40px;
     background-size: 40px 40px;
   }
-  
+
   &.item-processing {
     cursor: default;
   }
-  
+
   &.item-processing,
   &.item-danger {
     .item-shortcut {
@@ -373,12 +356,12 @@ $item-padding: 15px;
 .label-success,
 .label-warning,
 .label-danger {
-  
+
   &:hover {
     cursor: pointer;
     text-decoration: underline;
   }
-  
+
   .fa {
     margin-right: 3px;
   }

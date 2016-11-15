@@ -68,47 +68,83 @@ $c-sidebar: $c-white;
   .form-group {
     margin: 0;
   }
+  
+  .sort-by {
+    padding: 5px 15px;
+    height: 30px;
+    margin: 0;
+    
+    .Dropdown {
+      right: 15px;
+    }
+  }
 
   .item-group-header {
     display: block;
     width: 100%;
-    border-bottom: 1px solid $c-grey-light;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-    font-size: $f-size;
-
-    &.is-collapsed {
-      margin-bottom: -15px;
+    padding: 6px 15px;
+    text-align: left;
+    border: 0;
+    background: 0;
+    box-shadow: none;
+    outline: none;
+    
+    &.is-expanded {
+      border-bottom: 1px solid $c-grey-light;
+      color: $c-primary;
+    }
+    
+    .itemGroup-title {
+      font-weight: bold;
+    }
+    
+    &:hover .itemGroup-title {
+      text-decoration: underline;
+    }
+    
+    .multiselectItem-results {
+      width: 40px;
+      height: 16px;
+      line-height: 17px;
+      border-radius: 3px;
+      box-shadow: inset 0 0 0 1px $c-grey;
+      margin: 4px 0;
+      .fa {
+        margin-left: 2px;
+      }
+    }
+    
+    &.is-expanded .multiselectItem-results {
+      box-shadow: inset 0 0 0 1px $c-primary;
+      background: $c-primary;
+      color: $c-white;
+    }
+    
+    &:hover .multiselectItem-results {
+      box-shadow: inset 0 0 0 1px $c-grey-dark;
     }
 
     .title {
       position: relative;
+      line-height: 24px;
     }
-
-    .count {
-      color: $c-grey;
-      font-size: 105%;
-      padding-left: 10px;
-      font-weight: bold;
+    .multiselectItem-action {
+      margin: 0;
     }
   }
-}
-.side-panel:not(.entity-connections) {
+
   .item-group {
     padding: 0px;
   }
   .item {
     transition: all 0ms;
     width: 100%;
-    margin: 0;
+    margin: 0 !important;
     border-top: 0;
     border-left: 0;
     border-right: 0;
     border-radius: 0;
     box-shadow: none;
-    &:last-child {
-      border-bottom: 0;
-    }
     &:before {
       display: none;
     }
@@ -154,9 +190,7 @@ $c-sidebar: $c-white;
 
 .sidepanel-header,
 .sidepanel-footer {
-  background: $c-sidebar;
-  padding: 20px;
-  z-index: 1;
+  z-index: 4;
 }
 
 .sidepanel-footer + .sidepanel-body > .view,
@@ -167,9 +201,11 @@ $c-sidebar: $c-white;
 }
 
 .sidepanel-header {
+  background: $c-sidebar;
   position: relative;
   min-height: $header-height;
   border-bottom: 2px solid $c-grey-light;
+  padding: 15px;
 
   &.no-border {
     border-bottom: 0;
@@ -198,23 +234,11 @@ $c-sidebar: $c-white;
 .sidepanel-footer {
   position: absolute;
   bottom: 0;
-  left: 15px;
-  right: 15px;
-  padding: 0 0 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 0 20px;
   text-align: center;
-  background: transparentize($c-white, .9);
-  background: -webkit-linear-gradient(transparent 0%, $c-white 70%, $c-white 100%);
-  background:      -o-linear-gradient(transparent 0%, $c-white 70%, $c-white 100%);
-  background:    -moz-linear-gradient(transparent 0%, $c-white 70%, $c-white 100%);
-  background:         linear-gradient(transparent 0%, $c-white 70%, $c-white 100%);
-
-  .entity-connections & {
-    background: transparentize($c-grey-lighten, .9);
-    background: -webkit-linear-gradient(transparent 0%, $c-grey-lighten 70%, $c-grey-lighten 100%);
-    background:      -o-linear-gradient(transparent 0%, $c-grey-lighten 70%, $c-grey-lighten 100%);
-    background:    -moz-linear-gradient(transparent 0%, $c-grey-lighten 70%, $c-grey-lighten 100%);
-    background:         linear-gradient(transparent 0%, $c-grey-lighten 70%, $c-grey-lighten 100%);
-  }
+  white-space: nowrap;
 
   .btn {
     position: relative;
@@ -233,7 +257,8 @@ $c-sidebar: $c-white;
     line-height: 1.5em;
     left: 50%;
     transform: translateX(-50%) translateY(2px);
-
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0 5px;
   }
 
   .btn:hover .btn-label {

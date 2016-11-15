@@ -46,18 +46,19 @@ describe('ViewDocument', () => {
       ViewDocument.requestState({documentId: 'documentId', lang: 'es'})
       .then((state) => {
         let documentResponse = state.documentViewer.doc;
-        let html = state.documentViewer.docHTML;
         let templatesResponse = state.documentViewer.templates;
         let thesaurisResponse = state.documentViewer.thesauris;
         let relationTypesResponse = state.documentViewer.relationTypes;
 
         expect(documentResponse._id).toBe('1');
-        expect(html).toEqual(docHTML);
         expect(templatesResponse).toEqual(templates.rows);
         expect(thesaurisResponse).toEqual(thesauris.rows);
         expect(relationTypesResponse).toEqual(relationTypes.rows);
 
         expect(state.relationTypes).toEqual(relationTypes.rows);
+
+        expect(state.templates).toEqual(templates.rows);
+        expect(state.thesauris).toEqual(thesauris.rows);
         done();
       })
       .catch(done.fail);
@@ -82,7 +83,6 @@ describe('ViewDocument', () => {
         documentViewer:
         {
           doc: 'doc',
-          docHTML: 'docHTML',
           references: 'references',
           templates: 'templates',
           thesauris: 'thesauris',
@@ -94,10 +94,12 @@ describe('ViewDocument', () => {
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'relationTypes/SET', value: 'relationTypes'});
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'SET_REFERENCES', references: 'references'});
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'viewer/doc/SET', value: 'doc'});
-      expect(context.store.dispatch).toHaveBeenCalledWith({type: 'viewer/docHTML/SET', value: 'docHTML'});
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'viewer/templates/SET', value: 'templates'});
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'viewer/thesauris/SET', value: 'thesauris'});
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'viewer/relationTypes/SET', value: 'relationTypes'});
+
+      expect(context.store.dispatch).toHaveBeenCalledWith({type: 'templates/SET', value: 'templates'});
+      expect(context.store.dispatch).toHaveBeenCalledWith({type: 'thesauris/SET', value: 'thesauris'});
     });
   });
 
@@ -115,7 +117,6 @@ describe('ViewDocument', () => {
       instance.emptyState();
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'SET_REFERENCES', references: []});
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'viewer/doc/UNSET'});
-      expect(context.store.dispatch).toHaveBeenCalledWith({type: 'viewer/docHTML/UNSET'});
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'viewer/templates/UNSET'});
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'viewer/thesauris/UNSET'});
       expect(context.store.dispatch).toHaveBeenCalledWith({type: 'viewer/relationTypes/UNSET'});

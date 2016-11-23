@@ -11,11 +11,12 @@
 .document {
   background: $c-white;
   max-width: 900px;
-  margin: auto;
+  margin: 0 -15px;
   padding: 15px;
   
   @media(min-width: 1024px) {
     padding: 30px;
+    margin: 0 auto;
   }
 
   ::selection {
@@ -99,9 +100,6 @@
 
 .page {
   position: relative;
-}
-
-.doc-page {
   background: $c-white;
   margin: 0 auto 30px !important;
   box-shadow: $shadow;
@@ -136,4 +134,10 @@
   opacity: 0;
   transition: right 500ms, opacity 0ms;
   width: 33%;
+}
+
+.loadingIcon {
+  width: 100%;
+  height: 150px;
+  background: url('../../../../public/document-loader.gif') center no-repeat;
 }

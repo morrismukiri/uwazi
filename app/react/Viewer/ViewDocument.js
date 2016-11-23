@@ -1,42 +1,24 @@
 import React from 'react';
 
-import api from 'app/utils/api';
-import referencesAPI from 'app/Viewer/referencesAPI';
 import RouteHandler from 'app/App/RouteHandler';
 import {setReferences} from 'app/Viewer/actions/referencesActions';
 import Viewer from 'app/Viewer/components/Viewer';
-import thesaurisAPI from 'app/Thesauris/ThesaurisAPI';
-import templatesAPI from 'app/Templates/TemplatesAPI';
-import relationTypesAPI from 'app/RelationTypes/RelationTypesAPI';
 import {actions} from 'app/BasicReducer';
-import {PDFReady} from 'app/Viewer/actions/uiActions';
 import {actions as formActions} from 'react-redux-form';
-import referencesUtils from 'app/Viewer/utils/referencesUtils';
+
+import {requestViewerState, setViewerState} from './actions/routeActions';
 
 export default class ViewDocument extends RouteHandler {
 
+  constructor(props, context) {
+    //Force client state even if is rendered from server to force the pdf character count process
+    RouteHandler.renderedFromServer = props.renderedFromServer || false;
+    //
+    super(props, context);
+  }
+
   static requestState({documentId, lang}) {
-    return Promise.all([
-      api.get('documents', {_id: documentId}),
-      referencesAPI.get(documentId),
-      templatesAPI.get(),
-      thesaurisAPI.get(),
-      relationTypesAPI.get()
-    ])
-    .then(([doc, references, templates, thesauris, relationTypes]) => {
-      return {
-        templates,
-        thesauris,
-        documentViewer: {
-          doc: doc.json.rows[0],
-          references: referencesUtils.filterRelevant(references, lang),
-          templates,
-          thesauris,
-          relationTypes
-        },
-        relationTypes
-      };
-    });
+    return requestViewerState(documentId, lang);
   }
 
   componentWillUnmount() {
@@ -51,20 +33,10 @@ export default class ViewDocument extends RouteHandler {
     this.context.store.dispatch(formActions.reset('documentViewer.tocForm'));
     this.context.store.dispatch(actions.unset('viewer/targetDoc'));
     this.context.store.dispatch(setReferences([]));
-    this.context.store.dispatch(PDFReady(false));
   }
 
   setReduxState(state) {
-    const {documentViewer} = state;
-    this.context.store.dispatch(actions.set('relationTypes', state.relationTypes));
-    this.context.store.dispatch(actions.set('viewer/docHTML', documentViewer.docHTML));
-    this.context.store.dispatch(actions.set('viewer/doc', documentViewer.doc));
-    this.context.store.dispatch(actions.set('viewer/templates', documentViewer.templates));
-    this.context.store.dispatch(actions.set('templates', documentViewer.templates));
-    this.context.store.dispatch(actions.set('viewer/thesauris', documentViewer.thesauris));
-    this.context.store.dispatch(actions.set('thesauris', documentViewer.thesauris));
-    this.context.store.dispatch(actions.set('viewer/relationTypes', documentViewer.relationTypes));
-    this.context.store.dispatch(setReferences(documentViewer.references));
+    this.context.store.dispatch(setViewerState(state));
   }
 
   render() {

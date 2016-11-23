@@ -2,7 +2,9 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import backend from 'fetch-mock';
 import Immutable from 'immutable';
+import api from 'app/utils/api';
 
+import {PDFUtils} from '../../../PDF/';
 import {mockID} from 'shared/uniqueID.js';
 import documents from 'app/Documents';
 import {APIURL} from 'app/config.js';
@@ -145,19 +147,21 @@ describe('documentActions', () => {
       backend.restore();
       backend
       .mock(APIURL + 'documents/search?searchTerm=term&fields=%5B%22field%22%5D', 'GET', {body: JSON.stringify('documents')})
-      .mock(APIURL + 'documents?_id=targetId', 'GET', {body: JSON.stringify({rows: [{target: 'document'}]})})
+      .mock(APIURL + 'documents?_id=targetId', 'GET', {body: JSON.stringify({rows: [{target: 'document', pdfInfo: 'test'}]})})
+      .mock(APIURL + 'documents?_id=docWithPDFRdy', 'GET', {body: JSON.stringify({rows: [{pdfInfo: 'processed pdf', _id: 'pdfReady'}]})})
+      .mock(APIURL + 'documents?_id=docWithPDFNotRdy', 'GET', {body: JSON.stringify({rows: [{_id: 'pdfNotReady'}]})})
       .mock(APIURL + 'documents/html?_id=targetId', 'GET', {body: JSON.stringify('html')})
       .mock(APIURL + 'references/by_document/targetId', 'GET', {body: JSON.stringify([{connectedDocument: '1'}])});
     });
 
     describe('saveDocument', () => {
-      it('should save the document and dispatch a notification on success', (done) => {
+      it('should save the document (omitting fullText) and dispatch a notification on success', (done) => {
         spyOn(documents.api, 'save').and.returnValue(Promise.resolve('response'));
-        let doc = {name: 'doc'};
+        let doc = {name: 'doc', fullText: 'fullText'};
 
         const expectedActions = [
           {type: notificationsTypes.NOTIFY, notification: {message: 'Document updated', type: 'success', id: 'unique_id'}},
-          {type: types.VIEWER_UPDATE_DOCUMENT, doc},
+          {type: types.VIEWER_UPDATE_DOCUMENT, doc: {name: 'doc', fullText: 'fullText'}},
           {type: 'rrf/reset', model: 'documentViewer.docForm'},
           {type: 'viewer/doc/SET', value: 'response'}
         ];
@@ -165,7 +169,7 @@ describe('documentActions', () => {
 
         store.dispatch(actions.saveDocument(doc))
         .then(() => {
-          expect(documents.api.save).toHaveBeenCalledWith(doc);
+          expect(documents.api.save).toHaveBeenCalledWith({name: 'doc'});
           expect(store.getActions()).toEqual(expectedActions);
         })
         .then(done)
@@ -173,10 +177,35 @@ describe('documentActions', () => {
       });
     });
 
+    describe('getDocument', () => {
+      it('should return the document requested', (done) => {
+        actions.getDocument('docWithPDFRdy')
+        .then((doc) => {
+          expect(doc.pdfInfo).toBe('processed pdf');
+          done();
+        });
+      });
+
+      describe('when the doc does not have the pdf processed', () => {
+        it('should process it and save it before it gets returned', (done) => {
+          spyOn(PDFUtils, 'extractPDFInfo').and.returnValue(Promise.resolve('test'));
+          const expected = {_id: 'pdfNotReady', pdfInfo: 'test'};
+          spyOn(api, 'post').and.returnValue(Promise.resolve({json: expected}));
+          actions.getDocument('docWithPDFNotRdy')
+          .then((doc) => {
+            expect(PDFUtils.extractPDFInfo).toHaveBeenCalledWith(`${APIURL}documents/download?_id=${expected._id}`);
+            expect(api.post).toHaveBeenCalledWith('documents/pdfInfo', expected);
+            expect(expected).toBe(doc);
+            done();
+          });
+        });
+      });
+    });
+
     describe('saveToc', () => {
       it('should save the document with the new toc and dispatch a notification on success', (done) => {
         spyOn(documents.api, 'save').and.returnValue(Promise.resolve('response'));
-        let doc = {name: 'doc'};
+        let doc = {name: 'doc', _id: 'id', _rev: 'rev', sharedId: 'sharedId'};
         let toc = [
           {range: {start: 12, end: 23}, label: 'Chapter 1', indentation: 0},
           {range: {start: 22, end: 44}, label: 'Chapter 1.1', indentation: 1}
@@ -186,7 +215,7 @@ describe('documentActions', () => {
           {type: 'rrf/reset', model: 'documentViewer.tocForm'},
           {type: 'documentViewer/tocBeingEdited/SET', value: false},
           {type: notificationsTypes.NOTIFY, notification: {message: 'Document updated', type: 'success', id: 'unique_id'}},
-          {type: types.VIEWER_UPDATE_DOCUMENT, doc: {name: 'doc', toc}},
+          {type: types.VIEWER_UPDATE_DOCUMENT, doc: {_id: 'id', _rev: 'rev', sharedId: 'sharedId', toc}},
           {type: 'rrf/reset', model: 'documentViewer.docForm'},
           {type: 'viewer/doc/SET', value: 'response'}
         ];
@@ -198,7 +227,7 @@ describe('documentActions', () => {
 
         store.dispatch(actions.saveToc(toc))
         .then(() => {
-          expect(documents.api.save).toHaveBeenCalledWith({name: 'doc', toc});
+          expect(documents.api.save).toHaveBeenCalledWith({_id: 'id', _rev: 'rev', sharedId: 'sharedId', toc});
           expect(store.getActions()).toEqual(expectedActions);
         })
         .then(done)
@@ -238,7 +267,7 @@ describe('documentActions', () => {
         let targetId = 'targetId';
 
         const expectedActions = [
-          {type: 'viewer/targetDoc/SET', value: {target: 'document'}},
+          {type: 'viewer/targetDoc/SET', value: {target: 'document', pdfInfo: 'test'}},
           {type: 'viewer/targetDocReferences/SET', value: ['filteredReferences']}
         ];
         const store = mockStore({locale: 'es'});

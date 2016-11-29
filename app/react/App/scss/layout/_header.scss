@@ -23,7 +23,7 @@ header {
     font-weight: 300;
     margin: 0;
     width: calc(100% - 2 * 54px);
-    @media(min-width: 1024px) {
+    @media(min-width: 454px) {
       padding: 0 15px;
       width: auto;
       max-width: 320px;
@@ -240,19 +240,21 @@ header {
     width: calc(100% - 54px);
   }
 
-  @media(min-width: 1024px) {
-    position: relative;
+  @media(min-width: 454px) {
     max-width: 9999px;
     &.is-active {
-      width: 33.333%;
+      width: 400px;
     }
+  }
+  @media(min-width: 1024px) {
+    position: relative;
   }
   .input-group {
     width: 100%;
   }
   .form-control {
     height: $header-height;
-    padding-left: 30px;
+    padding-left: 35px;
     border-radius: 0;
     border-top: 0;
     border-right: 0;
@@ -333,8 +335,12 @@ header {
       background-color: $c-primary;
       border-color: $c-primary;
     }
+    @media(min-width: 454px) {
+      right: 400px;
+    }
     @media(min-width: 1024px) {
       position: relative;
+      right: 0;
     }
 
     &:hover,
@@ -393,7 +399,7 @@ header {
   a, button {
     color: $c-black;
     display: block;
-    padding: 10px 30px;
+    padding: 10px 35px;
     line-height: 1.2em;
     cursor: pointer;
     background: transparent;
@@ -403,8 +409,7 @@ header {
       text-decoration: none;
     }
   }
-
-  .fa-external-link {
+  .fa-file-text-o {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -424,10 +429,6 @@ header {
 .search-suggestions-all {
   font-style: italic;
   border-top: 1px solid $c-grey;
-
-  button {
-    padding: 15px 30px;
-  }
 
   .fa {
     margin-right: 5px;

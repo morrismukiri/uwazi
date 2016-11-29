@@ -80,6 +80,10 @@ $nav-height: $header-height;
     position: relative;
     top: 3px;
   }
+  
+  &:hover .tab-link-tooltip{
+    display: block;
+  }
 }
 
 .nav-tabs>li>a:focus, .nav-tabs>li>div:focus, .nav-tabs>li>a:hover, .nav-tabs>li>div:hover {
@@ -97,4 +101,8 @@ $nav-height: $header-height;
   color: $c-black;
   border: 0;
   border-bottom: 2px solid $c-primary;
+}
+
+.tab-link-tooltip {
+  @include tooltip('bottom');
 }

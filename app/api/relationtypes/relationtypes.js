@@ -25,8 +25,10 @@ function _save(relationtype) {
   values[relationtype.name] = relationtype.name;
   return request.post(dbUrl, relationtype)
   .then((response) => {
-    translations.addContext(response.json.id, relationtype.name, values);
-    return response;
+    return translations.addContext(response.json.id, relationtype.name, values)
+    .then(() => {
+      return response;
+    });
   });
 }
 
@@ -35,7 +37,7 @@ function updateTranslation(id, oldName, newName) {
   updatedNames[oldName] = newName;
   let values = {};
   values[newName] = newName;
-  translations.updateContext(id, newName, updatedNames, [], values);
+  return translations.updateContext(id, newName, updatedNames, [], values);
 }
 
 function _update(relationtype) {
@@ -81,8 +83,8 @@ export default {
     return references.countByRelationType(relationtype._id)
     .then((referencesUsingIt) => {
       if (referencesUsingIt === 0) {
-        translations.deleteContext(relationtype._id);
-        return request.delete(`${dbUrl}/${relationtype._id}`, {rev: relationtype._rev})
+        return translations.deleteContext(relationtype._id)
+        .then(() => request.delete(`${dbUrl}/${relationtype._id}`, {rev: relationtype._rev}))
         .then(() => true);
       }
 

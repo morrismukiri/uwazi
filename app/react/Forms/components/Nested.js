@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import {createFieldClass, controls} from 'react-redux-form';
 import {MarkDown} from 'app/Forms';
 
-export class Nested extends Component {
+export default class Nested extends Component {
 
   constructor(props) {
     super(props);
@@ -15,10 +14,10 @@ export class Nested extends Component {
     }
 
     let keys = Object.keys(rows[0]);
-    let result = keys.join(' | ') + ' |\n';
-    result += keys.map(() => '-').join(' | ') + ' |\n';
+    let result = '| ' + keys.join(' | ') + ' |\n';
+    result += '| ' + keys.map(() => '-').join(' | ') + ' |\n';
     result += rows.map((row) => {
-      return keys.map((key) => row[key].join(',')).join(' | ');
+      return '| ' + keys.map((key) => (row[key] || []).join(',')).join(' | ');
     }).join(' |\n') + ' |';
 
     return result;
@@ -33,7 +32,7 @@ export class Nested extends Component {
       let keys = rows[0].split('|').map((key) => key.trim()).filter((key) => key);
       let entries = rows.splice(2);
       formatedValues = entries.map((row) => {
-        return row.split('|').reduce((result, val, index) => {
+        return row.split('|').splice(1).reduce((result, val, index) => {
           if (!keys[index]) {
             return result;
           }
@@ -57,11 +56,3 @@ Nested.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.array
 };
-
-export default Nested;
-
-const NestedField = createFieldClass({
-  Nested: controls.textarea
-});
-
-export {NestedField};

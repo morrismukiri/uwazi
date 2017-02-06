@@ -89,7 +89,7 @@ footer {
     padding: 15px;
     background-color: transparentize($c-black, .25);
     color: $c-white;
-    border-radius: 3px;
+    border-radius: $border-radius;
     text-align: center;
     &:after {
       content: '';
@@ -108,9 +108,7 @@ footer {
 }
 
 .footer-collection_name {
-  font-family: "Droid Serif", serif;
-  font-style: italic;
-  font-weight: 300;
+  font-family: $f-mono;
 
   @media(min-width: 1024px) {
     width: auto;

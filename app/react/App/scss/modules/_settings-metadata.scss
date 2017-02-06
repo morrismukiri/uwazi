@@ -27,66 +27,18 @@
 .metadata {
   @include draggable;
 }
-/*
-.metadata {
-  padding: 30px;
-	overflow-y: scroll;
-  padding: 15px 0;
-  margin: 0 -15px;
 
-	h1 {
-		margin-top: 0;
-		border-bottom: 1px solid $c-grey-light;
-		padding-bottom: 15px;
-		margin-bottom: 15px;
-		small {
-			font-size: $f-size-sm;
-			margin-left: 5px;
-		}
-	}
-	input {
-		padding: 5px 10px;
-	}
-
-  .list-group-item {
-    .btn {
-      margin-left: 5px;
-    }
-    .fa-reorder {
-      margin: 0 25px 0 0;
-      color: $c-grey;
-    }
-    &:hover .fa-reorder {
-      color: $c-grey-dark;
-    }
-    .expand {
-      width: 100%;
-    }
-    &.validation {
-      border-bottom: 1px solid #ED353D !important;
-      color: #ED353D;
-    }
+.property-atributes {
+  opacity: 0.3;
+  &.is-active {
+    opacity: 1;
   }
-}
-*/
-
-.well-metadata-creator {
-  padding-top: 15px;
-  
-  &:not(:last-of-type) {
-    border-bottom: 1px solid $c-grey-light;
-    padding-bottom: 20px;
+  .fa {
+    margin-right: 5px;
   }
-
-  label {
-    color: $c-black;
-  }
-
-  small {
-    display: block;
-    opacity: 0.6;
-    line-height: 1.3em;
-    padding-left: 15px;
+  .fa-warning {
+    display: none;
+    color: $c-warning;
   }
   
   .row {
@@ -100,7 +52,7 @@
     width: 100%;
     position: relative;
     padding: 0;
-    border-radius: 3px;
+    border-radius: $border-radius;
     font-weight: normal;
     color: $c-primary;
     &.is-active {
@@ -113,7 +65,7 @@
       margin-left: 0;
     }
     span.conflict {
-      color: #86714A;
+      color: $c-secondary-light;
     }
     .fa {
       margin-right: 5px;
@@ -137,5 +89,38 @@
     right: 35px;
     left: auto !important;
     transform: translateX(50%);
+  }
+}
+
+.property-label {
+  cursor: pointer;
+}
+.property-help {
+  margin-left: 5px;
+  position: relative;
+  color: $c-grey-dark;
+}
+.property-description {
+  @include tooltip('top');
+  width: 200px;
+  white-space: normal;
+
+  .property-help:hover &{
+    display: block;
+  }
+}
+
+.nested-properties {
+  margin-top: 15px;
+  margin-bottom: 15px;
+
+  .input-group {
+    margin-bottom: 5px;
+  }
+  .input-group-addon {
+    line-height: 16px;
+  }
+  .form-control {
+    margin-bottom: 0 !important;
   }
 }

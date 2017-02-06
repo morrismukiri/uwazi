@@ -1,13 +1,16 @@
 require('babel-core/register')({
-  presets: ['es2015', 'react'],
-  plugins: [
-    ['babel-plugin-module-alias', [
-      {src: '../app/react', expose: 'app'},
-      {src: '../app/shared', expose: 'shared'},
-      {src: '../app/api', expose: 'api'}
-    ]],
-    'transform-class-properties',
-    'add-module-exports'
+  "presets": ["es2015", "react"],
+  "retainLines": "true",
+  "plugins": [
+    "transform-class-properties",
+    "add-module-exports",
+    ['module-resolver', {
+      alias: {
+        app: '../app/react',
+        shared: '../app/shared',
+        api: '../app/api'
+      }
+    }]
   ]
 });
 

@@ -27,8 +27,10 @@ describe('Viewer referencesActions', () => {
       mockID();
       spyOn(scroller, 'to');
       backend.restore();
-      backend.mock(APIURL + 'references?_id=abc', 'DELETE', {body: JSON.stringify({_id: 'reference'})});
+      backend.delete(APIURL + 'references?_id=abc', {body: JSON.stringify({_id: 'reference'})});
     });
+
+    afterEach(() => backend.restore());
 
     describe('addReference', () => {
       let getState;
@@ -57,7 +59,7 @@ describe('Viewer referencesActions', () => {
           {type: 'ACTIVE_REFERENCE', reference: 'addedRefernce'},
           {type: 'GO_TO_ACTIVE', value: true},
           {type: 'OPEN_PANEL', panel: 'viewMetadataPanel'},
-          {type: 'SHOW_TAB', tab: 'references'}
+          {type: 'viewer.sidepanel.tab/SET', value: 'references'}
         ];
 
         actions.addReference(reference, {}, true)(store.dispatch, getState);
@@ -67,7 +69,7 @@ describe('Viewer referencesActions', () => {
       it('should open the connections tab if sourceRange text is empty', () => {
         reference.sourceRange.text = '';
         actions.addReference(reference, {})(store.dispatch, getState);
-        expect(store.getActions()).toContain({type: 'SHOW_TAB', tab: 'connections'});
+        expect(store.getActions()).toContain({type: 'viewer.sidepanel.tab/SET', value: 'connections'});
       });
     });
 

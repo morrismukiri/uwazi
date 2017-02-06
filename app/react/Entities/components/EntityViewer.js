@@ -110,6 +110,8 @@ export class EntityViewer extends Component {
     const references = this.props.references.toJS();
     const attachments = entity.attachments ? entity.attachments : [];
 
+    const referencesTemplates = references.map(r => r.connectedDocumentTemplate);
+
     return (
       <div className="row entity-content">
         <Helmet title={entity.title ? entity.title : 'Entity'} />
@@ -148,7 +150,7 @@ export class EntityViewer extends Component {
               <ul className="nav nav-tabs">
                 <li>
                   <TabLink to="references">
-                    <i className="fa fa-share-alt"></i>
+                    <i className="fa fa-exchange"></i>
                     <span className="connectionsNumber">{references.length}</span>
                     <span className="tab-link-tooltip">{t('System', 'Connections')}</span>
                   </TabLink>
@@ -189,7 +191,8 @@ export class EntityViewer extends Component {
             <Tabs selectedTab={selectedTab}>
               <TabContent for="references">
                 <div className="sort-by">
-                  <SortButtons stateProperty="entityView.sort" />
+                  <SortButtons stateProperty="entityView.sort"
+                               selectedTemplates={Immutable(referencesTemplates)} />
                 </div>
                 {this.groupReferences(references).map(group =>
                   <ReferencesGroup key={group.key}

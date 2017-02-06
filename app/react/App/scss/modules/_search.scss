@@ -25,29 +25,42 @@
     box-shadow: none;
     z-index: 4;
 
+    @include placeholder($c-black);
+
     &:focus {
       box-shadow: none;
+      @include placeholder(transparent);
     }
   }
-  .input-group-btn {
-    width: 0;
-    z-index: 3;
+  .input-group .fa-search,
+  .input-group .fa-close {
+    position: absolute;
+    line-height: $header-height;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
   }
-  .btn-close {
+  .input-group .fa-search {
+    left: 15px;
+  }
+  .input-group .fa-close {
     display: none;
+    right: 15px;
     width: 16px;
     height: 16px;
     line-height: 16px;
-    border: 0;
-    padding: 0;
-    position: absolute;
-    right: 18px;
-    top: 18px;
     text-align: center;
-    font-size: 9px;
-    border-radius: 50% !important;
+    padding: 1px;
+    font-size: 11px;
+    color: $c-white;
+    background: $c-bootstrap-primary;
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+      background: $c-bootstrap-primary-dark;
+    }
   }
-  .input-group.is-active .btn-close {
+  .input-group.is-active .fa-close {
     display: block;
   }
 }
@@ -144,46 +157,56 @@
   line-height: 1em;
   &.is-active {
     display: block;
+    box-shadow: $box-shadow;
   }
+}
 
-  p {
-    position: relative;
-    margin: 0;
+.search-suggestions-item {
+  position: relative;
+  margin: 0;
+  border-top: 1px solid $c-grey-light;
+  &:hover {
+    background: $c-grey-lighten;
   }
-
-  a, button {
+  
+  a {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    padding-left: 35px;
+    margin-right: 40px;
+    height: $header-height;
+    line-height: 1.3em;
     color: $c-black;
-    display: block;
-    padding: 10px 35px;
-    line-height: 1.2em;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    &:hover {
-      background: $c-grey-lighten;
-      text-decoration: none;
-    }
+    text-decoration: none;
   }
-  .fa-file-text-o {
+  b {
+    background: $c-secondary-light;
+    box-shadow: -2px 0 0 0 rgba(255, 204, 102, 0.3), 2px 0 0 0 rgba(255, 204, 102, 0.3);
+  }
+  
+  .fa {
     position: absolute;
-    top: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     right: 15px;
   }
-
-}
-.search-suggestions-title {
-  border-bottom: 1px solid $c-grey-light;
-  font-size: $f-size-xs;
-  color: $c-grey-dark;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  padding-bottom: 5px;
-  margin-top: 15px;
 }
 
 .search-suggestions-all {
-  font-style: italic;
-  border-top: 1px solid $c-grey;
+  display: block;
+  width: 100%;
+  line-height: $header-height;
+  padding: 0;
+  background: $c-grey-lighten;
+  border: 0;
+  border-top: 1px solid $c-grey-light;
+  box-shadow: none !important;
+  outline: none !important;
+  &:hover {
+    background: $c-grey-light;
+  }
 
   .fa {
     margin-right: 5px;
@@ -238,9 +261,9 @@
     width: 100%;
     font-weight: 300;
     font-style: normal;
-    font-family: $f-special;
+    font-family: $f-mono;
     margin-bottom: 0;
-    color: $c-black;
+    color: $c-grey-dark;
     line-height: inherit;
     label {
       font-size: $f-size;
@@ -265,19 +288,19 @@
   }
 
   .fa-caret-left {
-    color: #8BC74C;
+    color: $c-success;
   }
   .fa-caret-left + span {
     margin-left: 5px;
-    color: #8BC74C;
+    color: $c-success;
   }
 
   .fa-close {
-    color: #ED353D;
+    color: $c-danger;
   }
   .fa-close + span {
     margin-left: 5px;
-    color: #ED353D;
+    color: $c-danger;
     cursor: pointer;
   }
 }
@@ -359,28 +382,29 @@
 
 
 .switcher {
+  $switcher-height: 8px;
   position: relative;
-  top: 2px;
   display: inline-block;
-  background: $c-grey;
-  width: 20px;
-  height: 12px;
+  width: 16px;
+  height: $switcher-height;
   margin-left: 6px;
-  border-radius: 6px;
+  background-color: $c-grey-light;
+  border-radius: $switcher-height / 2;
   cursor: pointer;
+  
   &:after {
-    background: $c-white;
-    width: 8px;
-    height: 8px;
     content: '';
     display: block;
     position: absolute;
     top: 2px;
     left: 2px;
+    width: $switcher-height - 4;
+    height: $switcher-height - 4;
+    background: $c-white;
     border-radius: 50%;
   }
   .search__filter.is-active & {
-    background: $c-success;
+    background-color: $c-success;
     &:after {
       left: auto;
       right: 2px;
@@ -478,7 +502,7 @@
   text-align: center;
   margin: 1px 0 0 6px;
   border: 1px solid $c-grey;
-  border-radius: 3px;
+  border-radius: $border-radius;
   &:hover {
     border-color: $c-primary;
     cursor: pointer;
@@ -562,34 +586,13 @@ label.multiselectItem-label {
   .form-control {
     width: auto;
     padding-left: 20px;
+    margin-bottom: 5px;
     cursor: pointer;
-
-    &::-webkit-input-placeholder {
-      color: $c-primary;
-    }
-    &::-moz-placeholder { /* Firefox 19+ */
-      color: $c-primary;
-    }
-    &:-ms-input-placeholder { /* IE 10+ */
-      color: $c-primary;
-    }
-    &:-moz-placeholder { /* Firefox 18- */
-      color: $c-primary;
-    }
+    @include placeholder($c-primary);
+    
     &:focus {
       cursor: text;
-      &::-webkit-input-placeholder {
-        color: $c-grey;
-      }
-      &::-moz-placeholder { /* Firefox 19+ */
-        color: $c-grey;
-      }
-      &:-ms-input-placeholder { /* IE 10+ */
-        color: $c-grey;
-      }
-      &:-moz-placeholder { /* Firefox 18- */
-        color: $c-grey;
-      }
+      @include placeholder(transparent);
     }
   }
   .btn {
@@ -621,11 +624,14 @@ label.multiselectItem-label {
         .multiselectItem-input:checked + label .multiselectItem-icon:last-of-type  { display: inline-block; }
 
   .multiselectItem-input:checked + label .multiselectItem-name,
-  .multiselectItem-input:checked + label .multiselectItem-icon,
   .multiselectItem-input:checked + label .multiselectItem-results,
   .multiselectItem-input:checked ~ .multiselectItem-results {
-    color: $c-primary;
+    color: $c-black;
     font-weight: bold;
+  }
+  
+  .multiselectItem-input:checked + label .multiselectItem-icon {
+    color: $c-success;
   }
 }
 
@@ -658,7 +664,7 @@ label.multiselectItem-label {
     font-size: $f-size-sm;
     background: $c-grey-lighten;
     color: $c-primary;
-    border-radius: 2px;
+    border-radius: $border-radius;
     line-height: 1.7em;
 
     &:after {
@@ -716,7 +722,7 @@ label.multiselectItem-label {
     line-height: 34px;
     width: 50px;
     position: absolute;
-    color: #cccccc;
+    color: $c-grey-dark;
     padding-left: 10px;
   }
   .react-datepicker__input-container {
@@ -796,7 +802,7 @@ label.multiselectItem-label {
 }
 
 .react-datepicker__header {
-  background: #fff !important;
+  background: $c-white !important;
   border-bottom: none !important;
   height: 20% !important;
   padding-top: 0px !important;
@@ -873,7 +879,7 @@ label.multiselectItem-label {
 }
 
 .react-datepicker__tether-element-attached-top .react-datepicker__triangle {
-  border-bottom-color: #FFF !important;
+  border-bottom-color: $c-white !important;
 }
 
 .react-datepicker__close-icon {
@@ -888,5 +894,5 @@ label.multiselectItem-label {
   background: $c-grey !important;
 }
 .react-datepicker__close-icon:hover::after {
-  background: #D9534F !important;
+  background: $c-danger !important;
 }

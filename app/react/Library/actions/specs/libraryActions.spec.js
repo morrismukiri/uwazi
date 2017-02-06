@@ -13,6 +13,7 @@ import {browserHistory} from 'react-router';
 import {toUrlParams} from 'shared/JSONRequest';
 
 import libraryHelper from 'app/Library/helpers/libraryFilters';
+import referencesAPI from 'app/Viewer/referencesAPI';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -96,20 +97,21 @@ describe('libraryActions', () => {
     beforeEach(() => {
       backend.restore();
       backend
-      .mock(APIURL + 'search/match_title?searchTerm=batman', 'get', {body: JSON.stringify(documentCollection)})
-      .mock(APIURL + 'search?searchTerm=batman', 'get', {body: JSON.stringify(documentCollection)})
-      .mock(APIURL +
+      .get(APIURL + 'search/match_title?searchTerm=batman', {body: JSON.stringify(documentCollection)})
+      .get(APIURL + 'search?searchTerm=batman', {body: JSON.stringify(documentCollection)})
+      .get(APIURL +
         'search?searchTerm=batman' +
         '&filters=%7B%22author%22%3A%7B%22value%22%3A%22batman%22%2C%22type%22%3A%22text%22%7D%7D' +
         '&aggregations=%5B%5D' +
         '&types=%5B%22decision%22%5D',
-        'get',
         {body: JSON.stringify({rows: documentCollection, aggregations})}
       )
-      .mock(APIURL + 'search?searchTerm=batman&filters=%7B%7D&aggregations=%5B%5D&types=%5B%22decision%22%5D', 'get',
+      .get(APIURL + 'search?searchTerm=batman&filters=%7B%7D&aggregations=%5B%5D&types=%5B%22decision%22%5D',
             {body: JSON.stringify({rows: documentCollection, aggregations})});
       dispatch = jasmine.createSpy('dispatch');
     });
+
+    afterEach(() => backend.restore());
 
     describe('searchDocuments', () => {
       let store;
@@ -191,11 +193,12 @@ describe('libraryActions', () => {
       it('should save the document and dispatch a notification on success', (done) => {
         mockID();
         spyOn(documents.api, 'save').and.returnValue(Promise.resolve('response'));
+        spyOn(referencesAPI, 'get').and.returnValue(Promise.resolve('response'));
         let doc = {name: 'doc'};
 
         const expectedActions = [
           {type: notificationsTypes.NOTIFY, notification: {message: 'Document updated', type: 'success', id: 'unique_id'}},
-          {type: 'rrf/reset', model: 'library.metadata'},
+          {type: 'rrf/reset', model: 'library.sidepanel.metadata'},
           {type: types.UPDATE_DOCUMENT, doc: 'response'},
           {type: types.SELECT_DOCUMENT, doc: 'response'}
         ];
@@ -228,6 +231,27 @@ describe('libraryActions', () => {
         .then(() => {
           expect(documents.api.delete).toHaveBeenCalledWith(doc);
           expect(store.getActions()).toEqual(expectedActions);
+        })
+        .then(done)
+        .catch(done.fail);
+      });
+    });
+
+    describe('selectDocument', () => {
+      it('should select document and request for additional information needed', (done) => {
+        spyOn(referencesAPI, 'get').and.returnValue(Promise.resolve([{ref:'ref'}]));
+        const doc = Immutable.fromJS({sharedId: 'sharedId', title: 'title'});
+
+        const expectedActions = [
+          {type: types.SELECT_DOCUMENT, doc: doc.toJS()},
+          {type: 'library.sidepanel.references/SET', value: [{ref: 'ref'}]}
+        ];
+        const store = mockStore({});
+
+        store.dispatch(actions.selectDocument(doc))
+        .then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+          expect(referencesAPI.get).toHaveBeenCalledWith('sharedId');
         })
         .then(done)
         .catch(done.fail);

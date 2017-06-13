@@ -13,9 +13,6 @@ header {
   } @else {
     background: $c-primary;
   }
-  background-image: url('/public/header-background.png');
-  background-repeat: no-repeat;
-  background-position: right 100px center;
 
   h1 {
     float: left;
@@ -43,10 +40,6 @@ header {
       } @else {
         color: $c-white !important;
       }
-    }
-    
-    img {
-      height: 36px;
     }
   }
 
@@ -143,19 +136,21 @@ header {
   padding: 0 15px;
   @if $theme == light {
     color: $c-black;
-    background: transparent;
+    background: $c-white;
   } @else {
     color: $c-white;
-    background: transparent;
+    background: $c-primary;
   }
   &:hover,
   &:active,
-  &:focus {
-    background: transparent;
+  &:focus,
+  .menuNav-item.is-active & {
     @if $theme == light {
-      border-color: $c-primary-dark;
+      background: $c-white;
+      border-color: $c-primary;
     } @else {
       color: $c-white;
+      background: $c-primary;
       border-color: $c-white;
     }
   }

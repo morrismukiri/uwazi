@@ -1,0 +1,4 @@
+$c-theme:           #C3112F;
+$c-theme-lighten:   lighten($c-theme, 55%);
+$c-theme-light:     lighten($c-theme, 35%);
+$c-theme-dark:      darken($c-theme, 20%);

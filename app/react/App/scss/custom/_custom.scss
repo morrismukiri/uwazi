@@ -12,12 +12,12 @@ header {
 }
 
 .hero {
-  background-image: url('/public/SouthAmerica_Web40.jpg');
+  background-image: url('/public/hero.jpg');
   background-repeat: no-repeat;
   background-position: center 38%;
   background-size: cover;
   @if $hero == light {
   } @else {
-    background-color: #378796;
+    background-color: #9fc1cd;
   }
 }

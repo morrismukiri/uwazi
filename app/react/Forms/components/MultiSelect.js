@@ -59,7 +59,7 @@ export default class MultiSelect extends Component {
         sorting = this.checked(b[optionsValue]) - this.checked(a[optionsValue]);
       }
 
-      if (sorting === 0 && typeof options[0].results !== 'undefined' && a.results !== b.results) {
+      if (!this.props.sortbyLabel && sorting === 0 && typeof options[0].results !== 'undefined' && a.results !== b.results) {
         sorting = a.results > b.results ? -1 : 1;
       }
 
@@ -171,5 +171,6 @@ MultiSelect.propTypes = {
   optionsToShow: PropTypes.number,
   showAll: PropTypes.bool,
   hideSearch: PropTypes.bool,
-  noSort: PropTypes.bool
+  noSort: PropTypes.bool,
+  sortbyLabel: PropTypes.bool
 };

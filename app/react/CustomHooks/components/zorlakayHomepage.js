@@ -7,8 +7,11 @@ export class zorlakayHomepage extends Component {
   render() {
     return (
       <div className="zorlakay-homepage">
-        <img className="hero-img" src="http://www.zorlakaybetmeler.org/img/banner_bg.jpg" />
+        <div className="hero-img">
+          <img src="/public/hero-gradient.jpg" />
+        </div>
         <div className="container">
+          <h1>Zorla Kaybedilenler Veritabanı</h1>
           <div className="introduction">
             <div>
               <p>Hakikat Adalet Hafıza Merkezi tarafından hazırlanan bu veritabanında 12 Eylül 1980 askeri
@@ -19,42 +22,89 @@ export class zorlakayHomepage extends Component {
                 Amacımız zaman içinde bu çalışmanın tüm zorla kaybedilenlerin verilerini içerecek şekilde tamamlanması.</p>
             </div>
             <ul>
-              <li> <i className="fa fa-arrow-right"></i> About the database</li>
-              <li> <i className="fa fa-arrow-right"></i> Methodology</li>
-              <li> <i className="fa fa-arrow-right"></i> How to navigate in the database</li>
-              <li> <i className="fa fa-arrow-right"></i> Take Action</li>
+              <li> <i className="fa fa-angle-right"></i> About the database</li>
+              <li> <i className="fa fa-angle-right"></i> Methodology</li>
+              <li> <i className="fa fa-angle-right"></i> How to navigate in the database</li>
+              <li> <i className="fa fa-angle-right"></i> Take Action</li>
             </ul>
           </div>
+
+          <h2>
+            <span>Who is lost?</span>
+            <div>
+              <i className="slider-btn fa fa-angle-left"></i>
+              <i className="slider-btn fa fa-angle-right"></i>
+            </div>
+          </h2>
+
           <div className="victim">
-            <img src="/public/placeholder.png" />
-            <dl>
-              <dt>Name and Surname:</dt>
-              <dd>PERSON 0903</dd>
-              <dt>Place of the event:</dt>
-              <dd>ACT 2104-MT63</dd>
-              <dt>Date of the event:</dt>
-              <dd>EVENT 0113</dd>
-              <dt>Situation at the end of act:</dt>
-              <dd>ACT 2123-MT25</dd>
-            </dl>
-            <dl>
-              <dt>Age at the time of act:</dt>
-              <dd>ACT 2118</dd>
-              <dt>Occupation:</dt>
-              <dd>PERSON 0923-MT64</dd>
-              <dt>Marital Status:</dt>
-              <dd>PERSON 0918-MT8</dd>
-              <dt>Dependants:</dt>
-              <dd>PERSON 0919</dd>
-            </dl>
+            <div className="victim-details">
+              <div>
+                <h1>İsmail Ağaya</h1>
+                <p>Age 20, Newspaper Distributor</p>
+              </div>
+            </div>
+            <div className="event-details">
+              <div>
+                <i className="fa fa-circle"></i> <span>Status:</span> Investigation continues
+              </div>
+              <div>
+                <span>Lost location:</span> <a href="#"> <i className="fa fa-map-marker"></i> Batman</a>
+              </div>
+              <div>
+                <span>Lost date:</span> 1994-05-28
+              </div>
+              <div>
+                <span>Other people who lost together:</span><br />
+                <a href="#"><i className="fa fa-user-o"></i> Abdurrahman İbin</a>, <a href="#"><i className="fa fa-user-o"></i> Celal Yanık</a>
+              </div>
+              <div>
+                <a href="#">
+                  <i className="fa fa-file-text-o"></i> View report
+                </a>
+                <a href="#">
+                  <i className="fa fa-file-video-o"></i> Testimonial
+                </a>
+              </div>
+            </div>
           </div>
 
-          <div>
-            Click below tabs to see the lists or got to <b>Victims page</b> to search for a person or to see all victim stories.
-            Numbers and lists are not exhaustive, they represent the current <b>Verified</b> data.
-            (When Victims Page is clicked, it opens in new tab.
-            When the user clicks Verified, About the Database page opens in new tab)
+          <a href="#" className="btn btn-default btn-lg">
+            <i className="fa fa-angle-right"></i> All 500 victims
+          </a>
+
+          <h2>
+            <span>Testimonials</span>
+            <div>
+              <i className="slider-btn fa fa-angle-left"></i>
+              <i className="slider-btn fa fa-angle-right"></i>
+            </div>
+          </h2>
+          <div className="videos">
+            <div className="video">
+              <iframe src="https://player.vimeo.com/video/68836138"
+                width="280" height="165" frameBorder="0" allowFullScreen></iframe>
+              <h3>İhsan Arslan (Şırnak-Cizre, 1993)</h3>
+              <p>1993 yılında Şırnak-Cizre'de zorla kaybedilen İhsan Arslan'ın eşi Şevkiye Arslan ile yapılan görüşme.</p>
+            </div>
+            <div className="video">
+              <iframe src="https://player.vimeo.com/video/157129383"
+                width="280" height="165" frameBorder="0" allowFullScreen></iframe>
+              <h3>Abdullah Duskun (Şırnak-Cizre, 1994)</h3>
+              <p>1994 yılında Şırnak'ın Cizre ilçesinde kaybedilen Abdullah Düşkün ile ilgili Abdullah Düşkün'ün eşi Hediye Düşkün ile görüşme</p>
+            </div>
+            <div className="video">
+              <iframe src="https://player.vimeo.com/video/161483268"
+                width="280" height="165" frameBorder="0" allowFullScreen></iframe>
+              <h3>İsmail Ağaya (Batman, 1994)</h3>
+              <p>1994 yılında Batman'da kaybedilen İsmail Ağaya'nın annesi Müfide Ağaya ile görüşme</p>
+            </div>
           </div>
+
+          <a href="#" className="btn btn-default btn-lg">
+            <i className="fa fa-angle-right"></i> All videos
+          </a>
+
           <div>
             <ul className="stats">
               <li><b>XXX</b> Victims in the database</li>
@@ -63,12 +113,11 @@ export class zorlakayHomepage extends Component {
               <li><b>XXX</b> Acquitted suspects</li>
               <li><b>XXX</b> Convicted perpetrators</li>
             </ul>
+            <p className="stats-description">Numbers and lists are not exhaustive, they represent the current <a href="#">Verified data</a>.</p>
           </div>
-          <div className="row">
-            <div className="col-sm-9">
-              <img src="/public/zorlakay-map.png" />
-            </div>
-            <div className="col-sm-3">
+          <div className="map">
+            <img src="/public/zorlakay-map.png" />
+            <div className="filters">
               <ul className="search__filter">
                 <li>City</li>
                 <li className="wide">
@@ -153,22 +202,6 @@ export class zorlakayHomepage extends Component {
             </div>
           </div>
 
-          <h2>Featured videos</h2>
-          <div className="videos">
-            <div className="video">
-              <img src="/public/zorlakay-video.png" />
-              <p>Resul Saçan (Batman,1994)</p>
-            </div>
-            <div className="video">
-              <img src="/public/zorlakay-video.png" />
-              <p>Resul Saçan (Batman,1994)</p>
-            </div>
-            <div className="video">
-              <img src="/public/zorlakay-video.png" />
-              <p>Resul Saçan (Batman,1994)</p>
-            </div>
-          </div>
-          
           <div className="footer">
             <p>© Forced Lost Database 2017. All Rights Reserved.</p>
           </div>

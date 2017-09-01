@@ -46,17 +46,19 @@ export class zorlakayHomepage extends Component {
             </div>
             <div className="event-details">
               <div>
-                <i className="fa fa-circle"></i> <span>Status:</span> Investigation continues
-              </div>
-              <div>
-                <span>Lost location:</span> <a href="#"> <i className="fa fa-map-marker"></i> Batman</a>
-              </div>
-              <div>
-                <span>Lost date:</span> 1994-05-28
-              </div>
-              <div>
-                <span>Other people who lost together:</span><br />
-                <a href="#"><i className="fa fa-user-o"></i> Abdurrahman İbin</a>, <a href="#"><i className="fa fa-user-o"></i> Celal Yanık</a>
+                <p>
+                  <i className="fa fa-circle"></i> <span>Status:</span> Investigation continues
+                </p>
+                <p>
+                  <span>Lost location:</span> <a href="#"> <i className="fa fa-map-marker"></i> Batman</a>
+                </p>
+                <p>
+                  <span>Lost date:</span> 1994-05-28
+                </p>
+                <p>
+                  <span>Other people who lost together:</span><br />
+                  <a href="#"><i className="fa fa-user-o"></i> Abdurrahman İbin</a>, <a href="#"><i className="fa fa-user-o"></i> Celal Yanık</a>
+                </p>
               </div>
               <div>
                 <a href="#">
@@ -82,22 +84,37 @@ export class zorlakayHomepage extends Component {
           </h2>
           <div className="videos">
             <div className="video">
-              <iframe src="https://player.vimeo.com/video/68836138"
+              <div>
+                <iframe src="https://player.vimeo.com/video/68836138"
                 width="280" height="165" frameBorder="0" allowFullScreen></iframe>
-              <h3>İhsan Arslan (Şırnak-Cizre, 1993)</h3>
-              <p>1993 yılında Şırnak-Cizre'de zorla kaybedilen İhsan Arslan'ın eşi Şevkiye Arslan ile yapılan görüşme.</p>
+                <h3>İhsan Arslan (Şırnak-Cizre, 1993)</h3>
+                <p>1993 yılında Şırnak-Cizre'de zorla kaybedilen İhsan Arslan'ın eşi Şevkiye Arslan ile yapılan görüşme.</p>
+              </div>  
+              <a href="#">
+                <i className="fa fa-file-text-o"></i> View report
+              </a>
             </div>
             <div className="video">
-              <iframe src="https://player.vimeo.com/video/157129383"
-                width="280" height="165" frameBorder="0" allowFullScreen></iframe>
-              <h3>Abdullah Duskun (Şırnak-Cizre, 1994)</h3>
-              <p>1994 yılında Şırnak'ın Cizre ilçesinde kaybedilen Abdullah Düşkün ile ilgili Abdullah Düşkün'ün eşi Hediye Düşkün ile görüşme</p>
+              <div>
+                <iframe src="https://player.vimeo.com/video/157129383"
+                  width="280" height="165" frameBorder="0" allowFullScreen></iframe>
+                <h3>Abdullah Duskun (Şırnak-Cizre, 1994)</h3>
+                <p>1994 yılında Şırnak'ın Cizre ilçesinde kaybedilen Abdullah Düşkün ile ilgili Abdullah Düşkün'ün eşi Hediye Düşkün ile görüşme</p>
+              </div>  
+              <a href="#">
+                <i className="fa fa-file-text-o"></i> View report
+              </a>
             </div>
             <div className="video">
-              <iframe src="https://player.vimeo.com/video/161483268"
-                width="280" height="165" frameBorder="0" allowFullScreen></iframe>
-              <h3>İsmail Ağaya (Batman, 1994)</h3>
-              <p>1994 yılında Batman'da kaybedilen İsmail Ağaya'nın annesi Müfide Ağaya ile görüşme</p>
+              <div>
+                <iframe src="https://player.vimeo.com/video/161483268"
+                  width="280" height="165" frameBorder="0" allowFullScreen></iframe>
+                <h3>İsmail Ağaya (Batman, 1994)</h3>
+                <p>1994 yılında Batman'da kaybedilen İsmail Ağaya'nın annesi Müfide Ağaya ile görüşme</p>
+              </div>  
+              <a href="#">
+                <i className="fa fa-file-text-o"></i> View report
+              </a>
             </div>
           </div>
 

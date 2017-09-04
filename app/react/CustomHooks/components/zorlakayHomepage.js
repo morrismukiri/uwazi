@@ -1,9 +1,35 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import HomeStats from './zorlakay/homeStats';
+import {fetchVictims} from './zorlakay/zorlakayAPI';
 import '../scss/zorlakayHomepage.scss';
 
 export class zorlakayHomepage extends Component {
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      victims: {
+        aggregations: {
+          all: {}
+        },
+        totalRows: 0
+      }
+    };
+  }
+
+  getData () {
+    Promise.all([
+      fetchVictims({limit: 0})
+    ])
+    .then(([victims]) => {
+      this.setState({victims});
+    })
+  }
+
+  componentDidMount () {
+    this.getData();
+  }
 
   render() {
     return (
@@ -124,8 +150,7 @@ export class zorlakayHomepage extends Component {
           </a>
 
           <div>
-            <HomeStats totalVictims={10}
-              victimsOnTrials={10}
+            <HomeStats victims={this.state.victims}
               suspectsOnTrials={10}
               suspectsAcquitted={123}
               suspectsConvicted={343} />

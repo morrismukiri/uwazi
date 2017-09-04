@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import HomeStats from './zorlakay/homeStats';
+import VictimOverview from './zorlakay/victimOverview';
 import {fetchVictims} from './zorlakay/zorlakayAPI';
 import '../scss/zorlakayHomepage.scss';
 
@@ -13,14 +14,15 @@ export class zorlakayHomepage extends Component {
         aggregations: {
           all: {}
         },
-        totalRows: 0
+        totalRows: 0,
+        rows: []
       }
     };
   }
 
   getData () {
     Promise.all([
-      fetchVictims()
+      fetchVictims({limit: 1})
     ])
     .then(([victims]) => {
       this.setState({victims});
@@ -32,6 +34,8 @@ export class zorlakayHomepage extends Component {
   }
 
   render() {
+    const victims = this.state.victims;
+    console.log(victims);
     return (
       <div className="zorlakay-homepage">
         <div className="hero-img">
@@ -64,42 +68,11 @@ export class zorlakayHomepage extends Component {
             </div>
           </h2>
 
-          <div className="victim">
-            <div className="victim-details">
-              <div>
-                <h1>İsmail Ağaya</h1>
-                <p>Age 20, Newspaper Distributor</p>
-              </div>
-            </div>
-            <div className="event-details">
-              <div>
-                <p>
-                  <i className="fa fa-circle"></i> <span>Status:</span> Investigation continues
-                </p>
-                <p>
-                  <span>Lost location:</span> <a href="#"> <i className="fa fa-map-marker"></i> Batman</a>
-                </p>
-                <p>
-                  <span>Lost date:</span> 1994-05-28
-                </p>
-                <p>
-                  <span>Other people who lost together:</span><br />
-                  <a href="#"><i className="fa fa-user-o"></i> Abdurrahman İbin</a>, <a href="#"><i className="fa fa-user-o"></i> Celal Yanık</a>
-                </p>
-              </div>
-              <div>
-                <a href="#">
-                  <i className="fa fa-file-text-o"></i> View report
-                </a>
-                <a href="#">
-                  <i className="fa fa-file-video-o"></i> Testimonial
-                </a>
-              </div>
-            </div>
-          </div>
+          {victims.rows.length?
+            (<VictimOverview victim={victims.rows[0]} />) : '' }
 
           <a href="#" className="btn btn-default btn-lg">
-            <i className="fa fa-angle-right"></i> All 500 victims
+            <i className="fa fa-angle-right"></i> All {victims.totalRows} victims
           </a>
 
           <h2>
@@ -150,7 +123,7 @@ export class zorlakayHomepage extends Component {
           </a>
 
           <div>
-            <HomeStats victims={this.state.victims}
+            <HomeStats victims={victims}
               suspectsOnTrials={10}
               suspectsAcquitted={123}
               suspectsConvicted={343} />

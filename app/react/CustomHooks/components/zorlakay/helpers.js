@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
     CASE_ONGOING,
     DECISION_BY_THE_PROSECUTION_OFFICE} from './constants';
@@ -57,5 +58,5 @@ export function getThesauriItemLabel (thesauris, listId, valueId) {
  */
 export function formatDate (timestamp) {
     const d = new Date(timestamp);
-    return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    return moment(d).format('YYYY-MM-DD');
 }

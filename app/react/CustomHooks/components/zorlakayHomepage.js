@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import HomeStats from './zorlakay/homeStats';
 import '../scss/zorlakayHomepage.scss';
 
 export class zorlakayHomepage extends Component {
@@ -123,13 +124,11 @@ export class zorlakayHomepage extends Component {
           </a>
 
           <div>
-            <ul className="stats">
-              <li><b>XXX</b> Victims in the database</li>
-              <li><b>XXX</b> Victims on ongoing trials</li>
-              <li><b>XXX</b> Suspects on trials</li>
-              <li><b>XXX</b> Acquitted suspects</li>
-              <li><b>XXX</b> Convicted perpetrators</li>
-            </ul>
+            <HomeStats totalVictims={10}
+              victimsOnTrials={10}
+              suspectsOnTrials={10}
+              suspectsAcquitted={123}
+              suspectsConvicted={343} />
             <p className="stats-description">Numbers and lists are not exhaustive, they represent the current <a href="#">Verified data</a>.</p>
           </div>
           <div className="map">

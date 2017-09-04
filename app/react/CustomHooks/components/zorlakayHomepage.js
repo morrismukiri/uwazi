@@ -20,7 +20,7 @@ export class zorlakayHomepage extends Component {
 
   getData () {
     Promise.all([
-      fetchVictims({limit: 0})
+      fetchVictims()
     ])
     .then(([victims]) => {
       this.setState({victims});

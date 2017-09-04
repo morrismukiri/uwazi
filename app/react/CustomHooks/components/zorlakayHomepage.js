@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import HomeStats from './zorlakay/homeStats';
-import VictimOverview from './zorlakay/victimOverview';
+import VictimSlider from './zorlakay/victimSlider';
 import {fetchVictims} from './zorlakay/zorlakayAPI';
 import '../scss/zorlakayHomepage.scss';
 
@@ -22,7 +22,7 @@ export class zorlakayHomepage extends Component {
 
   getData () {
     Promise.all([
-      fetchVictims({limit: 1})
+      fetchVictims({limit: 10})
     ])
     .then(([victims]) => {
       this.setState({victims});
@@ -35,7 +35,7 @@ export class zorlakayHomepage extends Component {
 
   render() {
     const victims = this.state.victims;
-    console.log(victims);
+    console.log(victims.rows);
     return (
       <div className="zorlakay-homepage">
         <div className="hero-img">
@@ -60,16 +60,7 @@ export class zorlakayHomepage extends Component {
             </ul>
           </div>
 
-          <h2>
-            <span>Who is lost?</span>
-            <div>
-              <i className="slider-btn fa fa-angle-left"></i>
-              <i className="slider-btn fa fa-angle-right"></i>
-            </div>
-          </h2>
-
-          {victims.rows.length?
-            (<VictimOverview victim={victims.rows[0]} />) : '' }
+          <VictimSlider victims={victims.rows} />
 
           <a href="#" className="btn btn-default btn-lg">
             <i className="fa fa-angle-right"></i> All {victims.totalRows} victims

@@ -19,7 +19,7 @@ function VictimOverview ({victim, templates, thesauris}) {
   const location = data.place_of_the_event.length?
     getThesauriItemLabel(thesauris, LOCAL_GEOGRAPHICAL_AREA,
       data.place_of_the_event[0]) : 'Unknown';
-  const date = data.initial_date? formatDate(date) : 'Unknown';
+  const date = data.initial_date? formatDate(data.initial_date) : 'Unknown';
 
   return (
     <div className="victim">
@@ -38,7 +38,7 @@ function VictimOverview ({victim, templates, thesauris}) {
             <span>Lost location:</span> <a href="#"> <i className="fa fa-map-marker"></i> { location }</a>
           </p>
           <p>
-            <span>Lost date:</span> 1994-05-28
+            <span>Lost date:</span> { date }
           </p>
           <p>
             <span>Other people who lost together:</span><br />

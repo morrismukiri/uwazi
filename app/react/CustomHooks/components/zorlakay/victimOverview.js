@@ -10,7 +10,7 @@ import {
 function VictimOverview ({victim, templates, thesauris}) {
   console.log('v', victim);
   const data = victim.metadata;
-  const age = data.age_at_time_of_victimization || 'Unknown';
+  const age = data.age_at_the_time_of_victimization || 'Unknown';
   const status = getThesauriItemLabel(thesauris, STATUS_AS_VICTIM, 
     data.status_of_the_victim_at_the_end_of_act);
   const occupation = data.local_term_for_occupation.length?

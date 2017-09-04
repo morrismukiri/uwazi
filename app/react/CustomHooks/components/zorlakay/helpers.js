@@ -1,7 +1,8 @@
 import moment from 'moment';
 import {
     CASE_ONGOING,
-    DECISION_BY_THE_PROSECUTION_OFFICE} from './constants';
+    DECISION_BY_THE_PROSECUTION_OFFICE
+} from './constants';
 
 /**
  * returns the number of documents with the specified value for the specified 
@@ -15,7 +16,7 @@ import {
 export function getFacetCount (data, facetField, value) {
     const facet = data.aggregations.all[facetField];
     if (!facet) return 0;
-    const bucket = facet.buckets.find(b =>  b.key === value);
+    const bucket = facet.buckets.find(b => b.key === value);
     return bucket? bucket.doc_count : 0;
 }
 
@@ -33,7 +34,7 @@ export function getNumberOfVictimsOnTrial (victims) {
  * @param {string} id id of the thesauri to find
  */
 export function getThesauriList (thesauris, id) {
-    return thesauris.find(th => th.get("_id") === id);
+    return thesauris.find(thes => thes.get("_id") === id);
 }
 
 /**

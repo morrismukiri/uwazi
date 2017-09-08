@@ -22,17 +22,6 @@ class Footer extends Component {
 
             <li className="footer-nav_separator">&nbsp;</li>
 
-              <li className="footer-nav_item footer-powered">
-                <div className="footer-powered_tooltip">
-                  <p>Uwazi is developed by HURIDOCS</p>
-                  <p>in Kenya, Ecuador, Spain, Germany and USA.</p>
-                </div>
-                <p className="footer-powered_title">Powered by</p>
-                <a href="http://www.uwazidocs.org/" className="footer-powered_logo">Uwazi</a>
-              </li>
-
-            <li className="footer-nav_separator">&nbsp;</li>
-
             <li className="footer-nav_item">
               <I18NLink to="/">{t('System', 'Library')}</I18NLink>
             </li>

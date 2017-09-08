@@ -10,9 +10,14 @@ class Footer extends Component {
     return (
       <footer>
           <ul className="footer-nav">
-            
-            <li className="footer-nav_item footer-collection_name">
-              <img src="/public/logo-cejil-gray.png" title={this.props.siteName} alt={this.props.siteName}/>
+            <li className="footer-nav_item">
+              <div className="footer-tooltip">
+                <p>Uwazi is developed by <img src="/public/huridocs-logo.svg" title="uwazi" alt="uwazi"/></p>
+                <p>in Kenya, Ecuador, Spain, Germany and USA.</p>
+              </div>
+              <a href="https://www.uwazi.io/" target="_blank" className="footer-logo">
+                <img src="/public/logo.svg" title="uwazi" alt="uwazi"/>
+              </a>
             </li>
 
             <li className="footer-nav_separator">&nbsp;</li>

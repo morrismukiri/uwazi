@@ -21,3 +21,16 @@ header {
     background-color: #9fc1cd;
   }
 }
+
+.footer-collection_name {
+  width: 115px;
+  height: 25px;
+  background-image: url('/public/logo-cejil-gray.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 85px 25px;
+
+  span {
+    display: none;
+  }
+}

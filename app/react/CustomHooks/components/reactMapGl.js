@@ -2,12 +2,22 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ReactMapGL, {NavigationControl, Marker, Popup} from 'react-map-gl';
 
+function getWidth() {
+  if (window) {
+    return Math.min(window.innerWidth - 45, 900);
+  }
+
+  return 900;
+}
+
 class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: Math.min(window.innerWidth - 45, 900),
-      height: 400,
+      viewport: {
+        width: getWidth(),
+        height: 400
+      },
       popupInfo: null,
       customMarkers: [
         {latitude: 37.78, longitude: -122.41, label: 'Marker A', value: 8},
@@ -34,17 +44,25 @@ class Map extends Component {
   }
 
   onViewportChange(viewport) {
-    const {latitude, longitude, zoom} = viewport;
-    this.setState({latitude, longitude, zoom});
+    this.setState({viewport});
   }
 
   componentWillMount() {
-    window.onresize = () => this.setState({
-      width: Math.min(window.innerWidth - 45, 900),
-      height: 400
-    });
+    window.onresize = () => {
+      const viewport = Object.assign({}, this.state.viewport);
+      viewport.width = getWidth();
+      this.setState({viewport});
+    };
 
-    this.setState({width: Math.min(window.innerWidth - 45, 900), height: 400, latitude: 37.7577, longitude: -122.4376, zoom: 8});
+    this.setState({
+      viewport: {
+        width: getWidth(),
+        height: 400,
+        latitude: 37.7577,
+        longitude: -122.4376,
+        zoom: 8
+      }
+    });
   }
 
   componentWillUnmount() {
@@ -52,16 +70,10 @@ class Map extends Component {
   }
 
   render() {
-    const {width, height, latitude, longitude, zoom} = this.state;
-
     return (
       <div style={{marginBottom: '15px'}}>
         <ReactMapGL
-          width={width}
-          height={height}
-          latitude={latitude}
-          longitude={longitude}
-          zoom={zoom}
+          {...this.state.viewport}
           onViewportChange={this.onViewportChange.bind(this)}
           mapStyle="mapbox://styles/mapbox/light-v9"
         >

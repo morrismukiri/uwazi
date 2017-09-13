@@ -45,6 +45,11 @@ class Root extends Component {
           <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700|Roboto+Slab:100,300,400,700|Roboto:100,300,400,500,700,900"
           />
+          <link rel="stylesheet"
+                href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+                integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+                crossOrigin=""
+          />
           <link rel="shortcut icon" href="/public/favicon.ico"/>
         </head>
         <body>

@@ -76,6 +76,7 @@ class Map extends Component {
           {...this.state.viewport}
           onViewportChange={this.onViewportChange.bind(this)}
           mapStyle="mapbox://styles/mapbox/light-v9"
+          mapboxApiAccessToken={this.props.mapboxToken}
         >
           <div style={{position: 'absolute', right: 5, top: 5}}>
             <NavigationControl onViewportChange={this.onViewportChange.bind(this)} />

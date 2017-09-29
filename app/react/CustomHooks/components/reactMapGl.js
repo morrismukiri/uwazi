@@ -20,8 +20,9 @@ class Map extends Component {
       },
       popupInfo: null,
       customMarkers: [
-        {latitude: 37.78, longitude: -122.41, label: 'Marker A', value: 8},
-        {latitude: 37.88, longitude: -122.52, label: 'Marker B', value: 100}
+        // {latitude: 37.78, longitude: -122.41, label: 'Marker A', value: 8},
+        // {latitude: 37.88, longitude: -122.52, label: 'Marker B', value: 100}
+        {latitude: -1.28315, longitude: 36.81797, label:'Marker A', value: 8}
       ]
     };
   }
@@ -58,8 +59,8 @@ class Map extends Component {
       viewport: {
         width: getWidth(),
         height: 400,
-        latitude: 37.7577,
-        longitude: -122.4376,
+        latitude: -1.28315,
+        longitude: 36.81797,
         zoom: 8
       }
     });
@@ -74,9 +75,10 @@ class Map extends Component {
       <div style={{marginBottom: '15px'}}>
         <ReactMapGL
           {...this.state.viewport}
+          dragRotate={true}
           onViewportChange={this.onViewportChange.bind(this)}
-          mapStyle="mapbox://styles/mapbox/light-v9"
-          mapboxApiAccessToken={this.props.mapboxToken}
+          mapStyle="http://localhost:8080/styles/klokantech-3d/style.json"
+          // mapboxApiAccessToken={this.props.mapboxToken}
         >
           <div style={{position: 'absolute', right: 5, top: 5}}>
             <NavigationControl onViewportChange={this.onViewportChange.bind(this)} />

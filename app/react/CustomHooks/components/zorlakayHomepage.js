@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import HomeStats from './zorlakay/homeStats';
 import VictimSlider from './zorlakay/victimSlider';
+import VictimsMap from './zorlakay/victimsMap';
 import {fetchVictims} from './zorlakay/zorlakayAPI';
 import '../scss/zorlakayHomepage.scss';
 
@@ -35,6 +36,7 @@ export class zorlakayHomepage extends Component {
 
   render() {
     const victims = this.state.victims;
+    const { mapboxToken, mapLatitude, mapLongitude, mapZoom } = this.props;
     console.log(victims.rows);
     return (
       <div className="zorlakay-homepage">
@@ -120,7 +122,12 @@ export class zorlakayHomepage extends Component {
               suspectsConvicted={343} />
             <p className="stats-description">Numbers and lists are not exhaustive, they represent the current <a href="#">Verified data</a>.</p>
           </div>
-          <div className="map">
+          <VictimsMap victims={victims.rows}
+            mapboxToken={ mapboxToken }
+            latitude={ mapLatitude }
+            longitude={ mapLongitude }
+            zoom={ mapZoom } />
+          {/* <div className="map">
             <img src="/public/zorlakay-map.png" />
             <div className="filters">
               <ul className="search__filter">
@@ -205,7 +212,7 @@ export class zorlakayHomepage extends Component {
                 </li>
               </ul>
             </div>
-          </div>
+          </div> */}
 
           <div className="footer">
             <p>© Forced Lost Database 2017. All Rights Reserved.</p>

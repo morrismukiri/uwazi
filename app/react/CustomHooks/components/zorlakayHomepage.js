@@ -4,6 +4,7 @@ import HomeStats from './zorlakay/homeStats';
 import VictimSlider from './zorlakay/victimSlider';
 import VictimsMap from './zorlakay/victimsMap';
 import {fetchVictims} from './zorlakay/zorlakayAPI';
+import CityFilter from './zorlakay/cityFilter';
 import '../scss/zorlakayHomepage.scss';
 
 export class zorlakayHomepage extends Component {
@@ -38,6 +39,7 @@ export class zorlakayHomepage extends Component {
     const victims = this.state.victims;
     const { mapboxToken, mapLatitude, mapLongitude, mapZoom } = this.props;
     console.log(victims.rows);
+    console.log('res', victims);
     return (
       <div className="zorlakay-homepage">
         <div className="hero-img">
@@ -122,11 +124,16 @@ export class zorlakayHomepage extends Component {
               suspectsConvicted={343} />
             <p className="stats-description">Numbers and lists are not exhaustive, they represent the current <a href="#">Verified data</a>.</p>
           </div>
-          <VictimsMap victims={victims.rows}
-            mapboxToken={ mapboxToken }
-            latitude={ mapLatitude }
-            longitude={ mapLongitude }
-            zoom={ mapZoom } />
+          <div className="map">
+            <VictimsMap victims={victims.rows}
+              mapboxToken={ mapboxToken }
+              latitude={ mapLatitude }
+              longitude={ mapLongitude }
+              zoom={ mapZoom } />
+            <ul className="filters">
+              <CityFilter victims={victims.rows}/>
+            </ul>
+          </div>
           {/* <div className="map">
             <img src="/public/zorlakay-map.png" />
             <div className="filters">

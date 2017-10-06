@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Set } from 'immutable';
-export default class CityFilter extends Component {
+import { MultiSelect } from 'app/ReactReduxForms';
+
+export default class MapFilter extends Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -36,7 +38,13 @@ export default class CityFilter extends Component {
         onFilter(filteredData);
     }
 
-    getFilterItems (data, field, getValue, undefinedVal) {
+    filterData (data, filterValues, field, getValue, undefinedVal) {
+        return data.filter(item => {
+            return filterValues.has(getValue(item.metadata[field]));
+        });
+    }
+
+    getFilterItems (data, field, getValue, undefinedVal = 'Unknown') {
         const freqs = {};
         for (let item of data) {
             const raw = item.metadata[field];
@@ -52,42 +60,19 @@ export default class CityFilter extends Component {
         }));
     }
 
-    getYearFilterData (data) {
-        const field = 'initial_date';
-        const getValue = (rawVal, field, obj) => (new Date(rawVal)).getFullYear();
-        return this.getFilterItems(data, field, getValue, 'Unknown');
-    }
-
-    getFilterMaritalStatusData (data) {
-        const field = 'civil_status';
-        const getValue = (rawVal, field, obj) => {
-            return rawVal;
-        };
-        return this.getFilterItems(data, field, getValue, 'Unknown');
-    }
-
-    filterData (data, filterValues, field, getValue, undefinedVal) {
-        return data.filter(item => {
-            return filterValues.has(getValue(item.metadata[field]));
-        });
-    }
-
-    componentWillReceiveProps (props) {
-        if (!this.state.data && this.props.data.length) {
-            this.setState({
-                data: this.props.data
-            });
-        }
+    getFilterOptionsData (data) {
+        const { field, getValue, undefinedValue } = this.props;
+        return this.getFilterItems(data, field, getValue, undefinedValue);
     }
 
     render () {
         const data = this.props.data || [];
-        const itemsData = this.getFilterMaritalStatusData(data);
-        const onFilter = this.props.onFilter;
-        const items = itemsData.map(item => this.renderItem(item, data, onFilter));
+        const { title, onFilter } = this.props;
+        const optionsData = this.getFilterOptionsData (data);
+        const items = optionsData.map(item => this.renderItem(item, data, onFilter));
         return (
             <ul className='search__filter'>
-                <li>City</li>
+                <li>{ title }</li>
                 <li className="wide">
                     <ul className="multiselect is-active">
                         <li className='multiselectActions'>

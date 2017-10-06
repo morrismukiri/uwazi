@@ -4,7 +4,6 @@ import HomeStats from './zorlakay/homeStats';
 import VictimSlider from './zorlakay/victimSlider';
 import VictimsMap from './zorlakay/victimsMap';
 import {fetchVictims} from './zorlakay/zorlakayAPI';
-import CityFilter from './zorlakay/cityFilter';
 import '../scss/zorlakayHomepage.scss';
 
 export class zorlakayHomepage extends Component {

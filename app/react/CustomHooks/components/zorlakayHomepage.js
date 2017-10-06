@@ -124,16 +124,14 @@ export class zorlakayHomepage extends Component {
               suspectsConvicted={343} />
             <p className="stats-description">Numbers and lists are not exhaustive, they represent the current <a href="#">Verified data</a>.</p>
           </div>
-          <div className="map">
+          {/* <div className="map"> */}
             <VictimsMap victims={victims.rows}
               mapboxToken={ mapboxToken }
               latitude={ mapLatitude }
               longitude={ mapLongitude }
               zoom={ mapZoom } />
-            <ul className="filters">
-              <CityFilter victims={victims.rows}/>
-            </ul>
-          </div>
+            
+          {/* </div> */}
           {/* <div className="map">
             <img src="/public/zorlakay-map.png" />
             <div className="filters">

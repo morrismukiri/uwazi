@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-
+import { Set } from 'immutable';
 export default class CityFilter extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            data: null,
-            values: []
+            values: Set()
         };
     }
 
     renderItem ({ key, label, value, count }, data, onFilter) {
-        console.log('key', key);
         return (
             <li key={ key } className="multiselectItem" title="Argentina" onClick={() => this.onFilterAdded(value, data, onFilter)}>
                 <input type="checkbox" className="multiselectItem-input" value={ value } id="paisesgq5x91tl5vdndn29" />
@@ -28,8 +26,13 @@ export default class CityFilter extends Component {
         const getValue = (rawVal, field, obj) => {
             return rawVal;
         };
-        console.log('orig', data);
-        const filteredData = this.filterData(data, value, field, getValue);
+        const values = this.state.values.add(value);
+        const filteredData = this.filterData(data, values, field, getValue);
+        this.setState(Object.assign(
+            {},
+            this.state,
+            { values: values }
+        ));
         onFilter(filteredData);
     }
 
@@ -63,21 +66,23 @@ export default class CityFilter extends Component {
         return this.getFilterItems(data, field, getValue, 'Unknown');
     }
 
-    filterData (data, filterValue, field, getValue, undefinedVal) {
+    filterData (data, filterValues, field, getValue, undefinedVal) {
         return data.filter(item => {
-            return getValue(item.metadata[field]) === filterValue;
+            return filterValues.has(getValue(item.metadata[field]));
         });
     }
 
-    render () {
+    componentWillReceiveProps (props) {
         if (!this.state.data && this.props.data.length) {
             this.setState({
                 data: this.props.data
             });
         }
-        const data = this.state.data || [];
+    }
+
+    render () {
+        const data = this.props.data || [];
         const itemsData = this.getFilterMaritalStatusData(data);
-        console.log('itemsData', itemsData);
         const onFilter = this.props.onFilter;
         const items = itemsData.map(item => this.renderItem(item, data, onFilter));
         return (

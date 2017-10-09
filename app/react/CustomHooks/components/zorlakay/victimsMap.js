@@ -6,9 +6,7 @@ export default class VictimsMap extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            victims: null,
-            filteredVictims: null,
-            values: []
+            filteredVictims: null
         };
         this.onFilter = this.onFilter.bind(this);
     }
@@ -24,8 +22,7 @@ export default class VictimsMap extends Component {
     onFilter (filteredVictims, values) {
         console.log('filtered', filteredVictims)
         this.setState({
-            filteredVictims: filteredVictims,
-            values: values
+            filteredVictims: filteredVictims
         });
     }
 
@@ -39,7 +36,8 @@ export default class VictimsMap extends Component {
                     markers={markers}
                     { ...this.props } />
                 <ul className="filters">
-                    <CivilFilter data={victims} onFilter={this.onFilter} values={this.state.values}/>
+                    <CivilFilter data={victims}
+                    onFilter={this.onFilter} />
                 </ul>
             </div>
         );

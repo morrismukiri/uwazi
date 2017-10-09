@@ -5,6 +5,9 @@ import { MultiSelect } from 'app/Forms';
 export default class MapFilter extends Component {
     constructor (props) {
         super(props);
+        this.state = {
+            values: []
+        };
     }
 
     onFilterChanged (values) {
@@ -13,7 +16,8 @@ export default class MapFilter extends Component {
         console.log('data', data);
         const filteredData = this.filterData(data, values, field, getValue);
         console.log('values', values);
-        onFilter(filteredData, values);
+        onFilter(filteredData);
+        this.setState({values: values});
     }
 
     filterData (data, filterValues, field, getValue, undefinedVal) {
@@ -59,7 +63,7 @@ export default class MapFilter extends Component {
                         optionValue='value'
                         prefix={ field }
                         onChange={this.onFilterChanged.bind(this)}
-                        value={this.props.values}/>
+                        value={this.state.values}/>
                 </li>
             </ul>
         );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Map from '../reactMapGl';
-import CivilFilter from './civilFilter';
+import StatusFilter from './statusFilter';
 
 export default class VictimsMap extends Component {
     constructor (props) {
@@ -36,7 +36,7 @@ export default class VictimsMap extends Component {
                     markers={markers}
                     { ...this.props } />
                 <ul className="filters">
-                    <CivilFilter data={victims}
+                    <StatusFilter data={victims}
                     onFilter={this.onFilter} />
                 </ul>
             </div>

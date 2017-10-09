@@ -6,7 +6,7 @@ export default class MapFilter extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            values: []
+            selectValues: [],
         };
     }
 
@@ -17,7 +17,7 @@ export default class MapFilter extends Component {
         const filteredData = this.filterData(data, values, field, getValue);
         console.log('values', values);
         onFilter(filteredData);
-        this.setState({values: values});
+        this.setState({selectedValues: values});
     }
 
     filterData (data, filterValues, field, getValue, undefinedVal) {
@@ -63,7 +63,7 @@ export default class MapFilter extends Component {
                         optionValue='value'
                         prefix={ field }
                         onChange={this.onFilterChanged.bind(this)}
-                        value={this.state.values}/>
+                        value={this.state.selectedValues}/>
                 </li>
             </ul>
         );

@@ -21,7 +21,7 @@ export default class MapFilter extends Component {
     }
 
     filterData (data, filterValues, field, getValue, undefinedVal) {
-        if (!filterValues.length) return data;
+        if (!filterValues.length) return [];
         return data.filter(item => {
             return filterValues.includes(getValue(item.metadata[field]));
         });

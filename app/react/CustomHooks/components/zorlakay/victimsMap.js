@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Map from '../reactMapGl';
 import StatusFilter from './statusFilter';
+import YearFilter from './yearFilter';
+import CityFilter from './cityFilter';
+import { Set } from 'immutable';
 
 export default class VictimsMap extends Component {
     constructor (props) {
@@ -19,8 +22,9 @@ export default class VictimsMap extends Component {
         })) : [];
     }
 
-    onFilter (filteredVictims, values) {
-        console.log('filtered', filteredVictims)
+    onFilter (filteredVictims) {
+        filteredVictims = filteredVictims.length? 
+            filteredVictims : this.state.filteredVictims;
         this.setState({
             filteredVictims: filteredVictims
         });
@@ -37,6 +41,10 @@ export default class VictimsMap extends Component {
                     { ...this.props } />
                 <ul className="filters">
                     <StatusFilter data={victims}
+                    onFilter={this.onFilter} />
+                    <CityFilter data={victims}
+                    onFilter={this.onFilter} />
+                    <YearFilter data={victims}
                     onFilter={this.onFilter} />
                 </ul>
             </div>

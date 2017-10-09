@@ -5,37 +5,6 @@ import { MultiSelect } from 'app/Forms';
 export default class MapFilter extends Component {
     constructor (props) {
         super(props);
-        this.state = {
-            values: Set()
-        };
-    }
-
-    renderItem ({ key, label, value, count }, data, onFilter) {
-        return (
-            <li key={ key } className="multiselectItem" title="Argentina" onClick={() => this.onFilterAdded(value, data, onFilter)}>
-                <input type="checkbox" className="multiselectItem-input" value={ value } id="paisesgq5x91tl5vdndn29" />
-                <label className="multiselectItem-label">
-                <i className="multiselectItem-icon fa fa-square-o"></i><i className="multiselectItem-icon fa fa-check"></i>
-                <span className="multiselectItem-name">{ label }</span>
-                <span className="multiselectItem-results">{ count }</span>
-                </label>
-            </li>
-        )
-    }
-
-    onFilterAdded (value, data, onFilter) {
-        const field = 'civil_status';
-        const getValue = (rawVal, field, obj) => {
-            return rawVal;
-        };
-        const values = this.state.values.add(value);
-        const filteredData = this.filterData(data, values, field, getValue);
-        this.setState(Object.assign(
-            {},
-            this.state,
-            { values: values }
-        ));
-        onFilter(filteredData);
     }
 
     onFilterChanged (values) {
@@ -44,10 +13,11 @@ export default class MapFilter extends Component {
         console.log('data', data);
         const filteredData = this.filterData(data, values, field, getValue);
         console.log('values', values);
-        onFilter(filteredData);
+        onFilter(filteredData, values);
     }
 
     filterData (data, filterValues, field, getValue, undefinedVal) {
+        if (!filterValues.length) return data;
         return data.filter(item => {
             return filterValues.includes(getValue(item.metadata[field]));
         });
@@ -79,23 +49,6 @@ export default class MapFilter extends Component {
         const data = this.props.data || [];
         const { title, field, onFilter } = this.props;
         const optionsData = this.getFilterOptionsData (data);
-        const items = optionsData.map(item => this.renderItem(item, data, onFilter));
-        // return (
-        //     <ul className='search__filter'>
-        //         <li>{ title }</li>
-        //         <li className="wide">
-        //             <ul className="multiselect is-active">
-        //                 <li className='multiselectActions'>
-        //                     <div className="form-group">
-        //                         <i className="fa fa-search"></i>
-        //                         <input type="text" className="form-control" placeholder="Search item" value="" />
-        //                     </div>
-        //                 </li>
-        //                 { items }
-        //             </ul>
-        //         </li>
-        //     </ul>
-        // );
         return  (
             <ul className='search__filter'>
                 <li>{title}</li>
@@ -105,7 +58,8 @@ export default class MapFilter extends Component {
                         optionLabel='label'
                         optionValue='value'
                         prefix={ field }
-                        onChange={this.onFilterChanged.bind(this)}/>
+                        onChange={this.onFilterChanged.bind(this)}
+                        value={this.props.values}/>
                 </li>
             </ul>
         );

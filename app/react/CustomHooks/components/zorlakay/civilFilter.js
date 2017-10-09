@@ -1,7 +1,7 @@
 import React from 'react';
 import MapFilter from './mapFilter';
 
-export default ({data, onFilter}) => {
+export default ({data, onFilter, values}) => {
     const getValue = (rawVal, field, obj) => {
         return rawVal;
     };
@@ -12,6 +12,7 @@ export default ({data, onFilter}) => {
             onFilter={onFilter}
             data={data}
             field='civil_status'
-            getValue={getValue} />
+            getValue={getValue}
+            values={values} />
     );
 };

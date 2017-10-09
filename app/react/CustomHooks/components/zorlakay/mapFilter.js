@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Set } from 'immutable';
-import { MultiSelect } from 'app/ReactReduxForms';
+import { MultiSelect } from 'app/Forms';
 
 export default class MapFilter extends Component {
     constructor (props) {
@@ -38,9 +38,18 @@ export default class MapFilter extends Component {
         onFilter(filteredData);
     }
 
+    onFilterChanged (values) {
+        
+        const { data, field, onFilter, getValue } = this.props;
+        console.log('data', data);
+        const filteredData = this.filterData(data, values, field, getValue);
+        console.log('values', values);
+        onFilter(filteredData);
+    }
+
     filterData (data, filterValues, field, getValue, undefinedVal) {
         return data.filter(item => {
-            return filterValues.has(getValue(item.metadata[field]));
+            return filterValues.includes(getValue(item.metadata[field]));
         });
     }
 
@@ -56,7 +65,8 @@ export default class MapFilter extends Component {
             key: key,
             value: key,
             label: key,
-            count: freqs[key]
+            count: freqs[key],
+            results: freqs[key]
         }));
     }
 
@@ -67,22 +77,35 @@ export default class MapFilter extends Component {
 
     render () {
         const data = this.props.data || [];
-        const { title, onFilter } = this.props;
+        const { title, field, onFilter } = this.props;
         const optionsData = this.getFilterOptionsData (data);
         const items = optionsData.map(item => this.renderItem(item, data, onFilter));
-        return (
+        // return (
+        //     <ul className='search__filter'>
+        //         <li>{ title }</li>
+        //         <li className="wide">
+        //             <ul className="multiselect is-active">
+        //                 <li className='multiselectActions'>
+        //                     <div className="form-group">
+        //                         <i className="fa fa-search"></i>
+        //                         <input type="text" className="form-control" placeholder="Search item" value="" />
+        //                     </div>
+        //                 </li>
+        //                 { items }
+        //             </ul>
+        //         </li>
+        //     </ul>
+        // );
+        return  (
             <ul className='search__filter'>
-                <li>{ title }</li>
+                <li>{title}</li>
                 <li className="wide">
-                    <ul className="multiselect is-active">
-                        <li className='multiselectActions'>
-                            <div className="form-group">
-                                <i className="fa fa-search"></i>
-                                <input type="text" className="form-control" placeholder="Search item" value="" />
-                            </div>
-                        </li>
-                        { items }
-                    </ul>
+                    <MultiSelect 
+                        options={ optionsData }
+                        optionLabel='label'
+                        optionValue='value'
+                        prefix={ field }
+                        onChange={this.onFilterChanged.bind(this)}/>
                 </li>
             </ul>
         );

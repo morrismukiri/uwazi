@@ -10,21 +10,10 @@ export default class MapFilter extends Component {
         };
     }
 
-    onFilterChanged (values) {
-        
+    onFilterChanged (values) { 
         const { data, field, onFilter, getValue } = this.props;
-        console.log('data', data);
-        const filteredData = this.filterData(data, values, field, getValue);
-        console.log('values', values);
-        onFilter(filteredData, values, field);
+        onFilter(values, field);
         this.setState({selectedValues: values});
-    }
-
-    filterData (data, filterValues, field, getValue, undefinedVal) {
-        if (!filterValues.length) return data;
-        return data.filter(item => {
-            return filterValues.includes(getValue(item.metadata[field]));
-        });
     }
 
     getFilterItems (data, field, getValue, undefinedVal = 'Unknown') {

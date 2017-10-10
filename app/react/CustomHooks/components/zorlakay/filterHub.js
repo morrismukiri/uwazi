@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import StatusFilter from './statusFilter';
-import CityFilter from './cityFilter';
-import YearFilter from './yearFilter';
 import MapFilter from './mapFilter';
 
 export default class FilterHub extends Component {
@@ -17,7 +14,7 @@ export default class FilterHub extends Component {
         };
     }
 
-    onFilter (filter, filteredData, values) {
+    onFilter (filter, values) {
         const { field, getValue } = filter;
         const currentFilters = Object.assign({}, this.state.selectedFilters);
         const thisFilter = currentFilters[field] || {};
@@ -40,8 +37,6 @@ export default class FilterHub extends Component {
             }
         }
         this.setState({ selectedFilters: currentFilters });
-        
-
         this.props.onFilter(results);
     }
 
@@ -53,7 +48,6 @@ export default class FilterHub extends Component {
     }
 
     localSearch (data, filters) {
-        var a = [];
         const filterFields = Object.keys(filters);
         const filtered = filterFields.reduce((thisData, field) => {
             const { getValue, values } = filters[field];
@@ -78,10 +72,6 @@ export default class FilterHub extends Component {
     render () {
         const sourceData = this.props.data;
         const { filters } = this.props;
-        const data = this.state.data;
-        const statusData = data.status || sourceData;
-        const cityData = data.city || sourceData;
-        const yearData = data.year || sourceData;
         const filterItems = filters.map(f => this.renderFilter(f, sourceData));
         return (
             <ul className='filters'>

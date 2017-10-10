@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Map from '../reactMapGl';
+import Filters from './victimMapFilters';
 import StatusFilter from './statusFilter';
 import YearFilter from './yearFilter';
 import CityFilter from './cityFilter';
@@ -23,14 +24,13 @@ export default class VictimsMap extends Component {
     }
 
     onFilter (filteredVictims) {
-        filteredVictims = filteredVictims.length? 
-            filteredVictims : this.state.filteredVictims;
         this.setState({
             filteredVictims: filteredVictims
         });
     }
 
     render () {
+        
         const victims = this.props.victims;
         const filteredVictims = this.state.filteredVictims || victims;
         const markers = this.getMarkers(filteredVictims);
@@ -39,14 +39,8 @@ export default class VictimsMap extends Component {
                 <Map mapboxToken={this.props.mapboxToken}
                     markers={markers}
                     { ...this.props } />
-                <ul className="filters">
-                    <StatusFilter data={victims}
-                    onFilter={this.onFilter} />
-                    <CityFilter data={victims}
-                    onFilter={this.onFilter} />
-                    <YearFilter data={victims}
-                    onFilter={this.onFilter} />
-                </ul>
+                <Filters victims={victims}
+                    onFilter={ this.onFilter }/>
             </div>
         );
     }

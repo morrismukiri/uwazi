@@ -16,12 +16,12 @@ export default class MapFilter extends Component {
         console.log('data', data);
         const filteredData = this.filterData(data, values, field, getValue);
         console.log('values', values);
-        onFilter(filteredData);
+        onFilter(filteredData, values, field);
         this.setState({selectedValues: values});
     }
 
     filterData (data, filterValues, field, getValue, undefinedVal) {
-        if (!filterValues.length) return [];
+        if (!filterValues.length) return data;
         return data.filter(item => {
             return filterValues.includes(getValue(item.metadata[field]));
         });

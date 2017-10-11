@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import Map from '../reactMapGl';
 import Filters from './victimMapFilters';
-import StatusFilter from './statusFilter';
-import YearFilter from './yearFilter';
-import CityFilter from './cityFilter';
-import { Set } from 'immutable';
 
 export default class VictimsMap extends Component {
     constructor (props) {

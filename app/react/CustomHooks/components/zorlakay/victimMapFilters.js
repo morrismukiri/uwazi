@@ -27,6 +27,13 @@ const VictimMapFilters = ({victims, onFilter, thesauris}) => {
             getValue: (rawVal, field, obj) => {
                 return String(new Date(rawVal).getFullYear());
             }
+        },
+        {
+            title: 'Civil Status',
+            field: 'civil_status',
+            getValue: (rawVal, field, obj) => {
+                return rawVal;
+            }
         }
     ];
     return (

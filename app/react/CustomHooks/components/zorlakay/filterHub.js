@@ -20,19 +20,12 @@ export default class FilterHub extends Component {
         const thisFilter = currentFilters[field] || {};
         const { data } = thisFilter;
         currentFilters[field] = {
-            data,
             values,
             getValue
         };
         const source = this.props.data;
         const results = this.localSearch(source, currentFilters);
 
-        for (const f of this.props.filters) {
-            currentFilters[f.field] = currentFilters[f.field] || {
-                values: [],
-                getValue: f.getValue
-            };
-        }
         this.setState({ currentFilters });
         this.props.onFilter(results);
     }
@@ -77,8 +70,6 @@ export default class FilterHub extends Component {
 
     renderFilter (filter, data) {
         const { title, getValue, field } = filter;
-        const filterData = field in this.state.currentFilters?
-            this.state.currentFilters[field].data : data;
         const values = field in this.state.currentFilters?
             this.state.currentFilters[field].values : []
         const options = this.computeAggregations(data, field, getValue);
@@ -87,16 +78,14 @@ export default class FilterHub extends Component {
                 key={ field }
                 { ...filter }
                 onFilter={ this.onFilter.bind(this, filter) }
-                data={ filterData || data }
                 values={ values }
                 options={ options } />
         );
     }
 
     render () {
-        const sourceData = this.props.data;
-        const { filters } = this.props;
-        const filterItems = filters.map(f => this.renderFilter(f, sourceData));
+        const { filters, data } = this.props;
+        const filterItems = filters.map(f => this.renderFilter(f, data));
         return (
             <ul className='filters'>
                 { filterItems }

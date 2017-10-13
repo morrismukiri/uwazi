@@ -20,19 +20,18 @@ function VictimOverview ({victim, templates, thesauris}) {
     getThesauriItemLabel(thesauris, LOCAL_GEOGRAPHICAL_AREA,
       data.place_of_the_event[0]) : 'Unknown';
   const date = data.initial_date? formatDate(data.initial_date) : 'Unknown';
-
+  
   return (
-    <div className="victim">
+    <div className="video">
       <div className="victim-details">
+        <div className="img"></div>
         <div>
           <h1>{ data.person_name }</h1>
           <p>Age { age }, { occupation }</p>
         </div>
-      </div>
-      <div className="event-details">
         <div>
           <p>
-            <i className="fa fa-circle"></i> <span>Status:</span> {status}
+            <i className="fa fa-circle"></i> <span>Status:</span> { status }
           </p>
           <p>
             <span>Lost location:</span> <a href="#"> <i className="fa fa-map-marker"></i> { location }</a>

@@ -23,7 +23,7 @@ export class zorlakayHomepage extends Component {
 
   getData () {
     Promise.all([
-      fetchVictims({limit: 10})
+      fetchVictims({limit: 300})
     ])
     .then(([victims]) => {
       this.setState({victims});
@@ -42,10 +42,10 @@ export class zorlakayHomepage extends Component {
     return (
       <div className="zorlakay-homepage">
         <div className="hero-img">
-          <img src="/public/hero-gradient.jpg" />
+          <b>Zorla Kaybedilenler Veritabanı</b>
+          <img src="/public/zorlakay-logo-light.png" />
         </div>
         <div className="container">
-          <h1>Zorla Kaybedilenler Veritabanı</h1>
           <div className="introduction">
             <div>
               <p>Hakikat Adalet Hafıza Merkezi tarafından hazırlanan bu veritabanında 12 Eylül 1980 askeri

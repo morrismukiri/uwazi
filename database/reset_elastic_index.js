@@ -20,7 +20,7 @@ function migrate(offset, totalRows) {
     }
 
     return search.bulkIndex(docsResponse, 'index')
-    .then(() => {
+    .then((res) => {
       process.stdout.write(`Indexing documents and entities... ${spinner[pos]} - ${docsIndexed} indexed\r`);
       pos += 1;
       if (pos > 3) {
@@ -28,6 +28,9 @@ function migrate(offset, totalRows) {
       }
       docsIndexed += docsResponse.length;
       return migrate(offset + limit, totalRows);
+    })
+    .catch((err) => {
+      console.log('ERR:', err);
     });
   });
 }

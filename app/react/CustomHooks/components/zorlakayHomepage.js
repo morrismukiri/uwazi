@@ -8,8 +8,8 @@ export class zorlakayHomepage extends Component {
     return (
       <div className="zorlakay-homepage">
         <div className="hero-img">
-          {/*<b>Zorla Kaybedilenler Veritabanı</b>
-          <img src="/public/zorlakay-logo-light.png" />*/}
+          <b>Zorla Kaybedilenler Veritabanı</b>
+          <img src="/public/zorlakay-logo-light.png" />
         </div>
         <div className="container">
           <div className="introduction">
@@ -425,19 +425,6 @@ export class zorlakayHomepage extends Component {
                 </li>
               </ul>
             </div>
-          </div>
-
-          <div className="footer">
-            <img src="/public/zorlakay-header.png" />
-            <p>© Forced Lost Database 2017. All Rights Reserved.</p>
-            <ul>
-              <li>Anasayfa</li>
-              <li>Kaybedilenler</li>
-              <li>Şüpheliler / Sorumlular</li>
-              <li>Hukuki Süreç</li>
-              <li>Veritabanı Hakkında</li>
-              <li>İletişim</li>
-            </ul>
           </div>
         </div>
       </div>

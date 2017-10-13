@@ -24,6 +24,13 @@ header {
   overflow-x: hidden;
 }
 
+.logo {
+  max-width: 100%;
+  height: 60px;
+  position: relative;
+  top: -4px;
+}
+
 .zorlakay-homepage {  
   max-width: none !important;
   .hero-img {
@@ -39,11 +46,9 @@ header {
     b {
       font-size: 24px;
       letter-spacing: 0.1em;
-    }
-    img {
-      border-left: 2px solid #86b004;
-      margin-left: 30px;
-      padding-left: 30px;
+      border-right: 2px solid #86b004;
+      margin-right: 30px;
+      padding-right: 30px;
     }
   }
   .logo {
@@ -80,10 +85,10 @@ header {
     .fa {
       margin-right: 15px;
       font-weight: bold;
-      color: #86b004;
+      color: #c57e57;
       margin-right: 15px;
       font-weight: bold;
-      color: #86b004;
+      color: #c57e57;
       border: 1px solid;
       height: 30px;
       line-height: 28px;
@@ -203,7 +208,7 @@ header {
         margin: 0 10px;
         font-weight: bold;
         font-size: 10px;
-        color: #86b004;
+        color: #c57e57;
       }
       
       .fa {
@@ -214,8 +219,8 @@ header {
         line-height: 38px;
         text-align: center;
         border-radius: 50%;
-        color: #86b004;
-        border: 1px solid #86b004;
+        color: #c57e57;
+        border: 1px solid #c57e57;
         font-size: 14px;
       }
     }
@@ -245,6 +250,7 @@ header {
   .video:last-of-type {
     opacity: 0.2;
     box-shadow: none;
+    background: #f0dfd7;
   }
   .video:first-of-type {
     margin-left: -320px;
@@ -296,7 +302,7 @@ header {
     .btn-action {
       margin-top: 15px;
       font-size: 10px;
-      color: #86b004;
+      color: #c57e57;
       .fa {
         height: 40px;
         width: 40px;
@@ -305,8 +311,8 @@ header {
         line-height: 38px;
         text-align: center;
         border-radius: 50%;
-        color: #86b004;
-        border: 1px solid #86b004;
+        color: #c57e57;
+        border: 1px solid #c57e57;
         font-size: 14px;
       }
     }

@@ -58,6 +58,6 @@ export function getThesauriItemLabel (thesauris, listId, valueId) {
  * @return {string}
  */
 export function formatDate (timestamp) {
-    const d = new Date(timestamp);
+    const d = new Date(timestamp * 1000);
     return moment(d).format('YYYY-MM-DD');
 }

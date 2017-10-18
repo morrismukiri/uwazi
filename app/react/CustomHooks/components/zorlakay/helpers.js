@@ -1,7 +1,8 @@
 import moment from 'moment';
 import {
     CASE_ONGOING,
-    DECISION_BY_THE_PROSECUTION_OFFICE
+    DECISION_BY_THE_PROSECUTION_OFFICE,
+    LOCAL_GEOGRAPHICAL_AREA
 } from './constants';
 
 /**
@@ -60,4 +61,18 @@ export function getThesauriItemLabel (thesauris, listId, valueId) {
 export function formatDate (timestamp) {
     const d = new Date(timestamp * 1000);
     return moment(d).format('YYYY-MM-DD');
+}
+
+/**
+ * Conversts an array of city thesauri items
+ * to a comma separated string of city names
+ * @param {List} thesauris 
+ * @param {array} cities
+ * @return {string}
+ */
+export function formatCities (thesauris, cities) {
+    if (!cities.length) return 'Unknown';
+    return cities
+        .map(city => getThesauriItemLabel(thesauris, LOCAL_GEOGRAPHICAL_AREA, city))
+        .join(', ');
 }

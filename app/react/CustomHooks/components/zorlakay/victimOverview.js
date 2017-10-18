@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getThesauriItemLabel, formatDate, formatCities } from './helpers';
+import {getThesauriItemLabel, 
+  formatDate, 
+  formatCitiesAsString,
+  formatOccupationsAsString } from './helpers';
 import {
   STATUS_AS_VICTIM,
   LOCAL_TERM_FOR_OCCUPATION,
@@ -13,10 +16,8 @@ function VictimOverview ({victim, templates, thesauris}) {
   const age = data.age_at_the_time_of_victimization || 'Unknown';
   const status = getThesauriItemLabel(thesauris, STATUS_AS_VICTIM, 
     data.status_of_the_victim_at_the_end_of_act);
-  const occupation = data.local_term_for_occupation.length?
-    getThesauriItemLabel(thesauris, LOCAL_TERM_FOR_OCCUPATION, 
-      data.local_term_for_occupation[0]) : 'Unknown';
-  const location = formatCities(thesauris, data.place_of_the_event);
+  const occupation = formatOccupationsAsString(thesauris, data.local_term_for_occupation);
+  const location = formatCitiesAsString(thesauris, data.place_of_the_event);
   const date = data.initial_date? formatDate(data.initial_date) : 'Unknown';
   
   return (

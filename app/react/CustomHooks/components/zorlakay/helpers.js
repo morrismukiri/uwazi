@@ -2,7 +2,8 @@ import moment from 'moment';
 import {
     CASE_ONGOING,
     DECISION_BY_THE_PROSECUTION_OFFICE,
-    LOCAL_GEOGRAPHICAL_AREA
+    LOCAL_GEOGRAPHICAL_AREA,
+    LOCAL_TERM_FOR_OCCUPATION
 } from './constants';
 
 /**
@@ -64,15 +65,38 @@ export function formatDate (timestamp) {
 }
 
 /**
+ * Conversts an array of hesauri values
+ * to a comma separated string of their corresponding labels
+ * @param {List} thesauris list of all thesauri
+ * @param {string} listId id of the thesauri list which contains the item
+ * @param {array} values uuids of the thesauri items
+ * @return {string}
+ */
+export function formatThesauriValuesAsString (thesauris, listId, values) {
+    if (!values.length) return 'Unknown';
+    return values
+        .map(value => getThesauriItemLabel(thesauris, listId, value))
+        .join(', ');
+}
+
+/**
  * Conversts an array of city thesauri items
  * to a comma separated string of city names
  * @param {List} thesauris 
  * @param {array} cities
  * @return {string}
  */
-export function formatCities (thesauris, cities) {
-    if (!cities.length) return 'Unknown';
-    return cities
-        .map(city => getThesauriItemLabel(thesauris, LOCAL_GEOGRAPHICAL_AREA, city))
-        .join(', ');
+export function formatCitiesAsString (thesauris, cities) {
+    return formatThesauriValuesAsString(thesauris, LOCAL_GEOGRAPHICAL_AREA, cities);
+}
+
+/**
+ * Conversts an array of occupations thesauri items
+ * to a comma separated string of occupations names
+ * @param {List} thesauris 
+ * @param {array} occupations
+ * @return {string}
+ */
+export function formatOccupationsAsString (thesauris, occupations) {
+    return formatThesauriValuesAsString(thesauris, LOCAL_TERM_FOR_OCCUPATION, occupations);
 }

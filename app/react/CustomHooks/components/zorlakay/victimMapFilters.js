@@ -7,13 +7,6 @@ import { getThesauriItemLabel } from './helpers';
 const VictimMapFilters = ({victims, onFilter, thesauris}) => {
     const filters = [
         {
-            title: 'Status as Victim',
-            field: 'status_of_the_victim_at_the_end_of_act',
-            getValue: (rawVal, field, obj) => {
-                return getThesauriItemLabel(thesauris, STATUS_AS_VICTIM, rawVal);
-            }
-        },
-        {
             title: 'City',
             field: 'place_of_the_event',
             getValue: (rawVal, field, obj) => {

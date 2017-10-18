@@ -10,8 +10,8 @@ const VictimMapFilters = ({victims, onFilter, thesauris}) => {
             title: 'City',
             field: 'place_of_the_event',
             getValue: (rawVal, field, obj) => {
-                return rawVal.length? getThesauriItemLabel(thesauris, LOCAL_GEOGRAPHICAL_AREA, rawVal[0]) : 
-                    'Unknown';
+                if (!rawVal.length) return 'Unknown';
+                return rawVal.map(val => getThesauriItemLabel(thesauris, LOCAL_GEOGRAPHICAL_AREA, val))
             }
         },
         {

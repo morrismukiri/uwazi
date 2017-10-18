@@ -33,7 +33,10 @@ export default class FilterHub extends Component {
     filterData (data, field, values, getValue) {
         if (!values.length) return data;
         return data.filter(item => {
-            return values.includes(getValue(item.metadata[field]));
+            let fieldValues = getValue(item.metadata[field]);
+            fieldValues = Array.isArray(fieldValues)? fieldValues: [fieldValues];
+            const res = fieldValues.find(val => values.includes(val));
+            return res !== undefined;
         });
     }
 
@@ -43,8 +46,11 @@ export default class FilterHub extends Component {
         const filteredData = this.localSearch(data, otherFilters);
         const counts = {};
         for(const item of filteredData) {
-            const value = getValue(item.metadata[field]);
-            counts[value] = (counts[value] || 0) + 1;
+            let fieldValues = getValue(item.metadata[field]);
+            fieldValues = Array.isArray(fieldValues)? fieldValues : [fieldValues];
+            for (let value of fieldValues) {
+                counts[value] = (counts[value] || 0) + 1;
+            }
         }
         const options = Object.keys(counts).map((key) => {
             return {

@@ -20,7 +20,7 @@ export default class VictimSlider extends Component {
     return index >= 0? index % length : length + index;
   }
 
-  getSurroundingIndices (centerIndex, visibleCount, totalLength) {
+  getVisibleIndices (centerIndex, visibleCount, totalLength) {
     const minIndex = - Math.floor(visibleCount/ 2);
     const rawIndices = [];
     for (let i = 0; i < visibleCount; ++i) {
@@ -32,7 +32,7 @@ export default class VictimSlider extends Component {
   renderVictims (victims, currentVictim) {
     if (!victims.length) return [];
     const visibleCount = 5;
-    const visibleIndices = this.getSurroundingIndices(currentVictim, visibleCount, victims.length);
+    const visibleIndices = this.getVisibleIndices(currentVictim, visibleCount, victims.length);
     const visibleVictims = visibleIndices.map(i => victims[i]);
     return visibleVictims.map(victim => (
       <VictimOverview key={victim.sharedId} victim={victim} />

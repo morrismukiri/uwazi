@@ -12,16 +12,37 @@ export default class VictimSlider extends Component {
   slide (dir) {
     let { currentVictim } = this.state;
     const { victims } = this.props;
-    // the slider cycles
-    currentVictim = currentVictim >= 0?
-      (currentVictim + dir) %  victims.length : victims.length - 1;
+    currentVictim = this.normalizeIndex(currentVictim + dir, length);
     this.setState({ currentVictim });
+  }
+
+  normalizeIndex (index, length) {
+    return index >= 0? index % length : length + index;
+  }
+
+  getSurroundingIndices (centerIndex, visibleCount, totalLength) {
+    const minIndex = - Math.floor(visibleCount/ 2);
+    const rawIndices = [];
+    for (let i = 0; i < visibleCount; ++i) {
+      rawIndices.push(centerIndex + minIndex + i);
+    }
+    return rawIndices.map(i => this.normalizeIndex(i, totalLength));
+  }
+
+  renderVictims (victims, currentVictim) {
+    if (!victims.length) return [];
+    const visibleCount = 5;
+    const visibleIndices = this.getSurroundingIndices(currentVictim, visibleCount, victims.length);
+    const visibleVictims = visibleIndices.map(i => victims[i]);
+    return visibleVictims.map(victim => (
+      <VictimOverview key={victim.sharedId} victim={victim} />
+    ));
   }
 
   render () {
     const { victims } = this.props;
     const { currentVictim } = this.state;
-    const victim = victims.length? victims[currentVictim] : null;
+    
     return (
       <div>
         <h2>
@@ -33,8 +54,9 @@ export default class VictimSlider extends Component {
               onClick={() => this.slide(1)}></i>
           </div>
         </h2>
-        {victim?
-          (<VictimOverview victim={victim} />) : '' }
+        <div className='videos'>
+        { this.renderVictims(victims, currentVictim) }
+        </div>
       </div>
     );
   }

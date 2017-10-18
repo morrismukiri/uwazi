@@ -52,16 +52,17 @@ class Map extends Component {
       viewport.width = getWidth();
       this.setState({viewport});
     };
+    const defaultViewport = {
+      width: getWidth(),
+      height: 400,
+      latitude: -1.28315,
+      longitude: 36.81797,
+      zoom: 8
+    };
 
-    this.setState({
-      viewport: {
-        width: getWidth(),
-        height: 400,
-        latitude: -1.28315,
-        longitude: 36.81797,
-        zoom: 8
-      }
-    });
+    const { latitude, longitude, zoom } = this.props;
+    const viewport = Object.assign({}, defaultViewport, { latitude, longitude, zoom});
+    this.setState({ viewport });
   }
 
   componentWillUnmount() {
@@ -69,7 +70,7 @@ class Map extends Component {
   }
 
   render() {
-    const viewport = Object.assign({}, this.state.viewport, this.props);
+    const viewport = Object.assign({}, this.state.viewport);
     const markers = this.props.markers || this.state.customMarkers;
     return (
       <div style={{marginBottom: '15px'}}>

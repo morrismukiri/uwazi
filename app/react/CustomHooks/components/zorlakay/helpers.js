@@ -100,3 +100,12 @@ export function formatCitiesAsString (thesauris, cities) {
 export function formatOccupationsAsString (thesauris, occupations) {
     return formatThesauriValuesAsString(thesauris, LOCAL_TERM_FOR_OCCUPATION, occupations);
 }
+
+/**
+ * extracts an image's data url from markdown markup of the image
+ * @param {string} markdown picture markup in the form ![picture](dataUrl)
+ * @return {string}
+ */
+export function extractImageDataUrlFromMarkdown (markdown) {
+    return markdown.slice(11, markdown.length - 1);
+}

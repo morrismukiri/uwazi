@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {getThesauriItemLabel, 
   formatDate, 
   formatCitiesAsString,
-  formatOccupationsAsString } from './helpers';
+  formatOccupationsAsString,
+  extractImageDataUrlFromMarkdown } from './helpers';
 import {
   STATUS_AS_VICTIM,
   LOCAL_TERM_FOR_OCCUPATION,
@@ -19,11 +20,15 @@ function VictimOverview ({victim, templates, thesauris}) {
   const occupation = formatOccupationsAsString(thesauris, data.local_term_for_occupation);
   const location = formatCitiesAsString(thesauris, data.place_of_the_event);
   const date = data.initial_date? formatDate(data.initial_date) : 'Unknown';
+  const image = data.picture? extractImageDataUrlFromMarkdown(data.picture) :
+    '/public/team-placeholder.jpg';
   
   return (
     <div className="video">
       <div className="victim-details">
-        <div className="img"></div>
+        <div className="img">
+          <img src={ image } />
+        </div>
         <div>
           <h1>{ data.person_name }</h1>
           <p>Age { age }, { occupation }</p>

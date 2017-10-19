@@ -153,25 +153,25 @@ header {
   .victim-photo:not(:last-of-type) {
     margin-right: 10px;
   }
-  .video:nth-child(1) .img,
-  .video:nth-child(4) .img {
-    background-image: url('/public/victims/Abdullah Duskun.png');
-  }
-  .video:nth-child(3) .img {
-    background-image: url('/public/victims/Lokman Akay.png');
-  }
-  .video:nth-child(2) .img,
-  .video:nth-child(5) .img {
-    background-image: url('/public/victims/Ismail Agaya.png');
-  }
+  // .video:nth-child(1) .img,
+  // .video:nth-child(4) .img {
+  //   background-image: url('/public/victims/Abdullah Duskun.png');
+  // }
+  // .video:nth-child(3) .img {
+  //   background-image: url('/public/victims/Lokman Akay.png');
+  // }
+  // .video:nth-child(2) .img,
+  // .video:nth-child(5) .img {
+  //   background-image: url('/public/victims/Ismail Agaya.png');
+  // }
   .victim-details {
     width: 100%;
     .img {
       height: 284px;
       width: 284px;
       margin: -5px -5px 0;
-      background-position: 0 33%;
-      background-size: cover;
+      // background-position: 0 33%;
+      // background-size: cover;
     }
     
     h1 {

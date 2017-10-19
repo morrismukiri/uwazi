@@ -218,9 +218,6 @@ export class zorlakayHomepage extends Component {
             </div>
           </div> */}
 
-          <div className="footer">
-            <p>© Forced Lost Database 2017. All Rights Reserved.</p>
-          </div>
         </div>
       </div>
     );

@@ -14,6 +14,7 @@ import {
 function VictimOverview ({victim, templates, thesauris}) {
   console.log('v', victim);
   const data = victim.metadata;
+  const name = victim.title;
   const age = data.age_at_the_time_of_victimization || 'Unknown';
   const status = getThesauriItemLabel(thesauris, STATUS_AS_VICTIM, 
     data.status_of_the_victim_at_the_end_of_act);
@@ -30,7 +31,7 @@ function VictimOverview ({victim, templates, thesauris}) {
           <img src={ image } />
         </div>
         <div>
-          <h1>{ data.person_name }</h1>
+          <h1>{ name }</h1>
           <p>Age { age }, { occupation }</p>
         </div>
         <div>

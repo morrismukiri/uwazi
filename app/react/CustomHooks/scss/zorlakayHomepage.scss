@@ -442,3 +442,10 @@ header {
     display: none;
   }
 }
+
+/* this will fix the show more filters scrollbar */
+.zorlakay-homepage .multiselect {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 200px;
+}

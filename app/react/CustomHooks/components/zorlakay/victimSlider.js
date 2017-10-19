@@ -5,14 +5,15 @@ export default class VictimSlider extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      currentVictim: 0
+      // initialize slider with a victim that has an image
+      currentVictim: 59
     };
   }
 
   slide (dir) {
     let { currentVictim } = this.state;
     const { victims } = this.props;
-    currentVictim = this.normalizeIndex(currentVictim + dir, length);
+    currentVictim = this.normalizeIndex(currentVictim + dir, victims.length);
     this.setState({ currentVictim });
   }
 
@@ -23,6 +24,7 @@ export default class VictimSlider extends Component {
   getVisibleIndices (centerIndex, visibleCount, totalLength) {
     const minIndex = - Math.floor(visibleCount/ 2);
     const rawIndices = [];
+    console.log('center', centerIndex);
     for (let i = 0; i < visibleCount; ++i) {
       rawIndices.push(centerIndex + minIndex + i);
     }
@@ -33,6 +35,8 @@ export default class VictimSlider extends Component {
     if (!victims.length) return [];
     const visibleCount = 5;
     const visibleIndices = this.getVisibleIndices(currentVictim, visibleCount, victims.length);
+    console.log('current', currentVictim);
+    console.log('visible', visibleIndices);
     const visibleVictims = visibleIndices.map(i => victims[i]);
     return visibleVictims.map(victim => (
       <VictimOverview key={victim.sharedId} victim={victim} />

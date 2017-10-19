@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TestimonialSliderAdapter from './testimonialSliderAdapter';
+import Testimonial from './testimonial';
 import Slider from './slider';
 
 export default (props) => {
@@ -31,8 +31,10 @@ export default (props) => {
         }
     ];
     return (
-    <Slider data={ testimonials } visibleCount={ 5 } initialIndex={ 0 } title="Testimonials">
-        <TestimonialSliderAdapter />
+    <Slider visibleCount={ 5 } initialIndex={ 0 } title="Testimonials">
+        {testimonials.map(testimonial => (
+            <Testimonial key={ testimonial.name } { ...testimonial } />
+        ))}
     </Slider>
     );
 }

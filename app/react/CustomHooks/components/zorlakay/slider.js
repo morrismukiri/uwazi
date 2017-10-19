@@ -18,8 +18,8 @@ export default class VictimSlider extends Component {
 
   slide (dir) {
     let { currentIndex } = this.state;
-    const { data } = this.props;
-    currentIndex = this.normalizeIndex(currentIndex + dir, data.length);
+    const { children } = this.props;
+    currentIndex = this.normalizeIndex(currentIndex + dir, children.length);
     this.setState({ currentIndex });
   }
 
@@ -43,16 +43,10 @@ export default class VictimSlider extends Component {
     return visibleItems;
   }
 
-  renderItems (data) {
-    return Children.map(this.props.children, child => {
-        return React.cloneElement(child, { data })
-    });
-  }
-
   render () {
-    const { data, visibleCount, title } = this.props;
+    const { children, visibleCount, title } = this.props;
     const { currentIndex } = this.state;
-    const items = this.getVisibleItems(data, currentIndex, visibleCount);
+    const items = this.getVisibleItems(children, currentIndex, visibleCount);
     return (
       <div>
         <h2>
@@ -64,7 +58,9 @@ export default class VictimSlider extends Component {
               onClick={() => this.slide(1)}></i>
           </div>
         </h2>
-        { this.renderItems(items) }
+        <div className='videos'>
+        { items }
+        </div>
       </div>
     );
   }

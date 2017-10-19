@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import VictimSliderAdapter from './victimSliderAdapter';
+import VictimOverview from './victimOverview';
 import Slider from './slider';
 
 export default ({ victims }) => (
-  <Slider data={ victims } visibleCount={ 5 } initialIndex={ 59 } title="Who is lost?">
-    <VictimSliderAdapter />
+  <Slider visibleCount={ 5 } initialIndex={ 59 } title="Who is lost?">
+    {victims.map(victim => (
+        <VictimOverview key={ victim.sharedId } victim={ victim } />
+    ))}
   </Slider>
 )

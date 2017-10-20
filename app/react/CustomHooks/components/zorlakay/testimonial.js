@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ title, video, description }) => (
+export default ({ name, video, description }) => (
     <div className="video">
         <div>
             <iframe src={ video }

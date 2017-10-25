@@ -15,7 +15,9 @@ export class SiteName extends Component {
             {name: 'description', content: 'Uwazi docs'}
           ]}
         />
-        <I18NLink to="/">{this.props.siteName}</I18NLink>
+        <I18NLink to="/" className="logo">
+          <img src="/public/afchpr-logo.png" title={this.props.siteName} alt={this.props.siteName}/>
+        </I18NLink>
       </div>
     );
   }

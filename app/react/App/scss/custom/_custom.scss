@@ -6,3 +6,50 @@ header {
     background-position: center right;
     background-size: auto 50px;
 }
+
+.logo {
+    position: relative;
+}
+
+.logo:before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 60px;
+    width: 9999px;
+    height: 4px;
+    background: #e4042e;
+}
+.logo:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    width: 60px;
+    height: 4px;
+    background: purple;
+}
+
+.logo img {
+    position: relative;
+    top: -2px;
+}
+
+.footer-nav_item {
+    height: 30px;
+    line-height: 30px;
+}
+
+.footer-collection_name {
+    width: 145px;
+    background-image: url('/public/afchpr-footer.png');
+    background-repeat: no-repeat;
+    background-position: center 4px;
+    background-size: 136px 25px;
+
+    span {
+        display: none;
+    }
+}

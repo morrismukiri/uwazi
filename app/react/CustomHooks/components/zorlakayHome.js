@@ -65,8 +65,10 @@ export class zorlakayHomepage extends Component {
               <li> <i className="fa fa-angle-right"></i> Take Action</li>
             </ul>
           </div>
-
-          <VictimSlider victims={victims.rows} />
+          {
+            victims.rows.length?
+            <VictimSlider victims={victims.rows} /> : '' 
+          }
 
           <a href="#" className="btn btn-default btn-lg">
             <i className="fa fa-angle-right"></i> All {victims.totalRows} victims

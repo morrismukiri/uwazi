@@ -1,9 +1,6 @@
 import moment from 'moment';
 import {
-    CASE_ONGOING,
-    DECISION_BY_THE_PROSECUTION_OFFICE,
-    LOCAL_GEOGRAPHICAL_AREA,
-    LOCAL_TERM_FOR_OCCUPATION
+    DECISION_BY_THE_PROSECUTION_OFFICE
 } from './constants';
 
 /**
@@ -25,8 +22,10 @@ export function getFacetCount (data, facetField, value) {
 /**
  * gets the number of victims on trial
  * @param {object} victims response from the search api
+ * @param {Map} idConfig
  */
-export function getNumberOfVictimsOnTrial (victims) {
+export function getNumberOfVictimsOnTrial (victims, idConfig) {
+    const CASE_ONGOING = idConfig.get('caseOngoing');
     return getFacetCount(victims, DECISION_BY_THE_PROSECUTION_OFFICE, CASE_ONGOING);
 }
 
@@ -84,9 +83,11 @@ export function formatThesauriValuesAsString (thesauris, listId, values) {
  * to a comma separated string of city names
  * @param {List} thesauris 
  * @param {array} cities
+ * @param {Map} idConfig
  * @return {string}
  */
-export function formatCitiesAsString (thesauris, cities) {
+export function formatCitiesAsString (thesauris, cities, idConfig) {
+    const LOCAL_GEOGRAPHICAL_AREA = idConfig.get('thesauriLocalGeographicalArea');
     return formatThesauriValuesAsString(thesauris, LOCAL_GEOGRAPHICAL_AREA, cities);
 }
 
@@ -95,9 +96,11 @@ export function formatCitiesAsString (thesauris, cities) {
  * to a comma separated string of occupations names
  * @param {List} thesauris 
  * @param {array} occupations
+ * @param {Map} idConfig
  * @return {string}
  */
-export function formatOccupationsAsString (thesauris, occupations) {
+export function formatOccupationsAsString (thesauris, occupations, idConfig) {
+    const LOCAL_TERM_FOR_OCCUPATION = idConfig.get('thesauriLocalTermForOccupation');
     return formatThesauriValuesAsString(thesauris, LOCAL_TERM_FOR_OCCUPATION, occupations);
 }
 

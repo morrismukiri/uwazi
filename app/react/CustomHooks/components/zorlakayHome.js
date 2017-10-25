@@ -4,7 +4,7 @@ import HomeStats from './zorlakay/homeStats';
 import VictimSlider from './zorlakay/victimSlider';
 import TestimonialSlider from './zorlakay/testimonialSlider';
 import VictimsMap from './zorlakay/victimsMap';
-import {fetchVictims} from './zorlakay/zorlakayAPI';
+import {fetchTemplateEntities} from './zorlakay/zorlakayAPI';
 import '../scss/zorlakayHomepage.scss';
 
 export class zorlakayHomepage extends Component {
@@ -23,8 +23,10 @@ export class zorlakayHomepage extends Component {
   }
 
   getData () {
+    const { settings } = this.props;
+    const config = settings.collection.get('custom');
     Promise.all([
-      fetchVictims({limit: 300})
+      fetchTemplateEntities(config.get('zorlakayIds').get('templateVictim'), {limit: 300})
     ])
     .then(([victims]) => {
       this.setState({victims});
@@ -98,4 +100,6 @@ export class zorlakayHomepage extends Component {
   }
 }
 
-export default connect()(zorlakayHomepage);
+const mapStateToProps = ({settings}) => ({settings});
+
+export default connect(mapStateToProps)(zorlakayHomepage);

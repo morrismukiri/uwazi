@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FilterHub from './filterHub';
-import { STATUS_AS_VICTIM, LOCAL_GEOGRAPHICAL_AREA } from './constants';
 import { getThesauriItemLabel } from './helpers';
 
-const VictimMapFilters = ({victims, onFilter, thesauris}) => {
+const VictimMapFilters = ({victims, onFilter, thesauris, settings}) => {
+    const idConfig = settings.collection.get('custom').get('zorlakayIds');
+    const LOCAL_GEOGRAPHICAL_AREA = idConfig.get('thesauriLocalGeographicalArea');
     const filters = [
         {
             title: 'City',
@@ -29,6 +30,6 @@ const VictimMapFilters = ({victims, onFilter, thesauris}) => {
     )
 };
 
-const mapStateToProps = ({thesauris}) => ({thesauris});
+const mapStateToProps = ({thesauris, settings}) => ({thesauris, settings});
 
 export default connect(mapStateToProps)(VictimMapFilters);

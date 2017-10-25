@@ -5,21 +5,17 @@ import {getThesauriItemLabel,
   formatCitiesAsString,
   formatOccupationsAsString,
   extractImageDataUrlFromMarkdown } from './helpers';
-import {
-  STATUS_AS_VICTIM,
-  LOCAL_TERM_FOR_OCCUPATION,
-  LOCAL_GEOGRAPHICAL_AREA
-} from './constants';
 
-function VictimOverview ({victim, templates, thesauris}) {
+function VictimOverview ({victim, templates, thesauris, settings}) {
+  const idConfig = settings.collection.get('custom').get('zorlakayIds');
   console.log('v', victim);
   const data = victim.metadata;
   const name = victim.title;
   const age = data.age_at_the_time_of_victimization || 'Unknown';
-  const status = getThesauriItemLabel(thesauris, STATUS_AS_VICTIM, 
+  const status = getThesauriItemLabel(thesauris, idConfig.get('thesauriStatusAsVictim'), 
     data.status_of_the_victim_at_the_end_of_act);
-  const occupation = formatOccupationsAsString(thesauris, data.local_term_for_occupation);
-  const location = formatCitiesAsString(thesauris, data.place_of_the_event);
+  const occupation = formatOccupationsAsString(thesauris, data.local_term_for_occupation, idConfig);
+  const location = formatCitiesAsString(thesauris, data.place_of_the_event, idConfig);
   const date = data.initial_date? formatDate(data.initial_date) : 'Unknown';
   const image = data.picture? extractImageDataUrlFromMarkdown(data.picture) :
     '/public/team-placeholder.jpg';
@@ -62,6 +58,6 @@ function VictimOverview ({victim, templates, thesauris}) {
   );
 }
 
-const mapStateToProps  = ({templates, thesauris}) => ({templates, thesauris});
+const mapStateToProps  = ({templates, thesauris, settings}) => ({templates, thesauris, settings});
 
 export default connect(mapStateToProps)(VictimOverview);

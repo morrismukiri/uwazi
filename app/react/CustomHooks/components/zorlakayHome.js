@@ -40,8 +40,6 @@ export class zorlakayHomepage extends Component {
   render() {
     const victims = this.state.victims;
     const { mapboxToken, mapLatitude, mapLongitude, mapZoom } = this.props;
-    console.log(victims.rows);
-    console.log('res', victims);
     return (
       <div className="zorlakay-homepage">
         <div className="hero-img">

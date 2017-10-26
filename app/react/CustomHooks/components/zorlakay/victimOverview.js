@@ -8,7 +8,6 @@ import {getThesauriItemLabel,
 
 function VictimOverview ({victim, templates, thesauris, settings}) {
   const idConfig = settings.collection.get('custom').get('zorlakayIds');
-  console.log('v', victim);
   const data = victim.metadata;
   const name = victim.title;
   const age = data.age_at_the_time_of_victimization || 'Unknown';

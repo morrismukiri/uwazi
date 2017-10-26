@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import HomeStats from './zorlakay/homeStats';
 import VictimSlider from './zorlakay/victimSlider';
 import TestimonialSlider from './zorlakay/testimonialSlider';
@@ -7,9 +8,9 @@ import VictimsMap from './zorlakay/victimsMap';
 import {fetchTemplateEntities} from './zorlakay/zorlakayAPI';
 import '../scss/zorlakayHomepage.scss';
 
-export class zorlakayHomepage extends Component {
+export class ZorlakayHomepage extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       victims: {
@@ -22,8 +23,8 @@ export class zorlakayHomepage extends Component {
     };
   }
 
-  getData () {
-    const { settings } = this.props;
+  getData() {
+    const {settings} = this.props;
     const config = settings.collection.get('custom');
     Promise.all([
       fetchTemplateEntities(config.get('zorlakayIds').get('templateVictim'), {limit: 300})
@@ -33,13 +34,13 @@ export class zorlakayHomepage extends Component {
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getData();
   }
 
   render() {
     const victims = this.state.victims;
-    const { mapboxToken, mapLatitude, mapLongitude, mapZoom } = this.props;
+    const {mapboxToken, mapLatitude, mapLongitude, mapZoom} = this.props;
     return (
       <div className="zorlakay-homepage">
         <div className="hero-img">
@@ -64,8 +65,8 @@ export class zorlakayHomepage extends Component {
             </ul>
           </div>
           {
-            victims.rows.length?
-            <VictimSlider victims={victims.rows} /> : '' 
+            victims.rows.length ?
+            <VictimSlider victims={victims.rows} /> : ''
           }
 
           <a href="#" className="btn btn-default btn-lg">
@@ -85,14 +86,11 @@ export class zorlakayHomepage extends Component {
               suspectsConvicted={343} />
             <p className="stats-description">Numbers and lists are not exhaustive, they represent the current <a href="#">Verified data</a>.</p>
           </div>
-          {/* <div className="map"> */}
-            <VictimsMap victims={victims.rows}
-              mapboxToken={ mapboxToken }
-              latitude={ mapLatitude }
-              longitude={ mapLongitude }
-              zoom={ mapZoom } />
-            
-          {/* </div> */}
+          <VictimsMap victims={victims.rows}
+            mapboxToken={ mapboxToken }
+            latitude={ mapLatitude }
+            longitude={ mapLongitude }
+            zoom={ mapZoom } />
 
         </div>
       </div>
@@ -100,6 +98,14 @@ export class zorlakayHomepage extends Component {
   }
 }
 
+ZorlakayHomepage.propTypes = {
+  settings: PropTypes.object,
+  mapboxToken: PropTypes.string,
+  mapLatitude: PropTypes.number,
+  mapLongitude: PropTypes.number,
+  mapZoom: PropTypes.number
+};
+
 const mapStateToProps = ({settings}) => ({settings});
 
-export default connect(mapStateToProps)(zorlakayHomepage);
+export default connect(mapStateToProps)(ZorlakayHomepage);

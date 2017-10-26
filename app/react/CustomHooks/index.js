@@ -1,6 +1,7 @@
 import cejilChart001 from './components/cejilChart001';
 import cejilHero from './components/cejilHero';
 import zorlakayHome from './components/zorlakayHome';
+import zorlakayGraphics from './components/zorlakayGraphics';
 import reactMapGl from './components/reactMapGl';
 import zorlakayHomepage from './components/zorlakayHomepage';
 
@@ -9,5 +10,6 @@ export default {
   cejilHero,
   zorlakayHome,
   reactMapGl,
-  zorlakayHomepage
+  zorlakayHomepage,
+  zorlakayGraphics
 };

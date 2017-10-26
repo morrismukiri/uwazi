@@ -4,12 +4,24 @@ import {
 } from './constants';
 
 /**
+ * returns data containing value buckets for the specified field
+ * @param {object} data response object from a call to the search api, should contain the
+ * aggregations object for that request
+ * @param {string} facetField the field for which to obtain aggregations
+ * @return {array} list of buckets for each facet value
+ */
+export function getFacetBuckets(data, facetField) {
+  const facets = data.aggregations.all[facetField];
+  return facets ? facets.buckets : [];
+}
+
+/**
  * returns the number of documents with the specified value for the specified 
  * facetField
  * @param {object} data response object from a call to the search api, should contain the
  * aggregations object for that request
  * @param {string} facetField the field for which to obtain aggregations
- * @param {mixed} the value for which to count matching documents
+ * @param {mixed} value the value for which to count matching documents
  * @return {number}
  */
 export function getFacetCount (data, facetField, value) {

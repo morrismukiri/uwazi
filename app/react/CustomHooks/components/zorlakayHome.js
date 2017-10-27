@@ -6,6 +6,7 @@ import VictimSlider from './zorlakay/victimSlider';
 import TestimonialSlider from './zorlakay/testimonialSlider';
 import VictimsMap from './zorlakay/victimsMap';
 import {fetchTemplateEntities} from './zorlakay/zorlakayAPI';
+import {I18NLink} from 'app/I18N';
 import '../scss/zorlakayHomepage.scss';
 
 export class ZorlakayHomepage extends Component {
@@ -19,6 +20,13 @@ export class ZorlakayHomepage extends Component {
         },
         totalRows: 0,
         rows: []
+      },
+      testimonials: {
+        aggregations: {
+          all: {}
+        },
+        totalRows: 0,
+        rows: []
       }
     };
   }
@@ -27,11 +35,12 @@ export class ZorlakayHomepage extends Component {
     const {settings} = this.props;
     const config = settings.collection.get('custom');
     Promise.all([
-      fetchTemplateEntities(config.get('zorlakayIds').get('templateVictim'), {limit: 300})
+      fetchTemplateEntities(config.get('zorlakayIds').get('templateVictim'), {limit: 300}),
+      fetchTemplateEntities(config.get('zorlakayIds').get('templateEvent'), {sort: 'metadata.video', limit: 20})
     ])
-    .then(([victims]) => {
-      this.setState({victims});
-    })
+    .then(([victims, testimonials]) => {
+      this.setState({victims, testimonials});
+    });
   }
 
   componentDidMount() {
@@ -40,7 +49,9 @@ export class ZorlakayHomepage extends Component {
 
   render() {
     const victims = this.state.victims;
+    const testimonials = this.state.testimonials;
     const {mapboxToken, mapLatitude, mapLongitude, mapZoom} = this.props;
+    const victimsTemplate = this.props.settings.collection.get('custom').get('zorlakayIds').get('templateVictim');
     return (
       <div className="zorlakay-homepage">
         <div className="hero-img">
@@ -69,11 +80,12 @@ export class ZorlakayHomepage extends Component {
             <VictimSlider victims={victims.rows} /> : ''
           }
 
-          <a href="#" className="btn btn-default btn-lg">
+          <I18NLink to={`/library/?q=(order:asc,sort:title,types:!(%27${victimsTemplate}%27))`}
+            className="btn btn-default btn-lg">
             <i className="fa fa-angle-right"></i> All {victims.totalRows} victims
-          </a>
+          </I18NLink>
 
-          <TestimonialSlider />
+          <TestimonialSlider testimonials={testimonials.rows} />
 
           <a href="#" className="btn btn-default btn-lg">
             <i className="fa fa-angle-right"></i> All videos

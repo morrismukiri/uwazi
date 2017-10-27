@@ -19,6 +19,13 @@ export class ZorlakayHomepage extends Component {
         },
         totalRows: 0,
         rows: []
+      },
+      testimonials: {
+        aggregations: {
+          all: {}
+        },
+        totalRows: 0,
+        rows: []
       }
     };
   }
@@ -27,11 +34,12 @@ export class ZorlakayHomepage extends Component {
     const {settings} = this.props;
     const config = settings.collection.get('custom');
     Promise.all([
-      fetchTemplateEntities(config.get('zorlakayIds').get('templateVictim'), {limit: 300})
+      fetchTemplateEntities(config.get('zorlakayIds').get('templateVictim'), {limit: 300}),
+      fetchTemplateEntities(config.get('zorlakayIds').get('templateEvent'), {sort: 'metadata.video', limit: 20})
     ])
-    .then(([victims]) => {
-      this.setState({victims});
-    })
+    .then(([victims, testimonials]) => {
+      this.setState({victims, testimonials});
+    });
   }
 
   componentDidMount() {
@@ -40,6 +48,7 @@ export class ZorlakayHomepage extends Component {
 
   render() {
     const victims = this.state.victims;
+    const testimonials = this.state.testimonials;
     const {mapboxToken, mapLatitude, mapLongitude, mapZoom} = this.props;
     return (
       <div className="zorlakay-homepage">
@@ -73,7 +82,7 @@ export class ZorlakayHomepage extends Component {
             <i className="fa fa-angle-right"></i> All {victims.totalRows} victims
           </a>
 
-          <TestimonialSlider />
+          <TestimonialSlider testimonials={testimonials.rows} />
 
           <a href="#" className="btn btn-default btn-lg">
             <i className="fa fa-angle-right"></i> All videos

@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {fetchTemplateEntities} from './zorlakay/zorlakayAPI';
-import BarChart from './zorlakay/victimBarChart';
+import CitiesChart from './zorlakay/victimBarChart';
+import StatusChart from './zorlakay/victimPieChart';
 
 class ZorlakayGraphics extends Component {
   constructor(props) {
@@ -35,7 +36,12 @@ class ZorlakayGraphics extends Component {
   render() {
     const data = this.state.victims;
     return (
-      <BarChart data={data}/>
+      <div>
+        <h2>Place of the event</h2>
+        <CitiesChart data={data}/>
+        <h2>Status of the victim</h2>
+        <StatusChart data={data} />
+      </div>
     );
   }
 }

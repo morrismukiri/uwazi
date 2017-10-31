@@ -1,33 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ResponsiveContainer, BarChart, XAxis, YAxis, CartesianGrid, Bar, Tooltip, Rectangle, Legend} from 'recharts';
 import colorScheme, {light as colorSchemeLight} from 'app/Charts/utils/colorScheme';
 import {getFacetBuckets, getThesauriItemLabel} from './helpers';
-
-export class ExtendedTooltip extends React.Component {
-  render() {
-    if (this.props.active) {
-      return (
-        <div style={{backgroundColor: '#fff', border: '1px solid #ccc'}}>
-          <div style={{backgroundColor: '#eee', borderBottom: '1px dashed #ccc', padding: '5px'}}>
-            {this.props.payload[0].payload.name}&nbsp;&nbsp;
-          </div>
-          <div style={{padding: '5px'}}>
-            {'Victims'}:&nbsp;&nbsp;<b style={{color: '#600'}}>{this.props.payload[0].value}</b><br />
-          </div>
-        </div>
-      );
-    }
-    return null;
-  }
-}
-
-ExtendedTooltip.propTypes = {
-  payload: PropTypes.array,
-  active: PropTypes.bool,
-  chartLabel: PropTypes.string
-};
+import ExtendedTooltip from './extendedTooltip';
 
 export const ColoredBar = (props) => {
   const {index, color} = props;

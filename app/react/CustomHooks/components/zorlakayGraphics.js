@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {fetchTemplateEntities} from './zorlakay/zorlakayAPI';
 import CitiesChart from './zorlakay/victimBarChart';
-import StatusChart from './zorlakay/victimPieChart';
+import StatusChart from './zorlakay/statusChart';
+import GenderChart from './zorlakay/genderChart';
 
 class ZorlakayGraphics extends Component {
   constructor(props) {
@@ -37,6 +38,8 @@ class ZorlakayGraphics extends Component {
     const data = this.state.victims;
     return (
       <div>
+        <h2>Gender of the victim</h2>
+        <GenderChart data={data} />
         <h2>Place of the event</h2>
         <CitiesChart data={data}/>
         <h2>Status of the victim</h2>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import VictimOverview from './victimOverview';
 import Slider from './slider';
 
-export default ({ victims }) => {
+const VictimSlider = ({victims}) => {
   // find a victim with a picture
   const initialIndex = victims.findIndex(v => v.metadata.picture);
   return (
@@ -13,3 +14,9 @@ export default ({ victims }) => {
     </Slider>
   );
 }
+
+VictimSlider.propTypes = {
+  victims: PropTypes.victims
+};
+
+export default VictimSlider;

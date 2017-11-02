@@ -3,11 +3,7 @@ import {connect} from 'react-redux';
 import ReactMapGL, {NavigationControl, Marker, Popup} from 'react-map-gl';
 
 function getWidth() {
-  if (window) {
-    return Math.min(window.innerWidth - 45, 900);
-  }
-
-  return 900;
+  return 400;
 }
 
 class Map extends Component {
@@ -20,7 +16,7 @@ class Map extends Component {
       },
       popupInfo: null,
       customMarkers: [
-        {latitude: -1.28315, longitude: 36.81797, label:'Marker A', value: 8}
+        {latitude: -1.28315, longitude: 36.81797, label: 'Marker A', value: 8}
       ]
     };
   }
@@ -55,9 +51,13 @@ class Map extends Component {
     const defaultViewport = {
       width: getWidth(),
       height: 400,
-      latitude: -1.28315,
-      longitude: 36.81797,
-      zoom: 8
+      latitude: 35,
+      longitude: 39,
+      zoom: 8,
+      //maxBounds: [
+        //[22, 30], // Southwest coordinates
+        //[48, 46]  // Northeast coordinates
+      //]
     };
 
     const { latitude, longitude, zoom } = this.props;
@@ -78,8 +78,7 @@ class Map extends Component {
           {...viewport}
           dragRotate={true}
           onViewportChange={this.onViewportChange.bind(this)}
-          /* mapStyle="http://localhost:8080/styles/klokantech-3d/style.json" */
-          mapStyle="mapbox://styles/mapbox/light-v9"
+          mapStyle="mapbox://styles/mapbox/bright-v9"
           mapboxApiAccessToken={this.props.mapboxToken}
         >
           <div style={{position: 'absolute', right: 5, top: 5}}>

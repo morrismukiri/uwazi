@@ -1,40 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Testimonial from './testimonial';
 import Slider from './slider';
 
-export default (props) => {
-    //const testimonials = [
-        //{
-            //video: 'https://player.vimeo.com/video/68836138',
-            //name: 'İhsan Arslan (Şırnak-Cizre, 1993)',
-            //description: "1993 yılında Şırnak-Cizre'de zorla kaybedilen İhsan Arslan'ın eşi Şevkiye Arslan ile yapılan görüşme."
-        //},
-        //{
-            //video: 'https://player.vimeo.com/video/68836138',
-            //name: 'İhsan Arslan (Şırnak-Cizre, 1994)',
-            //description: "1994 yılında Şırnak-Cizre'de zorla kaybedilen İhsan Arslan'ın eşi Şevkiye Arslan ile yapılan görüşme."
-        //},
-        //{
-            //video: 'https://player.vimeo.com/video/68836138',
-            //name: 'İhsan Arslan (Şırnak-Cizre, 1995)',
-            //description: "1995 yılında Şırnak-Cizre'de zorla kaybedilen İhsan Arslan'ın eşi Şevkiye Arslan ile yapılan görüşme."
-        //},
-        //{
-            //video: 'https://player.vimeo.com/video/68836138',
-            //name: 'İhsan Arslan (Şırnak-Cizre, 1996)',
-            //description: "1996 yılında Şırnak-Cizre'de zorla kaybedilen İhsan Arslan'ın eşi Şevkiye Arslan ile yapılan görüşme."
-        //},
-        //{
-            //video: 'https://player.vimeo.com/video/68836138',
-            //name: 'İhsan Arslan (Şırnak-Cizre, 1997)',
-            //description: "1997 yılında Şırnak-Cizre'de zorla kaybedilen İhsan Arslan'ın eşi Şevkiye Arslan ile yapılan görüşme."
-        //}
-    //];
-    return (
-    <Slider visibleCount={ 5 } initialIndex={ 0 } title="Testimonials">
-        {props.testimonials.map((testimonial, index) => (
-            <Testimonial key={index} {...testimonial} />
-        ))}
-    </Slider>
-    );
-}
+const TestimonialSlider = (props) => {
+  return (
+  <Slider visibleCount={ 5 } initialIndex={ 0 } title="Testimonials">
+      {props.testimonials.map((testimonial, index) => (
+          <Testimonial key={index} {...testimonial} />
+      ))}
+  </Slider>
+  );
+};
+
+TestimonialSlider.propTypes = {
+  testimonials: PropTypes.array
+};
+
+export default TestimonialSlider;
+

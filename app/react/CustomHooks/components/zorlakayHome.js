@@ -32,11 +32,10 @@ export class ZorlakayHomepage extends Component {
   }
 
   getData() {
-    const {settings} = this.props;
-    const config = settings.collection.get('custom');
+    const {idConfig} = this.props;
     Promise.all([
-      fetchTemplateEntities(config.get('zorlakayIds').get('templateVictim'), {limit: 300}),
-      fetchTemplateEntities(config.get('zorlakayIds').get('templateEvent'), {sort: 'metadata.video', limit: 20})
+      fetchTemplateEntities(idConfig.get('templateVictim'), {limit: 300}),
+      fetchTemplateEntities(idConfig.get('templateEvent'), {sort: 'metadata.video', limit: 20})
     ])
     .then(([victims, testimonials]) => {
       this.setState({victims, testimonials});
@@ -51,7 +50,7 @@ export class ZorlakayHomepage extends Component {
     const victims = this.state.victims;
     const testimonials = this.state.testimonials;
     const {mapboxToken, mapLatitude, mapLongitude, mapZoom} = this.props;
-    const victimsTemplate = this.props.settings.collection.get('custom').get('zorlakayIds').get('templateVictim');
+    const victimsTemplate = this.props.idConfig.get('templateVictim');
     return (
       <div className="zorlakay-homepage">
         <div className="hero-img">
@@ -111,13 +110,15 @@ export class ZorlakayHomepage extends Component {
 }
 
 ZorlakayHomepage.propTypes = {
-  settings: PropTypes.object,
+  idConfig: PropTypes.object,
   mapboxToken: PropTypes.string,
   mapLatitude: PropTypes.number,
   mapLongitude: PropTypes.number,
   mapZoom: PropTypes.number
 };
 
-const mapStateToProps = ({settings}) => ({settings});
+const mapStateToProps = ({settings}) => ({
+  idConfig: settings.collection.get('custom').get('zorlakayIds')
+});
 
 export default connect(mapStateToProps)(ZorlakayHomepage);

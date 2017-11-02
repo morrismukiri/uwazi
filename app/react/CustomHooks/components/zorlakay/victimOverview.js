@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getThesauriItemLabel, 
+import {I18NLink} from 'app/I18N';
+import {getThesauriItemLabel,
   formatDate,
   formatCitiesAsString,
   formatOccupationsAsString,
@@ -77,9 +78,9 @@ class VictimOverview extends Component {
             { this.renderRelatedVictims(relatedVictims)}
           </div>
           <div>
-            <a href="#">
+            <I18NLink to={`/entity/${victim.sharedId}`}>
               <i className="fa fa-file-text-o"></i> View report
-            </a>
+            </I18NLink>
             <a href="#">
               <i className="fa fa-file-video-o"></i> Testimonial
             </a>

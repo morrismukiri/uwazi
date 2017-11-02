@@ -31,7 +31,7 @@ class VictimOverview extends Component {
       <p>
         <span>Other people who lost together:</span><br />
         {victims.map((v, i) => (
-          <span key={v.title}>
+          <span key={v.sharedId}>
             <a href="#"><i className="fa fa-user-o"></i> {v.title}</a>
             {i < victims.length - 1 ? ', ' : ''}
           </span>
@@ -96,7 +96,7 @@ VictimOverview.propTypes = {
   victim: PropTypes.object
 };
 
-const mapStateToProps  = ({templates, thesauris, settings}) => ({
+const mapStateToProps = ({templates, thesauris, settings}) => ({
   templates,
   thesauris,
   idConfig: settings.collection.get('custom').get('zorlakayIds')

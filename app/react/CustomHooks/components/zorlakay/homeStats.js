@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {getNumberOfVictimsOnTrial} from './helpers';
 
 const HomeStats = ({idConfig, victims, legalProcesses, suspectsOnTrials, suspectsAcquitted, suspectsConvicted}) => {
-  console.log('legal', legalProcesses);
   return (
     <ul className="stats">
       <li><b>{victims.totalRows}</b> Victims in the database</li>

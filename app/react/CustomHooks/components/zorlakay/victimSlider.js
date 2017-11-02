@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import VictimOverview from './victimOverview';
 import Slider from './slider';
@@ -16,7 +16,7 @@ const VictimSlider = ({victims}) => {
 }
 
 VictimSlider.propTypes = {
-  victims: PropTypes.victims
+  victims: PropTypes.array
 };
 
 export default VictimSlider;

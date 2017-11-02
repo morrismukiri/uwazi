@@ -27,6 +27,13 @@ export class ZorlakayHomepage extends Component {
         },
         totalRows: 0,
         rows: []
+      },
+      legalProcesses: {
+        aggregations: {
+          all: {}
+        },
+        totalRows: 0,
+        rows: []
       }
     };
   }
@@ -35,10 +42,11 @@ export class ZorlakayHomepage extends Component {
     const {idConfig} = this.props;
     Promise.all([
       fetchTemplateEntities(idConfig.get('templateVictim'), {limit: 300}),
-      fetchTemplateEntities(idConfig.get('templateEvent'), {sort: 'metadata.video', limit: 20})
+      fetchTemplateEntities(idConfig.get('templateEvent'), {sort: 'metadata.video', limit: 20}),
+      fetchTemplateEntities(idConfig.get('templateLegalProcess'), {limit: 10})
     ])
-    .then(([victims, testimonials]) => {
-      this.setState({victims, testimonials});
+    .then(([victims, testimonials, legalProcesses]) => {
+      this.setState({victims, testimonials, legalProcesses});
     });
   }
 
@@ -47,8 +55,7 @@ export class ZorlakayHomepage extends Component {
   }
 
   render() {
-    const victims = this.state.victims;
-    const testimonials = this.state.testimonials;
+    const {victims, testimonials, legalProcesses} = this.state;
     const {mapboxToken, mapLatitude, mapLongitude, mapZoom} = this.props;
     const victimsTemplate = this.props.idConfig.get('templateVictim');
     return (
@@ -92,6 +99,7 @@ export class ZorlakayHomepage extends Component {
 
           <div>
             <HomeStats victims={victims}
+              legalProcesses={legalProcesses}
               suspectsOnTrials={10}
               suspectsAcquitted={123}
               suspectsConvicted={343} />

@@ -33,7 +33,9 @@ class VictimOverview extends Component {
         <span>Other people who lost together:</span><br />
         {victims.map((v, i) => (
           <span key={v.sharedId}>
-            <a href="#"><i className="fa fa-user-o"></i> {v.title}</a>
+            <I18NLink to={`/entity/${v.sharedId}`}>
+              <i className="fa fa-user-o"></i> {v.title}
+            </I18NLink>
             {i < victims.length - 1 ? ', ' : ''}
           </span>
         ))}

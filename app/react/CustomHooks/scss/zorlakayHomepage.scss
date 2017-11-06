@@ -492,3 +492,21 @@ header {
     opacity: 1;
   }
 }
+
+.mapboxgl-popup-content {
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px 35px 5px 15px !important;
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: rgba(0, 0, 0, 0.6) !important;
+  margin-bottom: 8px;
+}
+
+.mapboxgl-popup-close-button {
+  border-left: 1px solid #aaa !important;
+  height: 30px;
+}

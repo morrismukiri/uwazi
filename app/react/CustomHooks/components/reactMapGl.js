@@ -26,13 +26,12 @@ class Map extends Component {
 
     return this.state.popupInfo &&
       <Popup tipSize={6}
-        anchor="top"
+        anchor="bottom"
         longitude={popupInfo.longitude}
         latitude={popupInfo.latitude}
         onClose={() => this.setState({popupInfo: null})} >
         <div>
-          This is an Uwazi popup for {popupInfo.label}.<br />
-          There were {popupInfo.value} casualties in this area.
+          {popupInfo.label} ({popupInfo.value})
         </div>
       </Popup>
     ;

@@ -59,20 +59,6 @@ let config = {
           }
         }
       },
-      //zorlakay patch to be able to index pictures
-      {
-        string_fields: {
-          path_match: 'metadata.picture',
-          match_mapping_type: 'string',
-          mapping: {
-            type: 'string',
-            index: 'analyzed',
-            omit_norms: true,
-            analyzer: 'tokenizer'
-          }
-        }
-      },
-      //
       {
         string_fields: {
           match: '*',

@@ -9,7 +9,7 @@ import {fetchTemplateEntities} from './zorlakay/zorlakayAPI';
 import {I18NLink} from 'app/I18N';
 import '../scss/zorlakayHomepage.scss';
 
-export class ZorlakayHomepage extends Component {
+export class ZorlakayHeader extends Component {
 
   constructor(props) {
     super(props);
@@ -75,49 +75,35 @@ export class ZorlakayHomepage extends Component {
                 Amacımız zaman içinde bu çalışmanın tüm zorla kaybedilenlerin verilerini içerecek şekilde tamamlanması.</p>
             </div>
             <ul>
-              <li> <i className="fa fa-angle-right"></i> About the database</li>
-              <li> <i className="fa fa-angle-right"></i> Methodology</li>
-              <li> <i className="fa fa-angle-right"></i> How to navigate in the database</li>
-              <li> <i className="fa fa-angle-right"></i> Take Action</li>
+              <li>
+                <I18NLink to={`/page/${this.props.idConfig.get('pageAbout')}`}>
+                  <i className="fa fa-angle-right"></i> About the database
+                </I18NLink>
+              </li>
+              <li>
+                <I18NLink to={`/page/${this.props.idConfig.get('pageMethodology')}`}>
+                  <i className="fa fa-angle-right"></i> Methodology
+                </I18NLink>
+              </li>
+              <li>
+                <I18NLink to={`/page/${this.props.idConfig.get('pageHowTo')}`}>
+                  <i className="fa fa-angle-right"></i> How to navigate in the database
+                </I18NLink>
+              </li>
+              <li>
+                <I18NLink to={`/page/${this.props.idConfig.get('pageAction')}`}>
+                  <i className="fa fa-angle-right"></i> Take Action
+                </I18NLink>
+              </li>
             </ul>
           </div>
-          {
-            victims.rows.length ?
-            <VictimSlider victims={victims.rows} /> : ''
-          }
-
-          <I18NLink to={`/library/?q=(order:asc,sort:title,types:!(%27${victimsTemplate}%27))`}
-            className="btn btn-default btn-lg">
-            <i className="fa fa-angle-right"></i> All {victims.totalRows} victims
-          </I18NLink>
-
-          <TestimonialSlider testimonials={testimonials.rows} />
-
-          <a href="#" className="btn btn-default btn-lg">
-            <i className="fa fa-angle-right"></i> All videos
-          </a>
-
-          <div>
-            <HomeStats victims={victims}
-              legalProcesses={legalProcesses}
-              suspectsOnTrials={10}
-              suspectsAcquitted={123}
-              suspectsConvicted={343} />
-            <p className="stats-description">Numbers and lists are not exhaustive, they represent the current <a href="#">Verified data</a>.</p>
-          </div>
-          <VictimsMap victims={victims.rows}
-            mapboxToken={ mapboxToken }
-            latitude={ mapLatitude }
-            longitude={ mapLongitude }
-            zoom={ mapZoom } />
-
         </div>
       </div>
     );
   }
 }
 
-ZorlakayHomepage.propTypes = {
+ZorlakayHeader.propTypes = {
   idConfig: PropTypes.object,
   mapboxToken: PropTypes.string,
   mapLatitude: PropTypes.number,
@@ -129,4 +115,4 @@ const mapStateToProps = ({settings}) => ({
   idConfig: settings.collection.get('custom').get('zorlakayIds')
 });
 
-export default connect(mapStateToProps)(ZorlakayHomepage);
+export default connect(mapStateToProps)(ZorlakayHeader);

@@ -1,15 +1,16 @@
 import cejilChart001 from './components/cejilChart001';
 import cejilHero from './components/cejilHero';
-import zorlakayHome from './components/zorlakayHome';
-import zorlakayGraphics from './components/zorlakayGraphics';
 import reactMapGl from './components/reactMapGl';
-import zorlakayHomepage from './components/zorlakayHomepage';
+
+import zorlakayGraphics from './components/zorlakayGraphics';
+import ZorlakayHeader from './components/ZorlakayHeader';
+import ZorlakayVictimsMap from './components/zorlakay/VictimsMap';
 
 export default {
   cejilChart001,
   cejilHero,
-  zorlakayHome,
   reactMapGl,
-  zorlakayHomepage,
-  zorlakayGraphics
+  ZorlakayHeader,
+  zorlakayGraphics,
+  ZorlakayVictimsMap
 };

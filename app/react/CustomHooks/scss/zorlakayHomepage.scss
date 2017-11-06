@@ -328,44 +328,7 @@ header {
     border-radius: 0px;
   }  
   
-  .stats {
-    display: flex;
-    align-items: flex-end;
-    list-style: none;
-    padding: 0;
-    margin: 30px 0;
-    
-    li {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-    }
-    
-    b {
-      font-size: 50px;
-      font-weight: 200;
-      display: block;
-      padding: 10px;
-      margin-bottom: 5px;
-      width: 99%;
-    }
-  }
   
-  .stats-description {
-    text-align: center;
-    margin-bottom: 45px;
-    font-style: italic;
-    
-    a {
-      border-bottom: 1px dotted #2b56c1;
-      text-decoration: none !important;
-    }
-  }
   .map {
     position: relative;
     display: flex;
@@ -463,4 +426,46 @@ header {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   width: 100%;
+}
+
+// zorlakay stats
+.zorlakay-stats {
+  ul {
+    display: flex;
+    align-items: flex-end;
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+  }
+
+  li {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  b {
+    font-size: 50px;
+    font-weight: 200;
+    display: block;
+    padding: 10px;
+    margin-bottom: 5px;
+    width: 99%;
+  }
+
+  .stats-description {
+    text-align: center;
+    margin-bottom: 45px;
+    font-style: italic;
+
+    a {
+      border-bottom: 1px dotted #2b56c1;
+      text-decoration: none !important;
+    }
+  }
 }

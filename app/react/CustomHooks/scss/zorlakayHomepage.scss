@@ -85,16 +85,24 @@ header {
     .fa {
       margin-right: 15px;
       font-weight: bold;
-      color: #c57e57;
-      margin-right: 15px;
-      font-weight: bold;
-      color: #c57e57;
-      border: 1px solid;
+      border: 1px solid #ccc;
       height: 30px;
       line-height: 28px;
       width: 30px;
       padding-left: 1px;
       text-align: center;
+    }
+    a {
+      display: block;
+      color: #444;
+      text-decoration: none !important;
+    }
+    a:hover {
+      color: #000;
+    }
+    a:hover .fa {
+      background: #eee;
+      cursor: pointer;
     }
   }
   

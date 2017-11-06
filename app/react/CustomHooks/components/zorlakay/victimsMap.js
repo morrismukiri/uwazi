@@ -52,7 +52,7 @@ export class VictimsMap extends Component {
     const filteredVictims = this.state.filteredVictims || victims;
     const markers = this.getMarkers(filteredVictims);
     return (
-      <div className='map'>
+      <div className='zorlakay-map'>
         <Map mapboxToken={this.props.mapboxToken}
           markers={markers}
           {...this.props} />

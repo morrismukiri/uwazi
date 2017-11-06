@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import ReactMapGL, {NavigationControl, Marker, Popup} from 'react-map-gl';
 
 function getWidth() {
-  return 400;
+  return 900 - 265;
 }
 
 class Map extends Component {
@@ -12,7 +12,7 @@ class Map extends Component {
     this.state = {
       viewport: {
         width: getWidth(),
-        height: 400
+        height: 530
       },
       popupInfo: null,
       customMarkers: [
@@ -50,7 +50,7 @@ class Map extends Component {
     };
     const defaultViewport = {
       width: getWidth(),
-      height: 400,
+      height: 530,
       latitude: 35,
       longitude: 39,
       zoom: 8,
@@ -73,7 +73,7 @@ class Map extends Component {
     const viewport = Object.assign({}, this.state.viewport);
     const markers = this.props.markers || this.state.customMarkers;
     return (
-      <div style={{marginBottom: '15px'}}>
+      <div>
         <ReactMapGL
           {...viewport}
           dragRotate={true}
@@ -81,13 +81,12 @@ class Map extends Component {
           mapStyle="mapbox://styles/mapbox/bright-v9"
           mapboxApiAccessToken={this.props.mapboxToken}
         >
-          <div style={{position: 'absolute', right: 5, top: 5}}>
+          <div style={{position: 'absolute', left: 5, top: 5}}>
             <NavigationControl onViewportChange={this.onViewportChange.bind(this)} />
           </div>
           {markers.map((marker, index) =>
-            <Marker {...marker} key={index} offsetLeft={-16.71} offsetTop={-24}>
-              <i style={{fontSize: '26px', color: '#00f', opacity: 0.6, cursor: 'pointer'}}
-                 className="fa fa-map-marker fa-fw"
+            <Marker {...marker} key={index} offsetLeft={0} offsetTop={0}>
+              <i className="map-marker"
                  onClick={() => this.setState({popupInfo: marker})}></i>
             </Marker>
           )}

@@ -433,7 +433,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin: 0 -245px;
+  box-shadow: 0 0 0 1px #dedede;
+  
+
   .img-map {
     background-image: url('/public/zorlakay-map.png');
     background-size: cover;
@@ -444,16 +446,18 @@ header {
   }
   .filters {
     display: block;
-    margin: -30px 30px;
+    width: 265px;
+    margin: 0;
+    padding: 0;
     z-index: 1;
   }
   .search__filter {
     background: white;
     border: none;
-    box-shadow: 0px 5px 10px -5px rgba(108, 108, 123, 0.1);
-    height: 260px;
+    height: 265px;
+    width: 265px;
     padding: 15px 15px 15px 25px;
-    border: 1px solid #dedede;
+    border-left: 1px solid #dedede;
   }
   .form-group {
     margin: 0;
@@ -467,6 +471,24 @@ header {
     color: black;
   }
   .search__filter:not(:last-of-type) {
-    margin-bottom: 15px;
+    border-bottom: 1px solid #dedede;
+  }
+}
+
+.map-marker {
+  display: block;
+  border-radius: 50%;
+  // mix-blend-mode: multiply;
+  // opacity: 0.3;
+  cursor: pointer;
+  background-color: #ff9900;
+  // box-shadow: 0 0 0 5px rgba(255, 153, 0, 0.7);
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  margin-top: -8px;
+
+  &:hover {
+    opacity: 1;
   }
 }

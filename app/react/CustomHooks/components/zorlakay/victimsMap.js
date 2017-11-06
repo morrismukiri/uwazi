@@ -1,12 +1,22 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import Map from '../reactMapGl';
 import Filters from './victimMapFilters';
+import {fetchTemplateEntities} from './zorlakayAPI';
 
-export default class VictimsMap extends Component {
+export class VictimsMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filteredVictims: null
+      filteredVictims: null,
+      victims: {
+        aggregations: {
+          all: {}
+        },
+        totalRows: 0,
+        rows: []
+      }
     };
     this.onFilter = this.onFilter.bind(this);
   }
@@ -25,19 +35,44 @@ export default class VictimsMap extends Component {
     });
   }
 
+  getData() {
+    const {idConfig} = this.props;
+    fetchTemplateEntities(idConfig.get('templateVictim'), {limit: 300})
+    .then((victims) => {
+      this.setState({victims});
+    });
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
   render() {
-    //console.log(this.props);
-    const victims = [];
+    const victims = this.state.victims.rows;
     const filteredVictims = this.state.filteredVictims || victims;
     const markers = this.getMarkers(filteredVictims);
     return (
       <div className='map'>
         <Map mapboxToken={this.props.mapboxToken}
           markers={markers}
-          { ...this.props } />
+          {...this.props} />
         <Filters victims={victims}
-          onFilter={ this.onFilter }/>
+          onFilter={this.onFilter}/>
       </div>
     );
   }
 }
+
+VictimsMap.propTypes = {
+  idConfig: PropTypes.object,
+  mapboxToken: PropTypes.string,
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
+  zoom: PropTypes.number
+};
+
+const mapStateToProps = ({settings}) => ({
+  idConfig: settings.collection.get('custom').get('zorlakayIds')
+});
+
+export default connect(mapStateToProps)(VictimsMap);

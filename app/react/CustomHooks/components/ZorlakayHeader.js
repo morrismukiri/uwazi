@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import HomeStats from './zorlakay/homeStats';
-import VictimSlider from './zorlakay/victimSlider';
-import TestimonialSlider from './zorlakay/testimonialSlider';
-import VictimsMap from './zorlakay/victimsMap';
-import {fetchTemplateEntities} from './zorlakay/zorlakayAPI';
 import {I18NLink} from 'app/I18N';
 import '../scss/zorlakayHomepage.scss';
 
@@ -38,26 +33,7 @@ export class ZorlakayHeader extends Component {
     };
   }
 
-  getData() {
-    const {idConfig} = this.props;
-    Promise.all([
-      fetchTemplateEntities(idConfig.get('templateVictim'), {limit: 300}),
-      fetchTemplateEntities(idConfig.get('templateEvent'), {sort: 'metadata.video', limit: 20}),
-      fetchTemplateEntities(idConfig.get('templateLegalProcess'), {limit: 10})
-    ])
-    .then(([victims, testimonials, legalProcesses]) => {
-      this.setState({victims, testimonials, legalProcesses});
-    });
-  }
-
-  componentDidMount() {
-    this.getData();
-  }
-
   render() {
-    const {victims, testimonials, legalProcesses} = this.state;
-    const {mapboxToken, mapLatitude, mapLongitude, mapZoom} = this.props;
-    const victimsTemplate = this.props.idConfig.get('templateVictim');
     return (
       <div className="zorlakay-homepage">
         <div className="hero-img">

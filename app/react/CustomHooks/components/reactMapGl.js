@@ -70,14 +70,16 @@ class Map extends Component {
 
   markerClassName(marker) {
     if (marker.size > 20) {
-      return 'marker-high';
+      return 'map-marker-high';
     }
 
     if (marker.size > 10) {
-      return 'marker-medium';
+      return 'map-marker-medium';
     }
 
-    return 'marker-low';
+    if (marker.size > 1) {
+      return 'map-marker-low';
+    }
   }
 
   render() {
@@ -97,7 +99,7 @@ class Map extends Component {
           </div>
           {markers.map((marker, index) =>
             <Marker {...marker} key={index} offsetLeft={0} offsetTop={0}>
-              <i className={'map-marker ' + this.markerClassName(marker) + ' marker-' + marker.size}
+              <i className={'map-marker ' + this.markerClassName(marker)}
                  onClick={() => this.setState({popupInfo: marker})}></i>
             </Marker>
           )}

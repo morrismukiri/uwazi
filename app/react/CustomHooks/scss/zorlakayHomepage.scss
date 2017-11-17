@@ -484,23 +484,6 @@ header {
   }
 }
 
-.map-marker {
-  display: block;
-  border-radius: 50%;
-  // mix-blend-mode: multiply;
-  // opacity: 0.3;
-  cursor: pointer;
-  background-color: #ff9900;
-  // box-shadow: 0 0 0 5px rgba(255, 153, 0, 0.7);
-  width: 16px;
-  height: 16px;
-  margin-left: -8px;
-  margin-top: -8px;
-
-  &:hover {
-    opacity: 1;
-  }
-}
 
 .mapboxgl-popup-content {
   background: rgba(0, 0, 0, 0.6) !important;
@@ -522,4 +505,39 @@ header {
 
 .mapboxgl-ctrl-compass {
   display: none;
+}
+
+.map-marker {
+  display: block;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  opacity: 0.7;
+  cursor: pointer;
+  background-color: transparentize(#ff9900, 0.6);
+  box-shadow: 0 0 0 5px transparentize(#ff9900, 0.6);
+  width: 16px;
+  height: 16px;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.map-marker-low {
+  width: 26px;
+  height: 26px;
+}
+
+.map-marker-medium {
+  width: 36px;
+  height: 36px;
+  background-color: transparentize(#ff6600, 0.6);
+  box-shadow: 0 0 0 5px transparentize(#ff6600, 0.6);
+}
+
+.map-marker-high {
+  width: 46px;
+  height: 46px;
+  background-color: transparentize(#ff0000, 0.6);
+  box-shadow: 0 0 0 5px transparentize(#ff0000, 0.6);
 }

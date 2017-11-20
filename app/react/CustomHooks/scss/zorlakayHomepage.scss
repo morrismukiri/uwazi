@@ -518,7 +518,8 @@ header {
   mix-blend-mode: multiply;
   opacity: 0.7;
   cursor: pointer;
-  background-color: transparentize(#ff9900, 0.4);
+  background-color: #ff9900;
+  box-shadow: 0 0 0 5px transparentize(#ff9900, 0.3);
   width: $size;
   height: $size;
   margin-top: -$size/2;
@@ -543,7 +544,8 @@ header {
   height: $size;
   margin-top: -$size/2;
   margin-left: -$size/2;
-  background-color: transparentize(#ff6600, 0.2);
+  background-color: #ff6600;
+  box-shadow: 0 0 0 5px transparentize(#ff6600, 0.3);
 }
 
 .map-marker-high {
@@ -552,5 +554,6 @@ header {
   height: $size;
   margin-top: -$size/2;
   margin-left: -$size/2;
-  background-color: transparentize(#ff0000, 0);
+  background-color: #ff0000;
+  box-shadow: 0 0 0 5px transparentize(#ff0000, 0.3);
 }

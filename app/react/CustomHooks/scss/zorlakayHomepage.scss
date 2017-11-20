@@ -493,6 +493,8 @@ header {
   padding: 5px 35px 5px 15px !important;
 }
 
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip,
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
   border-top-color: rgba(0, 0, 0, 0.6) !important;
   margin-bottom: 8px;

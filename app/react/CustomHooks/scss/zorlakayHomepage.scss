@@ -508,15 +508,19 @@ header {
 }
 
 .map-marker {
+
+  $size: 16px;
+
   display: block;
   border-radius: 50%;
   mix-blend-mode: multiply;
   opacity: 0.7;
   cursor: pointer;
-  background-color: transparentize(#ff9900, 0.6);
-  box-shadow: 0 0 0 5px transparentize(#ff9900, 0.6);
-  width: 16px;
-  height: 16px;
+  background-color: transparentize(#ff9900, 0.4);
+  width: $size;
+  height: $size;
+  margin-top: -$size/2;
+  margin-left: -$size/2;
 
   &:hover {
     opacity: 1;
@@ -524,20 +528,27 @@ header {
 }
 
 .map-marker-low {
-  width: 26px;
-  height: 26px;
+  $size: 26px;
+  width: $size;
+  height: $size;
+  margin-top: -$size/2;
+  margin-left: -$size/2;
 }
 
 .map-marker-medium {
-  width: 36px;
-  height: 36px;
-  background-color: transparentize(#ff6600, 0.6);
-  box-shadow: 0 0 0 5px transparentize(#ff6600, 0.6);
+  $size: 36px;
+  width: $size;
+  height: $size;
+  margin-top: -$size/2;
+  margin-left: -$size/2;
+  background-color: transparentize(#ff6600, 0.2);
 }
 
 .map-marker-high {
-  width: 46px;
-  height: 46px;
-  background-color: transparentize(#ff0000, 0.6);
-  box-shadow: 0 0 0 5px transparentize(#ff0000, 0.6);
+  $size: 46px;
+  width: $size;
+  height: $size;
+  margin-top: -$size/2;
+  margin-left: -$size/2;
+  background-color: transparentize(#ff0000, 0);
 }

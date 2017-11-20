@@ -1,7 +1,11 @@
-.logotype img {
-  height: $header-height - 6px;
-  position: relative;
-  top: -2px;
+.logotype a {
+  background-image: url('/public/tom_lantos/minority-forum-logo-white.png');
+  background-repeat: no-repeat;
+  background-position: center 4px;
+  background-size: 115px 45px;
+  width: 120px;
+  text-indent: -9999px;
+  overflow: hidden;
 }
 
 .footer-nav_item {

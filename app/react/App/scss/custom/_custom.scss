@@ -1,0 +1,22 @@
+.logotype img {
+  height: $header-height - 6px;
+  position: relative;
+  top: -2px;
+}
+
+.footer-nav_item {
+  height: 70px;
+  line-height: 70px;
+}
+
+.footer-collection_name {
+  width: 130px;
+  background-image: url('/public/tom_lantos/tom_lantos_logo_grey_en.png');
+  background-repeat: no-repeat;
+  background-position: center 4px;
+  background-size: 115px 65px;
+
+  span {
+    display: none;
+  }
+}

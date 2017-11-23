@@ -508,17 +508,20 @@ header {
   display: none;
 }
 
+.mapboxgl-marker {
+  mix-blend-mode: multiply;
+}
+
 .map-marker {
 
   $size: 16px;
 
   display: block;
   border-radius: 50%;
-  mix-blend-mode: multiply;
   opacity: 0.7;
   cursor: pointer;
   background-color: #ff9900;
-  box-shadow: 0 0 0 5px transparentize(#ff9900, 0.3);
+  box-shadow: 0 0 0 3px transparentize(#ff9900, 0.6);
   width: $size;
   height: $size;
   margin-top: -$size/2;
@@ -544,7 +547,7 @@ header {
   margin-top: -$size/2;
   margin-left: -$size/2;
   background-color: #ff6600;
-  box-shadow: 0 0 0 5px transparentize(#ff6600, 0.3);
+  box-shadow: 0 0 0 3px transparentize(#ff6600, 0.6);
 }
 
 .map-marker-high {
@@ -554,5 +557,5 @@ header {
   margin-top: -$size/2;
   margin-left: -$size/2;
   background-color: #ff0000;
-  box-shadow: 0 0 0 5px transparentize(#ff0000, 0.3);
+  box-shadow: 0 0 0 3px transparentize(#ff0000, 0.6);
 }

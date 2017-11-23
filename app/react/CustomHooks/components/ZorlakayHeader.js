@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {I18NLink} from 'app/I18N';
-import '../scss/zorlakayHomepage.scss';
 
 export class ZorlakayHeader extends Component {
 

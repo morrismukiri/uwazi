@@ -22,11 +22,25 @@ export class VictimsMap extends Component {
   }
 
   getMarkers(victims) {
-    return victims ? victims.map((v) => ({
-      longitude: v.metadata.longitude,
-      latitude: v.metadata.latitiude,
-      label: v.title
-    })) : [];
+    if (!victims) {
+      return [];
+    }
+    const clusters = {};
+
+    victims.forEach((v) => {
+      if (!clusters[v.metadata.longitude + '' + v.metadata.latitiude]) {
+        clusters[v.metadata.longitude + '' + v.metadata.latitiude] = {
+          latitude: v.metadata.latitiude,
+          longitude: v.metadata.longitude,
+          size: 1
+        };
+        return;
+      }
+
+      clusters[v.metadata.longitude + '' + v.metadata.latitiude].size += 1;
+    });
+
+    return Object.keys(clusters).map((k) => clusters[k]);
   }
 
   onFilter(filteredVictims) {
@@ -65,14 +79,16 @@ export class VictimsMap extends Component {
 
 VictimsMap.propTypes = {
   idConfig: PropTypes.object,
+  thesauris: PropTypes.object,
   mapboxToken: PropTypes.string,
   latitude: PropTypes.number,
   longitude: PropTypes.number,
   zoom: PropTypes.number
 };
 
-const mapStateToProps = ({settings}) => ({
-  idConfig: settings.collection.get('custom').get('zorlakayIds')
+const mapStateToProps = ({settings, thesauris}) => ({
+  idConfig: settings.collection.get('custom').get('zorlakayIds'),
+  thesauris
 });
 
 export default connect(mapStateToProps)(VictimsMap);

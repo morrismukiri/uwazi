@@ -31,7 +31,7 @@ class Map extends Component {
         latitude={popupInfo.latitude}
         onClose={() => this.setState({popupInfo: null})} >
         <div>
-          {popupInfo.label} ({popupInfo.value})
+          {popupInfo.size}
         </div>
       </Popup>
     ;
@@ -59,13 +59,27 @@ class Map extends Component {
       //]
     };
 
-    const { latitude, longitude, zoom } = this.props;
-    const viewport = Object.assign({}, defaultViewport, { latitude, longitude, zoom});
-    this.setState({ viewport });
+    const {latitude, longitude, zoom} = this.props;
+    const viewport = Object.assign({}, defaultViewport, {latitude, longitude, zoom});
+    this.setState({viewport});
   }
 
   componentWillUnmount() {
     window.onresize = null;
+  }
+
+  markerClassName(marker) {
+    if (marker.size > 20) {
+      return 'map-marker-high';
+    }
+
+    if (marker.size > 10) {
+      return 'map-marker-medium';
+    }
+
+    if (marker.size > 1) {
+      return 'map-marker-low';
+    }
   }
 
   render() {
@@ -85,7 +99,7 @@ class Map extends Component {
           </div>
           {markers.map((marker, index) =>
             <Marker {...marker} key={index} offsetLeft={0} offsetTop={0}>
-              <i className="map-marker"
+              <i className={'map-marker ' + this.markerClassName(marker)}
                  onClick={() => this.setState({popupInfo: marker})}></i>
             </Marker>
           )}

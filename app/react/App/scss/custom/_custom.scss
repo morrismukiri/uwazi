@@ -1,0 +1,290 @@
+// header
+
+.logo {
+    height: 40px;
+    position: relative;
+    top: -2px;
+}
+
+
+// footer
+
+.footer-collection_name {
+    width: 145px;
+    height: 35px;
+    background-image: url(/public/zorlakay-logo.png);
+    background-repeat: no-repeat;
+    background-position: center 0;
+    background-size: 125px 35px;
+    
+    span {
+        display: none;
+    }
+}
+
+
+// zorlakay custom components
+
+.zorlakay-homepage {  
+    max-width: none !important;
+
+    .hero-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 300px;
+        background-image: url('/public/zorlakay-hero.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0 -15px;
+        color: white;
+        
+        b {
+            font-size: 24px;
+            letter-spacing: 0.1em;
+            border-right: 2px solid #86b004;
+            margin-right: 30px;
+            padding-right: 30px;
+        }
+    }
+
+    .introduction {
+    margin: 60px 0;
+    display: flex;
+
+        p {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+        ul {
+            list-style: none;
+        }
+        li {
+            white-space: nowrap;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 300;
+        }
+        li:first-of-type {
+            padding-top: 0;
+        }
+        li:last-of-type {
+            padding-bottom: 0;
+        }
+        li:not(:last-of-type) {
+            border-bottom: 1px solid #eaeaea;
+        }
+        .fa {
+            margin-right: 15px;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            height: 30px;
+            line-height: 28px;
+            width: 30px;
+            padding-left: 1px;
+            text-align: center;
+        }
+        a {
+            display: block;
+            color: #444;
+            text-decoration: none !important;
+        }
+        a:hover {
+            color: #000;
+        }
+        a:hover .fa {
+            background: #eee;
+            cursor: pointer;
+        }
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    h2 {
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            font-weight: 200;
+            letter-spacing: 0.05em;
+            padding: 5px;
+        }
+
+        .slider-btn {
+            margin-left: 10px;
+            border: 1px solid #bbb;
+            width: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .fa-angle-right {
+            padding-left: 3px;
+        }
+    }  
+}
+
+.zorlakay-stats {
+    ul {
+        display: flex;
+        align-items: flex-end;
+        list-style: none;
+        padding: 0;
+        margin: 30px 0;
+    }
+
+    li {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+    }
+
+    b {
+        font-size: 50px;
+        font-weight: 200;
+        display: block;
+        padding: 10px;
+        margin-bottom: 5px;
+        width: 99%;
+    }
+
+    .stats-description {
+        text-align: center;
+        margin-bottom: 45px;
+        font-style: italic;
+
+        a {
+            border-bottom: 1px dotted $c-primary;
+            text-decoration: none !important;
+        }
+    }
+}
+
+// this will fix the show more filters scrollbar
+.zorlakay-homepage .multiselect {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 200px;
+  }
+
+.zorlakay-map {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-shadow: 0 0 0 1px $c-grey-light;
+
+    .filters {
+        display: block;
+        width: 265px;
+        margin: 0;
+        padding: 0;
+        z-index: 1;
+    }
+    .search__filter {
+        background: $c-white;
+        border: none;
+        height: 265px;
+        width: 265px;
+        padding: 15px 15px 15px 25px;
+        border-left: 1px solid $c-grey-light;
+        overflow-y: auto;
+    }
+    .form-group {
+        margin: 0;
+    }
+    .search__filter > li:first-child {
+        font-family: "Roboto";
+        font-weight: 200;
+        font-size: 20px;
+        letter-spacing: 0.1em;
+        margin-bottom: 10px;
+        color: $c-black;
+    }
+    .search__filter:not(:last-of-type) {
+        border-bottom: 1px solid $c-grey-light;
+    }
+}
+
+
+.mapboxgl-popup-content {
+    background: transparentize($c-black, 0.4) !important;
+    color: $c-white;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px 35px 5px 15px !important;
+}
+
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+    border-top-color: transparentize($c-black, 0.4) !important;
+    margin-bottom: 8px;
+}
+
+.mapboxgl-popup-close-button {
+    border-left: 1px solid $c-grey !important;
+    height: 30px;
+}
+
+.mapboxgl-ctrl-compass {
+    display: none;
+}
+
+.mapboxgl-marker {
+    mix-blend-mode: multiply;
+}
+
+.map-marker {
+    $size: 16px;
+    display: block;
+    width: $size;
+    height: $size;
+    margin-top: -$size/2;
+    margin-left: -$size/2;
+    background-color: #ff9900;
+    box-shadow: 0 0 0 3px transparentize(#ff9900, 0.6);
+    border-radius: 50%;
+    opacity: 0.7;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.map-marker-low {
+    $size: 26px;
+    width: $size;
+    height: $size;
+    margin-top: -$size/2;
+    margin-left: -$size/2;
+}
+
+.map-marker-medium {
+    $size: 36px;
+    width: $size;
+    height: $size;
+    margin-top: -$size/2;
+    margin-left: -$size/2;
+    background-color: #ff6600;
+    box-shadow: 0 0 0 3px transparentize(#ff6600, 0.6);
+}
+
+.map-marker-high {
+    $size: 46px;
+    width: $size;
+    height: $size;
+    margin-top: -$size/2;
+    margin-left: -$size/2;
+    background-color: #ff0000;
+    box-shadow: 0 0 0 3px transparentize(#ff0000, 0.6);
+}

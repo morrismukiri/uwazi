@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import '../scss/zorlakayHomepage.scss';
 
 export class zorlakayHomepage extends Component {
 

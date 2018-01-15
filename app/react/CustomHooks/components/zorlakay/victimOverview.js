@@ -51,7 +51,7 @@ class VictimOverview extends Component {
     const status = getThesauriItemLabel(thesauris, idConfig.get('thesauriStatusAsVictim'), 
       data.status_of_the_victim_at_the_end_of_act);
     const occupation = formatOccupationsAsString(thesauris, data.local_term_for_occupation, idConfig);
-    const location = formatCitiesAsString(thesauris, data.place_of_the_event, idConfig);
+    const location = formatCitiesAsString(thesauris, data.city, idConfig);
     const date = data.initial_date ? formatDate(data.initial_date) : 'Unknown';
     const image = data.picture ? extractImageDataUrlFromMarkdown(data.picture) :
       '/public/team-placeholder.jpg';

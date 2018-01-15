@@ -77,7 +77,7 @@ export default class FilterHub extends Component {
     renderFilter (filter, data) {
         const { title, getValue, field } = filter;
         const values = field in this.state.currentFilters?
-            this.state.currentFilters[field].values : []
+            this.state.currentFilters[field].values : [];
         const options = this.computeAggregations(data, field, getValue);
         return (
             <MapFilter

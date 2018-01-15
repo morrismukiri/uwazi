@@ -25,7 +25,7 @@ ColoredBar.propTypes = {
 class VictimBarChart extends Component {
   render() {
     const {data, thesauris, idConfig} = this.props;
-    const facets = getFacetBuckets(data, 'place_of_the_event');
+    const facets = getFacetBuckets(data, 'city');
     const citiesThesauri = idConfig.get('thesauriLocalGeographicalArea');
     const formatted = facets.map(({key, doc_count}) => {
       const name = getThesauriItemLabel(thesauris, citiesThesauri, key);

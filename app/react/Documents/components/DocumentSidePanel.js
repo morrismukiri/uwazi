@@ -9,6 +9,7 @@ import {browserHistory} from 'react-router';
 import AttachmentsList from 'app/Attachments/components/AttachmentsList';
 import {Tabs, TabLink, TabContent} from 'react-tabs-redux';
 import Connections from 'app/Viewer/components/ConnectionsList';
+import {ConnectionsGroups} from 'app/ConnectionsList';
 import ShowIf from 'app/App/ShowIf';
 import {NeedAuthorization} from 'app/Auth';
 import ShowToc from './ShowToc';
@@ -24,15 +25,6 @@ const selectReferences = createSelector(
   (refs) => {
     return refs.filter(r => {
       return typeof r.get('range').get('start') !== 'undefined';
-    });
-  }
-);
-
-const selectConnections = createSelector(
-  s => s.references,
-  (refs) => {
-    return refs.filter(r => {
-      return typeof r.get('range').get('start') === 'undefined';
     });
   }
 );
@@ -88,13 +80,12 @@ export class DocumentSidePanel extends Component {
   }
 
   render() {
-    const {doc, docBeingEdited, DocumentForm, readOnly, references, connections, EntityForm} = this.props;
+    const {doc, docBeingEdited, DocumentForm, readOnly, references, EntityForm, connectionsGroups} = this.props;
     const TocForm = this.props.tocFormComponent;
 
     const docAttachments = doc.get('attachments') ? doc.get('attachments').toJS() : [];
     const docFile = Object.assign({}, doc.get('file') ? doc.get('file').toJS() : {});
     const attachments = doc.get('file') ? [docFile].concat(docAttachments) : docAttachments;
-    const startNewConnection = readOnly ? () => {} : this.props.startNewConnection.bind(null, 'basic', doc.get('sharedId'));
 
     const docType = this.props.doc.get('type');
 
@@ -102,6 +93,14 @@ export class DocumentSidePanel extends Component {
     if (docType === 'entity' && (tab === 'references' || tab === 'toc')) {
       tab = 'metadata';
     }
+
+    // TEST!!! Duplicated code from EntityViewer, check if it merits an abstraction
+    const summary = connectionsGroups.reduce((summaryData, g) => {
+      g.get('templates').forEach(template => {
+        summaryData.totalConnections += template.get('count');
+      });
+      return summaryData;
+    }, {totalConnections: 0});
 
     return (
       <SidePanel open={this.props.open} className="metadata-sidepanel">
@@ -156,7 +155,7 @@ export class DocumentSidePanel extends Component {
               <li>
                 <TabLink to="connections">
                   <i className="fa fa-exchange"></i>
-                  <span className="connectionsNumber">{connections.size}</span>
+                  <span className="connectionsNumber">{summary.totalConnections}</span>
                   <span className="tab-link-tooltip">{t('System', 'Connections')}</span>
                 </TabLink>
               </li>
@@ -193,18 +192,6 @@ export class DocumentSidePanel extends Component {
               <button onClick={() => this.props.editToc(this.props.doc.get('toc').toJS() || [])} className="edit-toc btn btn-success">
                 <i className="fa fa-pencil"></i>
                 <span className="btn-label">Edit</span>
-              </button>
-            </div>
-          </ShowIf>
-        </NeedAuthorization>
-
-        <NeedAuthorization roles={['admin', 'editor']}>
-          <ShowIf if={this.props.tab === 'connections' && !this.props.isTargetDoc && !readOnly && this.props.hasRelationTypes}>
-            <div className="sidepanel-footer">
-              <button onClick={startNewConnection}
-                className="create-connection btn btn-success">
-                <i className="fa fa-plus"></i>
-                <span className="btn-label">New</span>
               </button>
             </div>
           </ShowIf>
@@ -261,10 +248,7 @@ export class DocumentSidePanel extends Component {
               />
             </TabContent>
             <TabContent for="connections">
-              <Connections references={connections}
-                readOnly={readOnly}
-                referencesSection="connections"
-                useSourceTargetIcons={false} />
+              <ConnectionsGroups />
             </TabContent>
           </Tabs>
         </div>
@@ -294,7 +278,7 @@ DocumentSidePanel.propTypes = {
   deleteDocument: PropTypes.func,
   resetForm: PropTypes.func,
   references: PropTypes.object,
-  connections: PropTypes.object,
+  connectionsGroups: PropTypes.object,
   tocFormState: PropTypes.object,
   tocForm: PropTypes.array,
   saveToc: PropTypes.func,
@@ -321,7 +305,8 @@ DocumentSidePanel.defaultProps = {
 export const mapStateToProps = (state, ownProps) => {
   return {
     references: selectReferences(ownProps),
-    connections: selectConnections(ownProps),
+    // TEST!!!!
+    connectionsGroups: state.relationships.list.connectionsGroups,
     hasRelationTypes: !!state.relationTypes.size
   };
 };

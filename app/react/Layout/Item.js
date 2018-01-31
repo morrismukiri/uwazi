@@ -142,7 +142,7 @@ export class Item extends Component {
       templateClassName, buttons, evalPublished} = this.props;
 
     const doc = this.props.doc.toJS();
-    const snippet = additionalText ? <div className="item-snippet">{additionalText}</div> : '';
+    const Snippet = additionalText ? <div className="item-snippet-wrapper"><div className="item-snippet">{additionalText}</div></div> : null;
     const metadataElements = this.getMetadata(doc);
     const metadata = metadataElements.length ? <div className="item-metadata">{metadataElements}</div> : '';
 
@@ -161,8 +161,8 @@ export class Item extends Component {
             <Icon className="item-icon item-icon-center" data={doc.icon} />
             <span>{doc[this.props.titleProperty]}</span>
             <DocumentLanguage doc={this.props.doc} />
-            {snippet}
           </div>
+          {Snippet}
           {this.getSearchSnipett(doc)}
         </div>
         {metadata}

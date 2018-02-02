@@ -57,9 +57,7 @@ db.once('open', function () {
       console.log(error);
       return;
     }
-    mongoose.connection.db.dropDatabase(function () {
-      jasmine.execute();
-    });
+    jasmine.execute();
   })
   .stdout.pipe(process.stdout);
 });

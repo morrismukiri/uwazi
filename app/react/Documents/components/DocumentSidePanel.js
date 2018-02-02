@@ -71,7 +71,8 @@ export class DocumentSidePanel extends Component {
   }
 
   render() {
-    const {doc, docBeingEdited, DocumentForm, readOnly, references, EntityForm, connectionsGroups, isTargetDoc} = this.props;
+    const {doc, docBeingEdited, DocumentForm, readOnly, references, EntityForm,
+           connectionsGroups, isTargetDoc, excludeConnectionsTab} = this.props;
     const TocForm = this.props.tocFormComponent;
 
     const docAttachments = doc.get('attachments') ? doc.get('attachments').toJS() : [];
@@ -144,7 +145,7 @@ export class DocumentSidePanel extends Component {
                 </TabLink>
               </li>
               {(() => {
-                if (!isTargetDoc) {
+                if (!isTargetDoc && !excludeConnectionsTab) {
                   return <li>
                           <TabLink to="connections">
                             <i className="fa fa-exchange"></i>
@@ -285,6 +286,7 @@ DocumentSidePanel.propTypes = {
   isTargetDoc: PropTypes.bool,
   readOnly: PropTypes.bool,
   hasRelationTypes: PropTypes.bool,
+  excludeConnectionsTab: PropTypes.bool,
   storeKey: PropTypes.string
 };
 
@@ -297,12 +299,13 @@ DocumentSidePanel.defaultProps = {
   EntityForm: () => false
 };
 
-export const mapStateToProps = (state) => {
+export const mapStateToProps = (state, ownProps) => {
+  const isTargetDoc = state.documentViewer.targetDoc.get('_id');
+  const relevantReferences = isTargetDoc ? viewerModule.selectors.selectTargetReferences(state) : viewerModule.selectors.selectReferences(state);
+  const references = ownProps.references ? viewerModule.selectors.parseReferences(ownProps.doc, ownProps.references) : relevantReferences;
   return {
-    // TEST!!!!
-    references: state.documentViewer.targetDoc.get('_id') ?
-                viewerModule.selectors.selectTargetReferences(state) : viewerModule.selectors.selectReferences(state),
-    // TEST!!!!
+    references,
+    excludeConnectionsTab: Boolean(ownProps.references),
     connectionsGroups: state.relationships.list.connectionsGroups,
     hasRelationTypes: !!state.relationTypes.size
   };

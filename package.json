@@ -20,6 +20,17 @@
     "start": "node server",
     "build": "NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors"
   },
+  "jest": {
+    "testMatch": [
+      "**/react/**/evidences/**/specs/*spec.js?(x)",
+      "**/react/**/Thesauris/**/specs/*spec.js?(x)",
+      "**/react/**/Templates/**/specs/*spec.js?(x)"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js",
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "identity-obj-proxy"
+    }
+  },
   "dependencies": {
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
@@ -130,6 +141,7 @@
     "eslint-plugin-react": "7.3.0",
     "fetch-mock": "5.9.3",
     "file-loader": "^0.8.4",
+    "identity-obj-proxy": "^3.0.0",
     "img-loader": "^1.2.2",
     "istanbul-instrumenter-loader": "^1.2.0",
     "jasmine": "^2.5.2",
@@ -164,6 +176,8 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "3.5.5",
-    "whatwg-fetch": "^0.10.1"
+    "whatwg-fetch": "^0.10.1",
+    "babel-jest": "^22.1.0",
+    "jest": "^22.1.4"
   }
 }

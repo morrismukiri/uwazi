@@ -10,7 +10,8 @@ const loadingProgressBar = {
 
   start: () => {
     if (isClient && window.NProgress) {
-      window.NProgress.configure({showSpinner: false, easing: 'ease', speed: 800, parent: '.app-content', minimum: 0.2});
+      window.NProgress.configure({showSpinner: false, easing: 'ease', speed: 800, minimum: 0.2});
+      //window.NProgress.configure({showSpinner: false, easing: 'ease', speed: 800, parent: '.app-content', minimum: 0.2});
       window.NProgress.start();
       loadingProgressBar.requests += 1;
     }

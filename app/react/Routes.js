@@ -47,7 +47,7 @@ import EditTranslations from 'app/I18N/EditTranslations';
 import Library from 'app/Library/Library';
 import EvidencesRoute from 'app/evidences/EvidencesRoute';
 
-import store from './store';
+import {store} from './store';
 import {trackPage} from 'app/App/GoogleAnalytics';
 
 function onEnter() {
@@ -58,7 +58,7 @@ function getIndexRoute(nextState, callBack) {
   let indexRoute = {
     component: Library,
     onEnter: (nxtState, replace) => {
-      let collectionSettings = store().getState().settings.collection.toJS();
+      let collectionSettings = store.getState().settings.collection.toJS();
       if (collectionSettings.home_page) {
         replace(collectionSettings.home_page);
       }

@@ -5,10 +5,10 @@ import {Router} from 'react-router';
 import Routes from './Routes';
 import {Provider} from 'react-redux';
 import CustomProvider from './App/Provider';
-import store from './store';
+import {store} from './store';
 
 render(
-  <Provider store={store()}>
+  <Provider store={store}>
     <CustomProvider>
       <Router history={browserHistory}>{Routes}</Router>
     </CustomProvider>

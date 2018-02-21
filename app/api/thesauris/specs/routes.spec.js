@@ -1,7 +1,4 @@
 import thesaurisRoute from '../routes.js';
-import database from '../../utils/database.js';
-import {db_url as dbUrl} from '../../config/database.js';
-import request from '../../../shared/JSONRequest';
 import instrumentRoutes from '../../utils/instrumentRoutes';
 import thesauris from '../thesauris';
 import translations from 'api/i18n/translations';
@@ -15,12 +12,7 @@ describe('thesauris routes', () => {
 
   beforeEach((done) => {
     routes = instrumentRoutes(thesaurisRoute);
-    db.clearAllAndLoad(fixtures, (err) => {
-      if (err) {
-        done.fail(err);
-      }
-      done();
-    });
+    db.clearAllAndLoad(fixtures).then(done).catch(catchErrors(done));
   });
 
   describe('GET', () => {

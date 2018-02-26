@@ -28,6 +28,9 @@ export function getFacetCount (data, facetField, value) {
     const facet = data.aggregations.all[facetField];
     if (!facet) return 0;
     const bucket = facet.buckets.find(b => b.key === value);
+    if (bucket.filtered) {
+        return bucket.filtered.doc_count;
+    }
     return bucket? bucket.doc_count : 0;
 }
 

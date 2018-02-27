@@ -20,7 +20,7 @@ const VictimMapFilters = ({victims, onFilter, thesauris, settings}) => {
     },
     {
       title: 'Year',
-      field: 'initial_date',
+      field: 'date_of_disappearance',
       getValue: (rawVal) => {
         return String(new Date(rawVal * 1000).getFullYear());
       }

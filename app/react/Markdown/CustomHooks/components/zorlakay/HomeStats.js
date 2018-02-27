@@ -15,7 +15,6 @@ export class HomeStats extends Component {
 
   getData() {
     const {idConfig} = this.props;
-    console.log(idConfig.get('templateLegalProcess'));
     Promise.all([
       fetchTemplateEntities(idConfig.get('templateVictim'), {limit: 0}),
       fetchTemplateEntities(idConfig.get('templateLegalProcess'), {limit: 0})

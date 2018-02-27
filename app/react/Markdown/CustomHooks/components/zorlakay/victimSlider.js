@@ -13,7 +13,7 @@ const VictimSlider = ({victims}) => {
       ))}
     </Slider>
   );
-}
+};
 
 VictimSlider.propTypes = {
   victims: PropTypes.array

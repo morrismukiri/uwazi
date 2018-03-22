@@ -7,12 +7,11 @@ import fixtures, {entityTemplateId, documentTemplateId, englishTranslation} from
 
 describe('translations', () => {
   beforeEach((done) => {
-    db.clearAllAndLoad(fixtures, (err) => {
-      if (err) {
-        done.fail(err);
-      }
-      done();
-    });
+    db.clearAllAndLoad(fixtures).then(done).catch(catchErrors(done));
+  });
+
+  afterAll((done) => {
+    db.disconnect().then(done);
   });
 
   describe('process System context', () => {
@@ -23,6 +22,7 @@ describe('translations', () => {
       .then((result) => {
         const ESTrnaslations = result.find(t => t.locale === 'es').contexts.find(c => c.label === 'System').values;
         const ENTrnaslations = result.find(t => t.locale === 'en').contexts.find(c => c.label === 'System').values;
+        const otherTranslation = result.find(t => t.locale === 'other').contexts.find(c => c.label === 'System').values;
 
         expect(ENTrnaslations.Password).toBe('Password');
         expect(ENTrnaslations.Account).toBe('Account');
@@ -30,6 +30,13 @@ describe('translations', () => {
         expect(ENTrnaslations.Age).toBe('Age');
         expect(ENTrnaslations['new key']).toBe('new key');
         expect(ENTrnaslations['new key 2']).toBe('label2');
+
+        expect(otherTranslation.Password).toBe('Password');
+        expect(otherTranslation.Account).toBe('Account');
+        expect(otherTranslation.Email).toBe('Email');
+        expect(otherTranslation.Age).toBe('Age');
+        expect(otherTranslation['new key']).toBe('new key');
+        expect(otherTranslation['new key 2']).toBe('label2');
 
         expect(ESTrnaslations.Password).toBe('Contraseña');
         expect(ESTrnaslations.Account).toBe('Cuenta');
@@ -71,7 +78,7 @@ describe('translations', () => {
     it('should return the translations', (done) => {
       translations.get()
       .then((result) => {
-        expect(result.length).toBe(2);
+        expect(result.length).toBe(3);
         expect(result[0].locale).toBe('en');
         expect(result[0].contexts[0].id).toBe('System');
         expect(result[0].contexts[0].type).toBe('Uwazi UI');
@@ -101,7 +108,8 @@ describe('translations', () => {
       .then((result) => {
         expect(result._id).toBeDefined();
         done();
-      }).catch(catchErrors(done));
+      })
+      .catch(catchErrors(done));
     });
 
     it('should transform values from map to array if its a map', (done) => {
@@ -112,7 +120,8 @@ describe('translations', () => {
         expect(fr.contexts[0].values.test).toEqual('value');
         expect(fr.contexts[1].values.test2).toEqual('value2');
         done();
-      }).catch(catchErrors(done));
+      })
+      .catch(catchErrors(done));
     });
 
     it('should save partial translations', (done) => {

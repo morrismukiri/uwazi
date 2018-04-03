@@ -1,4 +1,5 @@
 import cejilChart001 from './components/cejilChart001';
+import CejilChart002 from './components/CejilChart002';
 import cejilHero from './components/cejilHero';
 
 import zorlakayGraphics from './components/zorlakayGraphics';
@@ -12,5 +13,6 @@ export default {
   ZorlakayHeader,
   zorlakayGraphics,
   ZorlakayVictimsMap,
-  ZorlakayVictimsStats
+  ZorlakayVictimsStats,
+  CejilChart002
 };

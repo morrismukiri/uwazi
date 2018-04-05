@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-    DECISION_BY_THE_PROSECUTION_OFFICE
+  DECISION_BY_THE_PROSECUTION_OFFICE
 } from './constants';
 
 /**
@@ -30,7 +30,7 @@ export function getFacetCount(data, facetField, value) {
     return 0;
   }
   const bucket = facet.buckets.find(b => b.key === value);
-  if (bucket.filtered) {
+  if (bucket && bucket.filtered) {
     return bucket.filtered.doc_count;
   }
   return bucket ? bucket.doc_count : 0;
@@ -95,8 +95,8 @@ export function formatThesauriValuesAsString(thesauris, listId, values) {
     return 'Unknown';
   }
   return values
-        .map(value => getThesauriItemLabel(thesauris, listId, value))
-        .join(', ');
+  .map(value => getThesauriItemLabel(thesauris, listId, value))
+  .join(', ');
 }
 
 /**

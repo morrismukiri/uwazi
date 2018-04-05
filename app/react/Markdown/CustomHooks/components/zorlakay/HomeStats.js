@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {fetchTemplateEntities} from './zorlakayAPI';
-import {getNumberOfVictimsOnTrial} from './helpers';
+import { connect } from 'react-redux';
+import { fetchTemplateEntities } from './zorlakayAPI';
+import { getNumberOfVictimsOnTrial } from './helpers';
 
 export class HomeStats extends Component {
   constructor(props) {
@@ -13,11 +13,15 @@ export class HomeStats extends Component {
     };
   }
 
+  componentDidMount() {
+    this.getData();
+  }
+
   getData() {
-    const {idConfig} = this.props;
+    const { idConfig } = this.props;
     Promise.all([
-      fetchTemplateEntities(idConfig.get('templateVictim'), {limit: 0}),
-      fetchTemplateEntities(idConfig.get('templateLegalProcess'), {limit: 0})
+      fetchTemplateEntities(idConfig.get('templateVictim'), { limit: 0 }),
+      fetchTemplateEntities(idConfig.get('templateLegalProcess'), { limit: 0 })
     ])
     .then(([victims, legalProcesses]) => {
       this.setState({
@@ -27,9 +31,6 @@ export class HomeStats extends Component {
     });
   }
 
-  componentDidMount() {
-    this.getData();
-  }
   render() {
     const victims = this.state.numberOfVictims;
     const victimsOnTrial = this.state.victimsOnTrial;
@@ -60,7 +61,7 @@ HomeStats.propTypes = {
   suspectsConvicted: PropTypes.number
 };
 
-const mapStateToProps = ({settings}) => ({
+const mapStateToProps = ({ settings }) => ({
   idConfig: settings.collection.get('custom').get('zorlakayIds')
 });
 

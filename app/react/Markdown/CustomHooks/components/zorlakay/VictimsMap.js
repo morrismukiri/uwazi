@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import Map from '../reactMapGl';
+import { connect } from 'react-redux';
+// import Map from '../reactMapGl';
+import Map from 'app/Map/Map';
 import Filters from './victimMapFilters';
-import {fetchTemplateEntities} from './zorlakayAPI';
+import { fetchTemplateEntities } from './zorlakayAPI';
 
 export class VictimsMap extends Component {
   constructor(props) {
@@ -19,6 +20,17 @@ export class VictimsMap extends Component {
       }
     };
     this.onFilter = this.onFilter.bind(this);
+    this.renderMarker = this.renderMarker.bind(this);
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  onFilter(filteredVictims) {
+    this.setState({
+      filteredVictims
+    });
   }
 
   getMarkers(victims) {
@@ -28,37 +40,51 @@ export class VictimsMap extends Component {
     const clusters = {};
 
     victims.forEach((v) => {
-      if (!clusters[v.metadata.longitude + '' + v.metadata.latitiude]) {
-        clusters[v.metadata.longitude + '' + v.metadata.latitiude] = {
-          latitude: v.metadata.latitiude,
-          longitude: v.metadata.longitude,
+      const clusterKey = v.metadata.location_geolocation.lon + '' + v.metadata.location_geolocation.lat;
+      if (!clusters[clusterKey]) {
+        clusters[clusterKey] = {
+          latitude: v.metadata.location_geolocation.lat,
+          longitude: v.metadata.location_geolocation.lon,
           size: 1
         };
         return;
       }
 
-      clusters[v.metadata.longitude + '' + v.metadata.latitiude].size += 1;
+      clusters[clusterKey].size += 1;
     });
 
     return Object.keys(clusters).map((k) => clusters[k]);
   }
 
-  onFilter(filteredVictims) {
-    this.setState({
-      filteredVictims: filteredVictims
-    });
-  }
-
   getData() {
-    const {idConfig} = this.props;
-    fetchTemplateEntities(idConfig.get('templateVictim'), {limit: 300})
+    const { idConfig } = this.props;
+    fetchTemplateEntities(idConfig.get('templateVictim'), { limit: 300 })
     .then((victims) => {
-      this.setState({victims});
+      this.setState({ victims });
     });
   }
 
-  componentDidMount() {
-    this.getData();
+  markerClassName(marker) {
+    if (marker.size > 20) {
+      return 'map-marker-high';
+    }
+
+    if (marker.size > 10) {
+      return 'map-marker-medium';
+    }
+
+    if (marker.size > 1) {
+      return 'map-marker-low';
+    }
+  }
+
+  renderMarker(marker, onClick) {
+    return (
+      <i
+        className={`map-marker ${this.markerClassName(marker)}`}
+        onClick={onClick}
+      />
+    );
   }
 
   render() {
@@ -67,11 +93,15 @@ export class VictimsMap extends Component {
     const markers = this.getMarkers(filteredVictims);
     return (
       <div className='zorlakay-map'>
-        <Map mapboxToken={this.props.mapboxToken}
+        <Map
+          mapboxToken={this.props.mapboxToken}
           markers={markers}
-          {...this.props} />
+          {...this.props}
+          renderMarker={this.renderMarker}
+        />
         <Filters victims={victims}
-          onFilter={this.onFilter}/>
+          onFilter={this.onFilter}
+        />
       </div>
     );
   }

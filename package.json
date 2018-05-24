@@ -23,11 +23,11 @@
     ]
   },
   "scripts": {
-    "production-build": "NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
-    "run-production": "export NODE_ENV=production; node server.js",
+    "production-build": "./node_modules/.bin/cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
+    "run-production": "node ./node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production && node server.js",
     "dev-server": "./node_modules/.bin/nodemon --ignore 'app/dist/*' --watch 'app/api' --watch 'app/shared' --watch 'app/react/ServerRouter.js'",
     "webpack-server": "node ./webpack/webpack.server.js",
-    "hot": "export HOT=true;npm run dev-server & npm run webpack-server",
+    "hot": "./node_modules/.bin/cross-env  HOT=true  && npm run dev-server && npm run webpack-server",
     "analyze": "webpack --profile --json > stats.json;./node_modules/.bin/webpack-bundle-analyzer stats.json",
     "download-mongo-prebuilt": "node ./database/download_mongo_prebuilt.js",
     "postinstall": "node -e \"process.env.NODE_ENV != 'production' && process.exit(1)\" || npm run download-mongo-prebuilt",
@@ -142,6 +142,7 @@
     "babel-polyfill": "^6.23.0",
     "compression-webpack-plugin": "^1.0.0",
     "copy-webpack-plugin": "^4.2.3",
+    "cross-env": "^5.1.6",
     "css-hot-loader": "^1.3.7",
     "css-loader": "0.28.11",
     "del": "3.0.0",
